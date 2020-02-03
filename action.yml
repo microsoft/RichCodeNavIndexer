@@ -1,0 +1,28 @@
+name: Rich Code Nav Indexer
+description: Indexes a repo to the Rich Code Nav cloud service
+author: Microsoft
+branding:
+  icon: git-merge
+  color: yellow
+
+inputs:
+  repo-token:
+    description: Your GITHUB_TOKEN
+    required: true
+  languages:
+    description: List of languages to use when discovering repository symbols, separated by ','
+    required: false
+  nugetFeed:
+    description: Feed source to use when installing Rich Code Navigation NuGet packages
+    required: false
+  richNavLogOutputDirectory:
+    description: A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
+    required: false
+
+outputs:
+  lspLogsPath:
+    description: The path to LSP logs that may be uploaded as an artifact for diagnostics.
+
+runs:
+  using: node12
+  main: dist/index.js

@@ -1,0 +1,33 @@
+{
+	"name": "rich-code-nav-indexer",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Rich Code Navigation indexing",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc && ncc build lib/main.js",
+		"lint": "./node_modules/.bin/tslint -p .",
+		"test": "./node_modules/.bin/mocha ./out/test/suite.js"
+	},
+	"author": "Rich Code Nav team <rich-code-nav@microsoft.com>",
+	"license": "MIT",
+	"dependencies": {
+		"@actions/core": "^1.2.1",
+		"@actions/exec": "^1.0.3",
+		"@actions/github": "^2.0.1",
+		"@actions/io": "^1.0.2",
+		"@actions/tool-cache": "^1.3.0",
+		"applicationinsights": "^1.6.0",
+		"axios": "^0.19.1",
+		"cloudbuild-task-github-actions": "^0.1.52-alpha"
+	},
+	"devDependencies": {
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^13.1.8",
+		"@zeit/ncc": "^0.21.0",
+		"jshint": "^2.11.0",
+		"mocha": "^7.0.0",
+		"tslint": "^5.20.1",
+		"typescript": "^3.7.5"
+	}
+}

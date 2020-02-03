@@ -1,0 +1,18 @@
+# EditorConfig is awesome:http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+indent_style = tab
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_size = 2
+
+[*.yml]
+indent_style = space
+
+# GitHub renders tabs in markdown files with a tab size of 8, so use spaces instead.
+[*.md]
+indent_style = space
+indent_size = 2

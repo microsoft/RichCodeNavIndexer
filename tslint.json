@@ -1,0 +1,15 @@
+{
+	"extends": "tslint:recommended",
+	"rules": {
+		"no-var-keyword": true,
+		"quotemark": false,
+		"max-line-length": false,
+		"no-var-requires": false,
+		"no-string-literal": false,
+		"eofline": false,
+		"only-arrow-functions": false,
+		"space-before-function-paren": false,
+		"object-literal-shorthand": false,
+		"indent": [true, "tabs", 2]
+	}
+}
