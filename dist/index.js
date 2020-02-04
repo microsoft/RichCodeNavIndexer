@@ -2692,7 +2692,7 @@ function checkMode (stat, options) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const cloudbuild_task_github_actions_1 = __webpack_require__(106);
-cloudbuild_task_github_actions_1.factory.log.debug(`Building for ${cloudbuild_task_github_actions_1.factory.repo.uri}`);
+console.log(`Building for ${cloudbuild_task_github_actions_1.factory.repo.uri}`);
 //# sourceMappingURL=main.js.map
 
 /***/ }),

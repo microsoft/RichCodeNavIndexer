@@ -38,3 +38,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ./
+      with:
+        service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
+        languages: typescript

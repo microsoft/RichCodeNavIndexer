@@ -6,9 +6,12 @@ branding:
   color: yellow
 
 inputs:
+  service-token:
+    description: The token used when submitting the index to the Rich Code Nav service. Only necessary for repositories not already invited.
+    required: false
   repo-token:
-    description: Your GITHUB_TOKEN
-    required: true
+    description: Your GITHUB_TOKEN. Only necessary for private repositories.
+    required: false
   languages:
     description: List of languages to use when discovering repository symbols, separated by ','
     required: false

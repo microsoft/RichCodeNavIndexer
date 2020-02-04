@@ -1,5 +1,32 @@
+# GitHub Action for Rich Code Navigation indexing
 
-# Contributing
+[![GitHub Actions status](https://github.com/microsoft/RichCodeNavIndexer/workflows/CI/PR/badge.svg)](https://github.com/microsoft/RichCodeNavIndexer/actions)
+
+This action indexes the repo it runs within and uploads the language service data to the Rich Code Nav service.
+
+## Example usage
+
+```yaml
+- uses: microsoft/RichCodeNavIndexer@v0.1-alpha
+```
+
+## Inputs
+
+|Name|Default|Description
+|--|--|--|
+`service-token` | | The token used when submitting the index to the Rich Code Nav service. Only necessary for repositories not already invited.
+`repo-token` | | Should be set to `${{ github.token }}` if your repository is private.
+`languages` | | List of languages to use when discovering repository symbols, separated by `,`
+`nugetFeed` | | Feed source to use when installing Rich Code Navigation NuGet packages
+`richNavLogOutputDirectory` | | A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
+
+## Outputs
+
+Name | Description
+--|--
+`lspLogsPath` | The path to LSP logs that may be uploaded as an artifact for diagnostics.
+
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
