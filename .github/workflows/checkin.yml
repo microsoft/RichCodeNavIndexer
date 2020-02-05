@@ -41,3 +41,4 @@ jobs:
       with:
         service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
         languages: typescript
+        environment: production
