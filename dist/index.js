@@ -5927,7 +5927,7 @@ const Logger_1 = __webpack_require__(558);
 const Inputs_1 = __webpack_require__(954);
 const Outputs_1 = __webpack_require__(888);
 const TaskResult_1 = __webpack_require__(440);
-const github = __importStar(__webpack_require__(574));
+const github = __importStar(__webpack_require__(414));
 class GitHubFactory {
     constructor() {
         this.tool = new Tool_1.Tool();
@@ -9381,7 +9381,22 @@ module.exports = ConnectionStringParser;
 module.exports = require("querystring");
 
 /***/ }),
-/* 192 */,
+/* 192 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const fs = __webpack_require__(747)
+
+const version = process.env.__TESTING_MKDIRP_NODE_VERSION__ || process.version
+const versArr = version.replace(/^v/, '').split('.')
+const hasNative = +versArr[0] > 10 || +versArr[0] === 10 && +versArr[1] >= 12
+
+const useNative = !hasNative ? () => false : opts => opts.mkdir === fs.mkdir
+const useNativeSync = !hasNative ? () => false : opts => opts.mkdirSync === fs.mkdirSync
+
+module.exports = {useNative, useNativeSync}
+
+
+/***/ }),
 /* 193 */,
 /* 194 */,
 /* 195 */
@@ -11935,7 +11950,41 @@ module.exports = __webpack_require__(118)
 /* 205 */,
 /* 206 */,
 /* 207 */,
-/* 208 */,
+/* 208 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const {dirname} = __webpack_require__(622)
+
+const findMade = (opts, parent, path = undefined) => {
+  // we never want the 'made' return value to be a root directory
+  if (path === parent)
+    return Promise.resolve()
+
+  return opts.statAsync(parent).then(
+    st => st.isDirectory() ? path : undefined, // will fail later
+    er => er.code === 'ENOENT'
+      ? findMade(opts, dirname(parent), parent)
+      : undefined
+  )
+}
+
+const findMadeSync = (opts, parent, path = undefined) => {
+  if (path === parent)
+    return undefined
+
+  try {
+    return opts.statSync(parent).isDirectory() ? path : undefined
+  } catch (er) {
+    return er.code === 'ENOENT'
+      ? findMadeSync(opts, dirname(parent), parent)
+      : undefined
+  }
+}
+
+module.exports = {findMade, findMadeSync}
+
+
+/***/ }),
 /* 209 */,
 /* 210 */,
 /* 211 */
@@ -14367,7 +14416,43 @@ exports.debug = debug // for test
 
 /***/ }),
 /* 244 */,
-/* 245 */,
+/* 245 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const optsArg = __webpack_require__(977)
+const pathArg = __webpack_require__(574)
+
+const {mkdirpNative, mkdirpNativeSync} = __webpack_require__(823)
+const {mkdirpManual, mkdirpManualSync} = __webpack_require__(401)
+const {useNative, useNativeSync} = __webpack_require__(192)
+
+
+const mkdirp = (path, opts) => {
+  path = pathArg(path)
+  opts = optsArg(opts)
+  return useNative(opts)
+    ? mkdirpNative(path, opts)
+    : mkdirpManual(path, opts)
+}
+
+const mkdirpSync = (path, opts) => {
+  path = pathArg(path)
+  opts = optsArg(opts)
+  return useNativeSync(opts)
+    ? mkdirpNativeSync(path, opts)
+    : mkdirpManualSync(path, opts)
+}
+
+mkdirp.sync = mkdirpSync
+mkdirp.native = (path, opts) => mkdirpNative(pathArg(path), optsArg(opts))
+mkdirp.manual = (path, opts) => mkdirpManual(pathArg(path), optsArg(opts))
+mkdirp.nativeSync = (path, opts) => mkdirpNativeSync(pathArg(path), optsArg(opts))
+mkdirp.manualSync = (path, opts) => mkdirpManualSync(pathArg(path), optsArg(opts))
+
+module.exports = mkdirp
+
+
+/***/ }),
 /* 246 */
 /***/ (function(module) {
 
@@ -24562,7 +24647,76 @@ Fingerprint._oldVersionDetect = function (obj) {
 
 
 /***/ }),
-/* 401 */,
+/* 401 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const {dirname} = __webpack_require__(622)
+
+const mkdirpManual = (path, opts, made) => {
+  opts.recursive = false
+  const parent = dirname(path)
+  if (parent === path) {
+    return opts.mkdirAsync(path, opts).catch(er => {
+      // swallowed by recursive implementation on posix systems
+      // any other error is a failure
+      if (er.code !== 'EISDIR')
+        throw er
+    })
+  }
+
+  return opts.mkdirAsync(path, opts).then(() => made || path, er => {
+    if (er.code === 'ENOENT')
+      return mkdirpManual(parent, opts)
+        .then(made => mkdirpManual(path, opts, made))
+    if (er.code !== 'EEXIST' && er.code !== 'EROFS')
+      throw er
+    return opts.statAsync(path).then(st => {
+      if (st.isDirectory())
+        return made
+      else
+        throw er
+    }, () => { throw er })
+  })
+}
+
+const mkdirpManualSync = (path, opts, made) => {
+  const parent = dirname(path)
+  opts.recursive = false
+
+  if (parent === path) {
+    try {
+      return opts.mkdirSync(path, opts)
+    } catch (er) {
+      // swallowed by recursive implementation on posix systems
+      // any other error is a failure
+      if (er.code !== 'EISDIR')
+        throw er
+      else
+        return
+    }
+  }
+
+  try {
+    opts.mkdirSync(path, opts)
+    return made || path
+  } catch (er) {
+    if (er.code === 'ENOENT')
+      return mkdirpManualSync(path, opts, mkdirpManualSync(parent, opts, made))
+    if (er.code !== 'EEXIST' && er.code !== 'EROFS')
+      throw er
+    try {
+      if (!opts.statSync(path).isDirectory())
+        throw er
+    } catch (_) {
+      throw er
+    }
+  }
+}
+
+module.exports = {mkdirpManual, mkdirpManualSync}
+
+
+/***/ }),
 /* 402 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -24717,7 +24871,41 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 module.exports = require("stream");
 
 /***/ }),
-/* 414 */,
+/* 414 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// Originally pulled from https://github.com/JasonEtco/actions-toolkit/blob/master/src/github.ts
+const graphql_1 = __webpack_require__(809);
+const rest_1 = __importDefault(__webpack_require__(0));
+const Context = __importStar(__webpack_require__(214));
+// We need this in order to extend Octokit
+rest_1.default.prototype = new rest_1.default();
+exports.context = new Context.Context();
+class GitHub extends rest_1.default {
+    constructor(token, opts = {}) {
+        super(Object.assign(Object.assign({}, opts), { auth: `token ${token}` }));
+        this.graphql = graphql_1.defaults({
+            headers: { authorization: `token ${token}` }
+        });
+    }
+}
+exports.GitHub = GitHub;
+//# sourceMappingURL=github.js.map
+
+/***/ }),
 /* 415 */,
 /* 416 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
@@ -36236,38 +36424,38 @@ module.exports = function parseHeaders(headers) {
 
 /***/ }),
 /* 574 */
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
-"use strict";
+const platform = process.env.__TESTING_MKDIRP_PLATFORM__ || process.platform
+const { resolve, parse } = __webpack_require__(622)
+const pathArg = path => {
+  if (/\0/.test(path)) {
+    // simulate same failure that node raises
+    throw Object.assign(
+      new TypeError('path must be a string without null bytes'),
+      {
+        path,
+        code: 'ERR_INVALID_ARG_VALUE',
+      }
+    )
+  }
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-// Originally pulled from https://github.com/JasonEtco/actions-toolkit/blob/master/src/github.ts
-const graphql_1 = __webpack_require__(809);
-const rest_1 = __importDefault(__webpack_require__(0));
-const Context = __importStar(__webpack_require__(214));
-// We need this in order to extend Octokit
-rest_1.default.prototype = new rest_1.default();
-exports.context = new Context.Context();
-class GitHub extends rest_1.default {
-    constructor(token, opts = {}) {
-        super(Object.assign(Object.assign({}, opts), { auth: `token ${token}` }));
-        this.graphql = graphql_1.defaults({
-            headers: { authorization: `token ${token}` }
-        });
+  path = resolve(path)
+  if (platform === 'win32') {
+    const badWinChars = /[*|"<>?:]/
+    const {root} = parse(path)
+    if (badWinChars.test(path.substr(root.length))) {
+      throw Object.assign(new Error('Illegal characters in path.'), {
+        path,
+        code: 'EINVAL',
+      })
     }
+  }
+
+  return path
 }
-exports.GitHub = GitHub;
-//# sourceMappingURL=github.js.map
+module.exports = pathArg
+
 
 /***/ }),
 /* 575 */
@@ -39804,50 +39992,51 @@ class CachingTask {
     constructor(cloudTask, apiTokens) {
         this.cloudTask = cloudTask;
         this.apiTokens = apiTokens;
-        cloudTask.log.debug(`Running on node.js v${process.version}`);
+        cloudTask.log.debug(`Running on node.js ${process.version}`);
     }
     async run() {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         const startTime = new Date().getTime();
-        this.cloudTask.log.debug('Reading all inputs...');
-        let vsckService = 'https://prod.richnav.vsengsaas.visualstudio.com/';
-        const environment = (_a = this.cloudTask.inputs.getInput('environment'), (_a !== null && _a !== void 0 ? _a : 'production'));
-        const configFiles = this.cloudTask.inputs.getInput('configFiles', false);
-        let feedSource = this.cloudTask.inputs.getInput('nugetFeed');
-        const vsckVersion = this.cloudTask.inputs.getInput('nugetVersion');
-        const languageInput = this.cloudTask.inputs.getInput('languages', false);
         const telemProperties = {};
         const telemMeasures = {};
-        if (feedSource) {
-            telemProperties['vsclk.intellinav.feedsource'] = feedSource;
-        }
-        if (vsckVersion) {
-            telemProperties['vsclk.intellinav.nugetversion'] = vsckVersion;
-        }
-        let dev = false;
-        if (environment === 'development') {
-            feedSource = feedSource || 'https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/nuget/v3/index.json';
-            vsckService = 'https://intellinavapiscusdev.azurewebsites.net/';
-            dev = true;
-        }
-        else if (environment === 'staging') {
-            feedSource = feedSource || 'https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices-staging@Local/nuget/v3/index.json';
-            vsckService = 'https://int.richnav.vsengsaas.visualstudio.com/';
-        }
-        else if (environment === 'production') {
-            feedSource = feedSource || 'https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices@Local/nuget/v3/index.json';
-            vsckService = 'https://prod.richnav.vsengsaas.visualstudio.com/';
-        }
-        else {
-            throw new Error('Invalid Rich Code Navigation environment. Please set environment to \'production\', \'staging\', or \'development\'');
-        }
-        const richNavMsBuildLogOutput = this.cloudTask.inputs.getInput('richNavLogOutputDirectory', false);
-        const useRichNavMsbuildLog = dev && richNavMsBuildLogOutput !== undefined;
-        const richNavMsBuildDirs = useRichNavMsbuildLog ? (_c = (_b = richNavMsBuildLogOutput) === null || _b === void 0 ? void 0 : _b.split(','), (_c !== null && _c !== void 0 ? _c : [])) : [];
-        const nugetHelper = new nugetHelper_1.NugetHelper(this.cloudTask, vsckVersion, (_d = this.apiTokens) === null || _d === void 0 ? void 0 : _d.systemVSSConnection);
-        const maxUploadFileSize = 150 * 1024 * 1024;
-        const urlSetting = ['--setting', `ServiceBaseUrl=${vsckService}`];
+        let nugetHelper;
         try {
+            this.cloudTask.log.debug('Reading all inputs...');
+            let vsckService = 'https://prod.richnav.vsengsaas.visualstudio.com/';
+            const environment = (_a = this.cloudTask.inputs.getInput('environment'), (_a !== null && _a !== void 0 ? _a : 'production'));
+            const configFiles = this.cloudTask.inputs.getInput('configFiles', false);
+            let feedSource = this.cloudTask.inputs.getInput('nugetFeed');
+            const vsckVersion = this.cloudTask.inputs.getInput('nugetVersion');
+            const languageInput = this.cloudTask.inputs.getInput('languages', false);
+            if (feedSource) {
+                telemProperties['vsclk.intellinav.feedsource'] = feedSource;
+            }
+            if (vsckVersion) {
+                telemProperties['vsclk.intellinav.nugetversion'] = vsckVersion;
+            }
+            let dev = false;
+            if (environment === 'development') {
+                feedSource = feedSource || 'https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/nuget/v3/index.json';
+                vsckService = 'https://intellinavapiscusdev.azurewebsites.net/';
+                dev = true;
+            }
+            else if (environment === 'staging') {
+                feedSource = feedSource || 'https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices-staging@Local/nuget/v3/index.json';
+                vsckService = 'https://int.richnav.vsengsaas.visualstudio.com/';
+            }
+            else if (environment === 'production') {
+                feedSource = feedSource || 'https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices@Local/nuget/v3/index.json';
+                vsckService = 'https://prod.richnav.vsengsaas.visualstudio.com/';
+            }
+            else {
+                throw new Error(`Invalid Rich Code Navigation environment value "${environment}". Please set environment to 'production', 'staging', or 'development'`);
+            }
+            const richNavMsBuildLogOutput = this.cloudTask.inputs.getInput('richNavLogOutputDirectory', false);
+            const useRichNavMsbuildLog = dev && richNavMsBuildLogOutput !== undefined;
+            const richNavMsBuildDirs = useRichNavMsbuildLog ? (_c = (_b = richNavMsBuildLogOutput) === null || _b === void 0 ? void 0 : _b.split(','), (_c !== null && _c !== void 0 ? _c : [])) : [];
+            nugetHelper = new nugetHelper_1.NugetHelper(this.cloudTask, vsckVersion, (_d = this.apiTokens) === null || _d === void 0 ? void 0 : _d.systemVSSConnection);
+            const maxUploadFileSize = 150 * 1024 * 1024;
+            const urlSetting = ['--setting', `ServiceBaseUrl=${vsckService}`];
             await nugetHelper.addRichCodeNavFeed(feedSource);
             const sourceControlInfo = this.getSourceControlInformationProvider(useRichNavMsbuildLog, languageInput);
             telemProperties['vsclk.intellinav.repo.uri'] = sourceControlInfo.repoUri;
@@ -39995,20 +40184,22 @@ class CachingTask {
                     await ((_h = this.cloudTask.artifacts) === null || _h === void 0 ? void 0 : _h.publish(lspLogsPath, ArtifactLogs));
                 }
             }
+            telemMeasures['vsclk.intellinav.duration'] = new Date().getTime() - startTime;
+            telemMeasures['vsclk.intellinav.succeeded'] = 1;
+            telemetry_1.logEvent(telemetry_1.EventPrefix + 'job/stop', telemProperties, telemMeasures);
         }
         catch (ex) {
-            this.cloudTask.result.setFailed(ex);
             telemMeasures['vsclk.intellinav.duration'] = new Date().getTime() - startTime;
+            telemMeasures['vsclk.intellinav.succeeded'] = 0;
             telemProperties['vsclk.intellinav.failureMessage'] = ex;
             telemetry_1.logError(telemetry_1.EventPrefix + 'error', telemProperties, telemMeasures);
-            throw ex;
+            this.cloudTask.result.setFailed(ex.toString());
         }
         finally {
-            nugetHelper.deleteVsckDirectory();
+            if (nugetHelper) {
+                await nugetHelper.deleteVsckDirectory();
+            }
         }
-        telemMeasures['vsclk.intellinav.duration'] = new Date().getTime() - startTime;
-        telemMeasures['vsclk.intellinav.succeeded'] = 1;
-        telemetry_1.logEvent(telemetry_1.EventPrefix + 'job/stop', telemProperties, telemMeasures);
     }
     async createJsonInputFile(logFile, sourceRoot, jsonOutputPath) {
         const reader = readline_1.createInterface({
@@ -50374,7 +50565,51 @@ module.exports = DataPoint;
 //# sourceMappingURL=DataPoint.js.map
 
 /***/ }),
-/* 823 */,
+/* 823 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const {dirname} = __webpack_require__(622)
+const {findMade, findMadeSync} = __webpack_require__(208)
+const {mkdirpManual, mkdirpManualSync} = __webpack_require__(401)
+
+const mkdirpNative = (path, opts) => {
+  opts.recursive = true
+  const parent = dirname(path)
+  if (parent === path)
+    return opts.mkdirAsync(path, opts)
+
+  return findMade(opts, path).then(made =>
+    opts.mkdirAsync(path, opts).then(() => made)
+    .catch(er => {
+      if (er.code === 'ENOENT')
+        return mkdirpManual(path, opts)
+      else
+        throw er
+    }))
+}
+
+const mkdirpNativeSync = (path, opts) => {
+  opts.recursive = true
+  const parent = dirname(path)
+  if (parent === path)
+    return opts.mkdirSync(path, opts)
+
+  const made = findMadeSync(opts, path)
+  try {
+    opts.mkdirSync(path, opts)
+    return made
+  } catch (er) {
+    if (er.code === 'ENOENT')
+      return mkdirpManualSync(path, opts)
+    else
+      throw er
+  }
+}
+
+module.exports = {mkdirpNative, mkdirpNativeSync}
+
+
+/***/ }),
 /* 824 */,
 /* 825 */,
 /* 826 */
@@ -50609,7 +50844,148 @@ Object.defineProperty(request, 'debug', {
 
 
 /***/ }),
-/* 831 */,
+/* 831 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// rmdir-recursive.js
+
+
+
+var fs = __webpack_require__(747);
+var path = __webpack_require__(622);
+
+
+//######################################################################
+/**
+ * Function: remove directory recursively (async)
+ * Param   : dir: path to make directory
+ *           [cb]: {optional} callback(err) function
+ */
+function rmdirRecursive(dir, cb) {
+  // check arguments
+  if (typeof dir !== 'string') {
+    throw new Error('rmdirRecursive: directory path required');
+  }
+
+  if (cb !== undefined && typeof cb !== 'function') {
+    throw new Error('rmdirRecursive: callback must be function');
+  }
+
+  var ctx = this, called, results;
+
+  fs.exists(dir, function existsCallback(exists) {
+
+    // already removed? then nothing to do
+    if (!exists) return rmdirRecursiveCallback(null);
+
+    fs.stat(dir, function statCallback(err, stat) {
+
+      if (err) return rmdirRecursiveCallback(err);
+
+      if (!stat.isDirectory())
+        return fs.unlink(dir, rmdirRecursiveCallback);
+
+      var files = fs.readdir(dir, readdirCallback);
+
+    }); // fs.stat callback...
+
+    // fs.readdir callback...
+    function readdirCallback(err, files) {
+
+      if (err) return rmdirRecursiveCallback(err);
+
+      var n = files.length;
+      if (n === 0) return fs.rmdir(dir, rmdirRecursiveCallback);
+
+      files.forEach(function (name) {
+
+        rmdirRecursive(path.resolve(dir, name), function (err) {
+
+          if (err) return rmdirRecursiveCallback(err);
+
+          if (--n === 0)
+            return fs.rmdir(dir, rmdirRecursiveCallback);
+
+        }); // rmdirRecursive
+
+      }); // files.forEach
+
+    } // readdirCallback
+
+  }); // fs.exists
+
+  // rmdirRecursiveCallback(err)
+  function rmdirRecursiveCallback(err) {
+    if (err && err.code === 'ENOENT') err = arguments[0] = null;
+
+    if (!results) results = arguments;
+    if (!cb || called) return;
+    called = true;
+    cb.apply(ctx, results);
+  } // rmdirRecursiveCallback
+
+  // return rmdirRecursiveYieldable
+  return function rmdirRecursiveYieldable(fn) {
+    if (!cb) cb = fn;
+    if (!results || called) return;
+    called = true;
+    cb.apply(ctx, results);
+  }; // rmdirRecursiveYieldable
+
+} // rmdirRecursive
+
+
+//######################################################################
+/**
+ * Function: remove directory recursively (sync)
+ * Param   : dir: path to remove directory
+ */
+function rmdirRecursiveSync(dir) {
+  // check arguments
+  if (typeof dir !== 'string')
+    throw new Error('rmdirRecursiveSync: directory path required');
+
+  // already removed? then nothing to do
+  if (!fs.existsSync(dir)) return;
+
+  // is file? is not directory? then remove file
+  try {
+    var stat = fs.statSync(dir);
+  } catch (err) {
+    if (err.code === 'ENOENT') return;
+    throw err;
+  }
+  if (!stat.isDirectory()) {
+    try {
+      return fs.unlinkSync(dir);
+    } catch (err) {
+      if (err.code === 'ENOENT') return;
+      throw err;
+    }
+  }
+
+  // remove all contents in it
+  fs.readdirSync(dir).forEach(function (name) {
+    rmdirRecursiveSync(path.resolve(dir, name));
+  });
+
+  try {
+    return fs.rmdirSync(dir);
+  } catch (err) {
+    if (err.code === 'ENOENT') return;
+    throw err;
+  }
+}
+
+
+exports = module.exports   = rmdirRecursive;
+exports.rmdirRecursive     = rmdirRecursive;
+exports.rmdirRecursiveSync = rmdirRecursiveSync;
+exports.sync               = rmdirRecursiveSync;
+
+
+/***/ }),
 /* 832 */
 /***/ (function(module) {
 
@@ -64232,6 +64608,7 @@ const fs_1 = __webpack_require__(747);
 const path_1 = __webpack_require__(622);
 const url = __importStar(__webpack_require__(835));
 const utilities_1 = __webpack_require__(983);
+const mkdirp = __webpack_require__(245);
 const cloudKernelSource = 'RichCodeNavFeed';
 const nugetUrl = 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe';
 class NugetHelper {
@@ -64270,9 +64647,7 @@ class NugetHelper {
     }
     async getVsckWorkingDir() {
         const vsckDir = path_1.resolve(this.cloudTask.temp, 'RichCodeNav');
-        if (!await utilities_1.existsAsync(vsckDir)) {
-            await utilities_1.mkdirAsync(vsckDir);
-        }
+        await mkdirp(vsckDir);
         return vsckDir;
     }
     async addRichCodeNavFeed(feedSource) {
@@ -64290,8 +64665,8 @@ class NugetHelper {
     async getNuGetExePath() {
         if (!await utilities_1.checkExistsOnPathAsync(this.nugetPath)) {
             this.nugetPath = path_1.resolve(await this.getVsckWorkingDir(), 'nuget.exe');
-            await new Promise((resolve) => {
-                request(nugetUrl).pipe(fs_1.createWriteStream(this.nugetPath)).on('close', () => resolve());
+            await new Promise((resolvePromise) => {
+                request(nugetUrl).pipe(fs_1.createWriteStream(this.nugetPath)).on('close', () => resolvePromise());
             });
         }
         return this.nugetPath;
@@ -74011,7 +74386,35 @@ function authenticationPlugin(octokit, options) {
 
 /***/ }),
 /* 976 */,
-/* 977 */,
+/* 977 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const { promisify } = __webpack_require__(669)
+const fs = __webpack_require__(747)
+const optsArg = opts => {
+  if (!opts)
+    opts = { mode: 0o777 & (~process.umask()), fs }
+  else if (typeof opts === 'object')
+    opts = { mode: 0o777 & (~process.umask()), fs, ...opts }
+  else if (typeof opts === 'number')
+    opts = { mode: opts, fs }
+  else if (typeof opts === 'string')
+    opts = { mode: parseInt(opts, 8), fs }
+  else
+    throw new TypeError('invalid options argument')
+
+  opts.mkdir = opts.mkdir || opts.fs.mkdir || fs.mkdir
+  opts.mkdirAsync = promisify(opts.mkdir)
+  opts.stat = opts.stat || opts.fs.stat || fs.stat
+  opts.statAsync = promisify(opts.stat)
+  opts.statSync = opts.statSync || opts.fs.statSync || fs.statSync
+  opts.mkdirSync = opts.mkdirSync || opts.fs.mkdirSync || fs.mkdirSync
+  return opts
+}
+module.exports = optsArg
+
+
+/***/ }),
 /* 978 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -74820,12 +75223,11 @@ const path_1 = __webpack_require__(622);
 const promisify = __webpack_require__(724);
 const stream_buffers_1 = __webpack_require__(877);
 const which = __webpack_require__(160);
+const rmdirRecursive = __webpack_require__(831);
 const mkdirAsync = promisify(fs.mkdir);
 exports.mkdirAsync = mkdirAsync;
 const readdirAsync = promisify(fs.readdir);
 exports.readdirAsync = readdirAsync;
-const rmdirAsync = promisify(fs.rmdir);
-exports.rmdirAsync = rmdirAsync;
 const statAsync = promisify(fs.stat);
 exports.statAsync = statAsync;
 const writeFileAsync = promisify(fs.writeFile);
@@ -74834,6 +75236,16 @@ function existsAsync(path) {
     return new Promise((resolve) => fs.exists(path, (exists) => resolve(exists)));
 }
 exports.existsAsync = existsAsync;
+function rmdirAsync(path) {
+    return new Promise((resolve, reject) => rmdirRecursive(path, (err) => { if (err) {
+        reject(err);
+    }
+    else {
+        resolve();
+    } }));
+}
+exports.rmdirAsync = rmdirAsync;
+;
 function spawnAndGetOutput(command, args, cloudTask) {
     var _a, _b, _c;
     (_a = cloudTask) === null || _a === void 0 ? void 0 : _a.log.debug(`exec tool: ${command}`);

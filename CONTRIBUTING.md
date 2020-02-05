@@ -23,3 +23,26 @@ Do **not** use `npm` to install packages. Our yarn.lock file will only be effect
 
 Use `yarn test` to run all tests in the repo.
 Use `yarn test --watch` to keep re-running tests on every save of a .ts file.
+
+### Local GitHub Action emulation
+
+1. Set these environment variables.
+
+    ```ps1
+    $env:GITHUB_REPOSITORY='microsoft/RichCodeNavIndexer'
+    $env:INPUT_ENVIRONMENT='production'
+    $env:RUNNER_TEMP="$env:TEMP/githubSimulation"
+    ```
+
+1. Run `node lib/main.js`
+
+### Debug logging while on live on GitHub Actions
+
+Set these two *secret* variables in a GitHub repo to enable debug logging within its github workflows:
+
+|Secret|Value|
+|--|--|
+`ACTIONS_RUNNER_DEBUG`|`true`
+`ACTIONS_STEP_DEBUG`|`true`
+
+See more in [Action Debugging](https://github.com/actions/toolkit/blob/master/docs/action-debugging.md).

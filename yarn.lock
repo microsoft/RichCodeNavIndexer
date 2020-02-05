@@ -71,17 +71,19 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@cloudkernel/rich-code-nav-indexer-core@^0.1.9-alpha":
-  version "0.1.9-alpha"
-  resolved "https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.9-alpha.tgz#02fb36baa3517cbd17a3aa94e352026b16642075"
-  integrity sha1-Avs2uqNRfL0Xo6qU41ICaxZkIHU=
+"@cloudkernel/rich-code-nav-indexer-core@^0.1.17-alpha":
+  version "0.1.17-alpha"
+  resolved "https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.17-alpha.tgz#ccddbf3e3cddc7ee067f89285751ceaa9b55a6b2"
+  integrity sha1-zN2/Pjzdx+4Gf4koV1HOqptVprI=
   dependencies:
     applicationinsights "^1.2.0"
     axios "^0.18.1"
     cloudbuild-task-contracts "^0.1.52-alpha"
     minimatch "^3.0.4"
+    mkdirp "^1.0.3"
     promisify-node "^0.5.0"
     request "^2.88.0"
+    rmdir-recursive "^0.0.1"
     stream-buffers "^3.0.2"
     which "^2.0.2"
 
@@ -1160,6 +1162,11 @@ mkdirp@0.5.1, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+mkdirp@^1.0.3:
+  version "1.0.3"
+  resolved "https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/npm/registry/mkdirp/-/mkdirp-1.0.3.tgz#4cf2e30ad45959dddea53ad97d518b6c8205e1ea"
+  integrity sha1-TPLjCtRZWd3epTrZfVGLbIIF4eo=
+
 mocha@^7.0.0:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/mocha/-/mocha-7.0.1.tgz#276186d35a4852f6249808c6dd4a1376cbf6c6ce"
@@ -1449,6 +1456,11 @@ resolve@^1.3.2:
   integrity sha512-+hTmAldEGE80U2wJJDC1lebb5jWqvTYAfm3YZ1ckk1gBr0MnCqUKlwK1e+anaFljIl+F5tR5IoZcm4ZDA1zMQw==
   dependencies:
     path-parse "^1.0.6"
+
+rmdir-recursive@^0.0.1:
+  version "0.0.1"
+  resolved "https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/npm/registry/rmdir-recursive/-/rmdir-recursive-0.0.1.tgz#57c0234af6e22ce642d0069cb2850f92966581b1"
+  integrity sha1-V8AjSvbiLOZC0AacsoUPkpZlgbE=
 
 safe-buffer@^5.0.1, safe-buffer@^5.1.2:
   version "5.2.0"
