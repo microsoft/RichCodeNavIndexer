@@ -5953,7 +5953,7 @@ class GitHubFactory {
     }
 }
 exports.factory = new GitHubFactory();
-
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 107 */
@@ -18352,7 +18352,7 @@ class Tool {
     }
 }
 exports.Tool = Tool;
-
+//# sourceMappingURL=Tool.js.map
 
 /***/ }),
 /* 297 */
@@ -25475,11 +25475,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 class TaskResult {
     setFailed(message) {
-        core.setFailed(message);
+        core.setFailed(message.toString());
     }
 }
 exports.TaskResult = TaskResult;
-
+//# sourceMappingURL=TaskResult.js.map
 
 /***/ }),
 /* 441 */,
@@ -35449,7 +35449,7 @@ class Logger {
     }
 }
 exports.Logger = Logger;
-
+//# sourceMappingURL=Logger.js.map
 
 /***/ }),
 /* 559 */,
@@ -39995,7 +39995,7 @@ class CachingTask {
         cloudTask.log.debug(`Running on node.js ${process.version}`);
     }
     async run() {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f, _g;
         const startTime = new Date().getTime();
         const telemProperties = {};
         const telemMeasures = {};
@@ -40003,7 +40003,7 @@ class CachingTask {
         try {
             this.cloudTask.log.debug('Reading all inputs...');
             let vsckService = 'https://prod.richnav.vsengsaas.visualstudio.com/';
-            const environment = (_a = this.cloudTask.inputs.getInput('environment'), (_a !== null && _a !== void 0 ? _a : 'production'));
+            const environment = this.cloudTask.inputs.getInput('environment') || 'production';
             const configFiles = this.cloudTask.inputs.getInput('configFiles', false);
             let feedSource = this.cloudTask.inputs.getInput('nugetFeed');
             const vsckVersion = this.cloudTask.inputs.getInput('nugetVersion');
@@ -40033,8 +40033,8 @@ class CachingTask {
             }
             const richNavMsBuildLogOutput = this.cloudTask.inputs.getInput('richNavLogOutputDirectory', false);
             const useRichNavMsbuildLog = dev && richNavMsBuildLogOutput !== undefined;
-            const richNavMsBuildDirs = useRichNavMsbuildLog ? (_c = (_b = richNavMsBuildLogOutput) === null || _b === void 0 ? void 0 : _b.split(','), (_c !== null && _c !== void 0 ? _c : [])) : [];
-            nugetHelper = new nugetHelper_1.NugetHelper(this.cloudTask, vsckVersion, (_d = this.apiTokens) === null || _d === void 0 ? void 0 : _d.systemVSSConnection);
+            const richNavMsBuildDirs = useRichNavMsbuildLog ? (_b = (_a = richNavMsBuildLogOutput) === null || _a === void 0 ? void 0 : _a.split(','), (_b !== null && _b !== void 0 ? _b : [])) : [];
+            nugetHelper = new nugetHelper_1.NugetHelper(this.cloudTask, vsckVersion, (_c = this.apiTokens) === null || _c === void 0 ? void 0 : _c.systemVSSConnection);
             const maxUploadFileSize = 150 * 1024 * 1024;
             const urlSetting = ['--setting', `ServiceBaseUrl=${vsckService}`];
             await nugetHelper.addRichCodeNavFeed(feedSource);
@@ -40056,7 +40056,7 @@ class CachingTask {
             await nugetHelper.installNugetGlobalTool(RichCodeNavClientTool);
             const clientToolDll = await nugetHelper.getNuGetToolPath(RichCodeNavClientTool);
             this.cloudTask.log.debug('Creating a WorkspaceSnapshot Id...');
-            const ref = (_g = (_f = (_e = this.cloudTask.pullRequest) === null || _e === void 0 ? void 0 : _e.sourceBranch.ref, (_f !== null && _f !== void 0 ? _f : this.cloudTask.repo.ref)), (_g !== null && _g !== void 0 ? _g : this.cloudTask.repo.sha));
+            const ref = (_f = (_e = (_d = this.cloudTask.pullRequest) === null || _d === void 0 ? void 0 : _d.sourceBranch.ref, (_e !== null && _e !== void 0 ? _e : this.cloudTask.repo.ref)), (_f !== null && _f !== void 0 ? _f : this.cloudTask.repo.sha));
             telemProperties['vsclk.intellinav.git.reference'] = ref;
             const vsckAuthSwitch = this.getAuthString();
             const createSnapshotTool = await utilities_1.spawnAndGetOutput('dotnet', [clientToolDll, 'create-snapshot', sourceControlInfo.repoUri, '--ref', ref].concat(urlSetting).concat(['-f', 'Json']).concat(sourceControlInfo.repoPatOption).concat(vsckAuthSwitch), this.cloudTask);
@@ -40181,7 +40181,7 @@ class CachingTask {
             if (dev) {
                 const lspLogsPath = path_1.resolve(os.tmpdir(), 'LspLogs');
                 if (await utilities_1.existsAsync(lspLogsPath)) {
-                    await ((_h = this.cloudTask.artifacts) === null || _h === void 0 ? void 0 : _h.publish(lspLogsPath, ArtifactLogs));
+                    await ((_g = this.cloudTask.artifacts) === null || _g === void 0 ? void 0 : _g.publish(lspLogsPath, ArtifactLogs));
                 }
             }
             telemMeasures['vsclk.intellinav.duration'] = new Date().getTime() - startTime;
@@ -69986,7 +69986,7 @@ class Outputs {
     }
 }
 exports.Outputs = Outputs;
-
+//# sourceMappingURL=Outputs.js.map
 
 /***/ }),
 /* 889 */,
@@ -72911,7 +72911,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 class Inputs {
     getInput(name, required) {
-        return core.getInput(name, { required: required });
+        const result = core.getInput(name, { required: required });
+        return result === '' ? undefined : result;
     }
     getBoolInput(name, required) {
         const value = this.getInput(name, required);
@@ -72919,7 +72920,7 @@ class Inputs {
     }
 }
 exports.Inputs = Inputs;
-
+//# sourceMappingURL=Inputs.js.map
 
 /***/ }),
 /* 955 */

@@ -71,14 +71,14 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@cloudkernel/rich-code-nav-indexer-core@^0.1.17-alpha":
-  version "0.1.17-alpha"
-  resolved "https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.17-alpha.tgz#ccddbf3e3cddc7ee067f89285751ceaa9b55a6b2"
-  integrity sha1-zN2/Pjzdx+4Gf4koV1HOqptVprI=
+"@cloudkernel/rich-code-nav-indexer-core@^0.1.20-alpha":
+  version "0.1.20-alpha"
+  resolved "https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.20-alpha.tgz#6797c2fa38431f8b51c65567d47c02d8d30d7234"
+  integrity sha1-Z5fC+jhDH4tRxlVn1HwC2NMNcjQ=
   dependencies:
     applicationinsights "^1.2.0"
     axios "^0.18.1"
-    cloudbuild-task-contracts "^0.1.52-alpha"
+    cloudbuild-task-contracts "^0.1.64-alpha"
     minimatch "^3.0.4"
     mkdirp "^1.0.3"
     promisify-node "^0.5.0"
@@ -441,15 +441,15 @@ cliui@^5.0.0:
     strip-ansi "^5.2.0"
     wrap-ansi "^5.1.0"
 
-cloudbuild-task-contracts@0.1.52-alpha, cloudbuild-task-contracts@^0.1.52-alpha:
-  version "0.1.52-alpha"
-  resolved "https://registry.yarnpkg.com/cloudbuild-task-contracts/-/cloudbuild-task-contracts-0.1.52-alpha.tgz#1674155fd9f62320b53c7725fe726ca076df3c5b"
-  integrity sha512-MBmk0sSVavW8iIXrf3iG7B0e+NvI1VVIEUI7ufKwa5+yh6V64Sgdku5v9x6bKj04RYypA6EWQzXrKL3Y2havIw==
+cloudbuild-task-contracts@0.1.64-alpha, cloudbuild-task-contracts@^0.1.64-alpha:
+  version "0.1.64-alpha"
+  resolved "https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/npm/registry/cloudbuild-task-contracts/-/cloudbuild-task-contracts-0.1.64-alpha.tgz#d79c0f1b1a3c67ce09f6a8176a4f7df6b1f3434b"
+  integrity sha1-15wPGxo8Z84J9qgXak999rHzQ0s=
 
-cloudbuild-task-github-actions@^0.1.52-alpha:
-  version "0.1.52-alpha"
-  resolved "https://registry.yarnpkg.com/cloudbuild-task-github-actions/-/cloudbuild-task-github-actions-0.1.52-alpha.tgz#af461614142701279edb8270f39e77c33d569111"
-  integrity sha512-LMi8XUrPhCEckZtow6FrjcfDV+6sbY+vqS7xgQ+riHIHO9sc+dxLy5mzp7XMyJXQtXIphXBI18GnB6kOPQ03ZA==
+cloudbuild-task-github-actions@^0.1.64-alpha:
+  version "0.1.64-alpha"
+  resolved "https://pkgs.dev.azure.com/devdiv/_packaging/CloudKernel/npm/registry/cloudbuild-task-github-actions/-/cloudbuild-task-github-actions-0.1.64-alpha.tgz#7ddb13eb9ddc8fab2a3cfd1891085279e5c5db90"
+  integrity sha1-fdsT653cj6sqPP0YkQhSeeXF25A=
   dependencies:
     "@actions/core" "^1.0.0"
     "@actions/exec" "^1.0.0"
@@ -457,7 +457,7 @@ cloudbuild-task-github-actions@^0.1.52-alpha:
     "@actions/io" "^1.0.0"
     "@actions/tool-cache" "^1.0.0"
     "@octokit/webhooks" "^7.0.0"
-    cloudbuild-task-contracts "0.1.52-alpha"
+    cloudbuild-task-contracts "0.1.64-alpha"
 
 cls-hooked@^4.2.2:
   version "4.2.2"

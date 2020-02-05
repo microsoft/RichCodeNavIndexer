@@ -17,10 +17,10 @@
 		"@actions/github": "^2.0.1",
 		"@actions/io": "^1.0.2",
 		"@actions/tool-cache": "^1.3.0",
-		"@cloudkernel/rich-code-nav-indexer-core": "^0.1.17-alpha",
+		"@cloudkernel/rich-code-nav-indexer-core": "^0.1.20-alpha",
 		"applicationinsights": "^1.6.0",
 		"axios": "^0.19.1",
-		"cloudbuild-task-github-actions": "^0.1.52-alpha"
+		"cloudbuild-task-github-actions": "^0.1.64-alpha"
 	},
 	"devDependencies": {
 		"@types/mocha": "^5.2.7",
