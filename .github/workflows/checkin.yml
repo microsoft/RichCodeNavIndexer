@@ -42,3 +42,4 @@ jobs:
         service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
         languages: typescript
         environment: production
+        repo-token: ${{ github.token }}
