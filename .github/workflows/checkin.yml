@@ -34,10 +34,19 @@ jobs:
             && exit 1)
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+        restore-keys: ${{ runner.os }}-yarn-
+    - name: yarn
+      run: yarn
+
     - uses: ./
       with:
         service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
         languages: typescript
+        repo-token: ${{ github.token }}
