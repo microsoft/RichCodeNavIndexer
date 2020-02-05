@@ -64638,11 +64638,11 @@ class NugetHelper {
         if (this.vsckVersion && this.vsckVersion !== 'latest') {
             versionArgs += ` -Version ${this.vsckVersion}`;
         }
-        this.cloudTask.log.debug(`Installing ${packageName} package version ${this.vsckVersion}...`);
+        this.cloudTask.log.debug(`Installing ${packageName} package version "${this.vsckVersion}"...`);
         const outputDir = await this.getVsckWorkingDir();
         const nugetInstallCode = await this.cloudTask.tool.spawn(await this.getNuGetExePath(), `install ${packageName} ${versionArgs} -OutputDirectory ${outputDir} -Source ${cloudKernelSource} -ConfigFile ${configFile}`, { ignoreReturnCode: true });
         if (nugetInstallCode !== 0) {
-            throw new Error(`Failed to install NuGet package ${packageName} version ${this.vsckVersion}. Exit code: ${nugetInstallCode}.`);
+            throw new Error(`Failed to install NuGet package ${packageName} version "${this.vsckVersion}". Exit code: ${nugetInstallCode}.`);
         }
     }
     async getVsckWorkingDir() {
@@ -64673,7 +64673,7 @@ class NugetHelper {
     }
     async getNuGetToolPath(toolName) {
         let matchingBinaries;
-        if (this.vsckVersion !== 'latest') {
+        if (this.vsckVersion && this.vsckVersion !== 'latest') {
             matchingBinaries = await utilities_1.recursiveSearchForFilePattern(path_1.resolve(await this.getVsckWorkingDir(), '.store', toolName), `**\\${this.vsckVersion}\\**\\${toolName}.dll`);
         }
         else {
@@ -64681,13 +64681,13 @@ class NugetHelper {
         }
         const result = matchingBinaries.pop();
         if (result === undefined) {
-            throw new Error(`Could not find the tool ${toolName} with version ${this.vsckVersion}.`);
+            throw new Error(`Could not find the tool ${toolName} with version "${this.vsckVersion}".`);
         }
         return result;
     }
     async getNuGetPackageBinariesPath(toolName) {
         let matchingBinaries;
-        if (this.vsckVersion !== 'latest') {
+        if (this.vsckVersion && this.vsckVersion !== 'latest') {
             matchingBinaries = await utilities_1.recursiveSearchForFilePattern(path_1.resolve(await this.getVsckWorkingDir(), `${toolName}.${this.vsckVersion}`), `**\\${toolName}.dll`);
         }
         else {

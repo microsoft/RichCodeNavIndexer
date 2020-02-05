@@ -71,10 +71,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@cloudkernel/rich-code-nav-indexer-core@^0.1.21-alpha":
-  version "0.1.21-alpha"
-  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.21-alpha.tgz#a772e0e1add43d5ebf7f80c11bc5353dfe8da554"
-  integrity sha1-p3Lg4a3UPV6/f4DBG8U1Pf6NpVQ=
+"@cloudkernel/rich-code-nav-indexer-core@^0.1.23-alpha":
+  version "0.1.23-alpha"
+  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.23-alpha.tgz#4257bd2df8a49a5c4dfe1886bb28219dbdffc350"
+  integrity sha1-Qle9LfikmlxN/hiGuyghnb3/w1A=
   dependencies:
     applicationinsights "^1.2.0"
     axios "^0.18.1"
