@@ -18,6 +18,9 @@ inputs:
   nugetFeed:
     description: Feed source to use when installing Rich Code Navigation NuGet packages
     required: false
+  environment:
+    description: 'The Rich Code Navigation environment to upload the index to. One of: production, staging or development.'
+    required: false
   richNavLogOutputDirectory:
     description: A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
     required: false

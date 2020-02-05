@@ -39807,11 +39807,11 @@ class CachingTask {
         cloudTask.log.debug(`Running on node.js v${process.version}`);
     }
     async run() {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const startTime = new Date().getTime();
         this.cloudTask.log.debug('Reading all inputs...');
-        let vsckService = this.cloudTask.inputs.getInput('serviceEndpoint');
-        const environment = this.cloudTask.inputs.getInput('environment');
+        let vsckService = 'https://prod.richnav.vsengsaas.visualstudio.com/';
+        const environment = (_a = this.cloudTask.inputs.getInput('environment'), (_a !== null && _a !== void 0 ? _a : 'production'));
         const configFiles = this.cloudTask.inputs.getInput('configFiles', false);
         let feedSource = this.cloudTask.inputs.getInput('nugetFeed');
         const vsckVersion = this.cloudTask.inputs.getInput('nugetVersion');
@@ -39823,9 +39823,6 @@ class CachingTask {
         }
         if (vsckVersion) {
             telemProperties['vsclk.intellinav.nugetversion'] = vsckVersion;
-        }
-        if (vsckService !== 'https://prod.richnav.vsengsaas.visualstudio.com/') {
-            this.cloudTask.log.warning('Warning: serviceEndpoint is deprecated setting. Please use Rich Code Navigation Environment setting instead');
         }
         let dev = false;
         if (environment === 'development') {
@@ -39846,8 +39843,8 @@ class CachingTask {
         }
         const richNavMsBuildLogOutput = this.cloudTask.inputs.getInput('richNavLogOutputDirectory', false);
         const useRichNavMsbuildLog = dev && richNavMsBuildLogOutput !== undefined;
-        const richNavMsBuildDirs = useRichNavMsbuildLog ? (_b = (_a = richNavMsBuildLogOutput) === null || _a === void 0 ? void 0 : _a.split(','), (_b !== null && _b !== void 0 ? _b : [])) : [];
-        const nugetHelper = new nugetHelper_1.NugetHelper(this.cloudTask, vsckVersion, (_c = this.apiTokens) === null || _c === void 0 ? void 0 : _c.systemVSSConnection);
+        const richNavMsBuildDirs = useRichNavMsbuildLog ? (_c = (_b = richNavMsBuildLogOutput) === null || _b === void 0 ? void 0 : _b.split(','), (_c !== null && _c !== void 0 ? _c : [])) : [];
+        const nugetHelper = new nugetHelper_1.NugetHelper(this.cloudTask, vsckVersion, (_d = this.apiTokens) === null || _d === void 0 ? void 0 : _d.systemVSSConnection);
         const maxUploadFileSize = 150 * 1024 * 1024;
         const urlSetting = ['--setting', `ServiceBaseUrl=${vsckService}`];
         try {
@@ -39870,7 +39867,7 @@ class CachingTask {
             await nugetHelper.installNugetGlobalTool(RichCodeNavClientTool);
             const clientToolDll = await nugetHelper.getNuGetToolPath(RichCodeNavClientTool);
             this.cloudTask.log.debug('Creating a WorkspaceSnapshot Id...');
-            const ref = (_f = (_e = (_d = this.cloudTask.pullRequest) === null || _d === void 0 ? void 0 : _d.sourceBranch.ref, (_e !== null && _e !== void 0 ? _e : this.cloudTask.repo.ref)), (_f !== null && _f !== void 0 ? _f : this.cloudTask.repo.sha));
+            const ref = (_g = (_f = (_e = this.cloudTask.pullRequest) === null || _e === void 0 ? void 0 : _e.sourceBranch.ref, (_f !== null && _f !== void 0 ? _f : this.cloudTask.repo.ref)), (_g !== null && _g !== void 0 ? _g : this.cloudTask.repo.sha));
             telemProperties['vsclk.intellinav.git.reference'] = ref;
             const vsckAuthSwitch = this.getAuthString();
             const createSnapshotTool = await utilities_1.spawnAndGetOutput('dotnet', [clientToolDll, 'create-snapshot', sourceControlInfo.repoUri, '--ref', ref].concat(urlSetting).concat(['-f', 'Json']).concat(sourceControlInfo.repoPatOption).concat(vsckAuthSwitch), this.cloudTask);
@@ -39995,7 +39992,7 @@ class CachingTask {
             if (dev) {
                 const lspLogsPath = path_1.resolve(os.tmpdir(), 'LspLogs');
                 if (await utilities_1.existsAsync(lspLogsPath)) {
-                    await ((_g = this.cloudTask.artifacts) === null || _g === void 0 ? void 0 : _g.publish(lspLogsPath, ArtifactLogs));
+                    await ((_h = this.cloudTask.artifacts) === null || _h === void 0 ? void 0 : _h.publish(lspLogsPath, ArtifactLogs));
                 }
             }
         }

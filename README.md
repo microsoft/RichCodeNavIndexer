@@ -18,6 +18,7 @@ This action indexes the repo it runs within and uploads the language service dat
 `repo-token` | | Should be set to `${{ github.token }}` if your repository is private.
 `languages` | | List of languages to use when discovering repository symbols, separated by `,`
 `nugetFeed` | | Feed source to use when installing Rich Code Navigation NuGet packages
+`environment` | `production` | `development`, `staging`, or `production`
 `richNavLogOutputDirectory` | | A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
 
 ## Outputs
