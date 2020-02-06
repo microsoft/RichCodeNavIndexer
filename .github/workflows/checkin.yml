@@ -47,6 +47,8 @@ jobs:
 
     - uses: ./
       with:
-        service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
+        service-token: ${{ secrets.RichCodeNavServiceTokenPpe }}
         languages: typescript
         repo-token: ${{ github.token }}
+        environment: staging
+        nugetFeed: https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices@Local/nuget/v3/index.json
