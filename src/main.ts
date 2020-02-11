@@ -9,6 +9,7 @@ class GitHubCachingTask extends CachingTask {
 }
 
 console.log('Don\'t worry, just testing!');
+console.log('And.... TRIGGER!');
 new GitHubCachingTask(
 	factory,
 	{
