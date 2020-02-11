@@ -8,6 +8,7 @@ class GitHubCachingTask extends CachingTask {
 	}
 }
 
+console.log('Don\'t worry, just testing!');
 new GitHubCachingTask(
 	factory,
 	{
