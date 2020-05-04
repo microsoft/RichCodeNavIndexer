@@ -6,6 +6,7 @@ Building and contributing to this repo requires the following dependencies:
 
 1. [Node.js](https://nodejs.org/) v12 or later.
 1. [yarn](https://www.npmjs.com/package/yarn)
+1. [ncc](https://github.com/zeit/ncc) - CLI for compiling Node.js module into a single file
 
 We recommend using [VS Code](https://code.visualstudio.com/) for development.
 
