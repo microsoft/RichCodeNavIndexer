@@ -71,14 +71,14 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@cloudkernel/rich-code-nav-indexer-core@^0.1.23-alpha":
-  version "0.1.23-alpha"
-  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.23-alpha.tgz#4257bd2df8a49a5c4dfe1886bb28219dbdffc350"
-  integrity sha1-Qle9LfikmlxN/hiGuyghnb3/w1A=
+"@cloudkernel/rich-code-nav-indexer-core@^0.1.30-alpha":
+  version "0.1.30-alpha"
+  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.30-alpha.tgz#4137f6fb86b84b80e1f2e154914d913e0655cfd1"
+  integrity sha1-QTf2+4a4S4Dh8uFUkU2RPgZVz9E=
   dependencies:
     applicationinsights "^1.2.0"
     axios "^0.18.1"
-    cloudbuild-task-contracts "^0.1.64-alpha"
+    cloudbuild-task-contracts "^0.1.66-alpha"
     minimatch "^3.0.4"
     mkdirp "^1.0.3"
     promisify-node "^0.5.0"
@@ -441,10 +441,15 @@ cliui@^5.0.0:
     strip-ansi "^5.2.0"
     wrap-ansi "^5.1.0"
 
-cloudbuild-task-contracts@0.1.64-alpha, cloudbuild-task-contracts@^0.1.64-alpha:
+cloudbuild-task-contracts@0.1.64-alpha:
   version "0.1.64-alpha"
   resolved "https://registry.npmjs.org/cloudbuild-task-contracts/-/cloudbuild-task-contracts-0.1.64-alpha.tgz#d79c0f1b1a3c67ce09f6a8176a4f7df6b1f3434b"
   integrity sha512-wE1kAKH1Slb9Q1QkGiwB2owmz2SCEhWlSJv2qTw2uWJk4HXi65+iHgfySOCdijsc4UPLMjl1UF1QL4LvkKdjwA==
+
+cloudbuild-task-contracts@^0.1.66-alpha:
+  version "0.1.66-alpha"
+  resolved "https://registry.yarnpkg.com/cloudbuild-task-contracts/-/cloudbuild-task-contracts-0.1.66-alpha.tgz#d0a3971f2c6b2113671487f35fc58f1091421ebf"
+  integrity sha512-EjLnavtqRsgacEzl81SvtYnvHsTf64BJEiryykrgUXrGeZLjuF78PGgn0MF7ugvINjN7J3nLFEmIS97mT/mMxw==
 
 cloudbuild-task-github-actions@^0.1.64-alpha:
   version "0.1.64-alpha"
