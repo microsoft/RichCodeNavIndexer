@@ -40056,10 +40056,15 @@ class CachingTask {
             await nugetHelper.installNugetGlobalTool(RichCodeNavClientTool);
             const clientToolDll = await nugetHelper.getNuGetToolPath(RichCodeNavClientTool);
             this.cloudTask.log.debug('Creating a WorkspaceSnapshot Id...');
-            const ref = (_f = (_e = (_d = this.cloudTask.pullRequest) === null || _d === void 0 ? void 0 : _d.sourceBranch.ref, (_e !== null && _e !== void 0 ? _e : this.cloudTask.repo.ref)), (_f !== null && _f !== void 0 ? _f : this.cloudTask.repo.sha));
-            telemProperties['vsclk.intellinav.git.reference'] = ref;
+            let refSetting = ['--ref', (_f = (_e = (_d = this.cloudTask.pullRequest) === null || _d === void 0 ? void 0 : _d.sourceBranch.ref, (_e !== null && _e !== void 0 ? _e : this.cloudTask.repo.ref)), (_f !== null && _f !== void 0 ? _f : this.cloudTask.repo.sha))];
+            telemProperties['vsclk.intellinav.git.reference'] = refSetting[1];
+            let indexedUri = sourceControlInfo.repoUri;
+            if (this.cloudTask.pullRequest) {
+                indexedUri = sourceControlInfo.getPullRequestUri();
+                refSetting = [];
+            }
             const vsckAuthSwitch = this.getAuthString();
-            const createSnapshotTool = await utilities_1.spawnAndGetOutput('dotnet', [clientToolDll, 'create-snapshot', sourceControlInfo.repoUri, '--ref', ref].concat(urlSetting).concat(['-f', 'Json']).concat(sourceControlInfo.repoPatOption).concat(vsckAuthSwitch), this.cloudTask);
+            const createSnapshotTool = await utilities_1.spawnAndGetOutput('dotnet', [clientToolDll, 'create-snapshot', indexedUri].concat(refSetting).concat(urlSetting).concat(['-f', 'Json']).concat(sourceControlInfo.repoPatOption).concat(vsckAuthSwitch), this.cloudTask);
             if (createSnapshotTool.exitCode !== 0) {
                 this.cloudTask.log.error('dotnet create-snapshot output: ' + createSnapshotTool.stdout);
                 this.cloudTask.log.error('dotnet create-snapshot error: ' + createSnapshotTool.stderr);
@@ -40081,14 +40086,8 @@ class CachingTask {
             const lsifStartTime = new Date().getTime();
             const isDevSwitch = dev ? '--dev' : '';
             let lsifLSDll;
-            if (dev) {
-                await nugetHelper.installNugetPackage(RichCodeNavLSIF);
-                lsifLSDll = await nugetHelper.getNuGetPackageBinariesPath(RichCodeNavLSIF);
-            }
-            else {
-                await nugetHelper.installNugetGlobalTool(RichCodeNavLSIF);
-                lsifLSDll = await nugetHelper.getNuGetToolPath(RichCodeNavLSIF);
-            }
+            await nugetHelper.installNugetPackage(RichCodeNavLSIF);
+            lsifLSDll = await nugetHelper.getNuGetPackageBinariesPath(RichCodeNavLSIF);
             if (sourceControlInfo.lsifLanguageSwitch.indexOf('script') > 0 || sourceControlInfo.lsifLanguageSwitch === '' && sourceControlInfo.shouldRunLsif) {
                 await this.installTypeScriptTools(lsifLSDll);
             }
@@ -40131,10 +40130,10 @@ class CachingTask {
             if (sourceControlInfo.shouldRunLsif) {
                 const outFilePath = path_1.resolve(await nugetHelper.getVsckWorkingDir(), 'vsck-export.zip');
                 if (configFiles) {
-                    lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t -c ${configFiles} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId}`;
+                    lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t -c ${configFiles}`;
                 }
                 else {
-                    lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId}`;
+                    lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t`;
                 }
                 lsifExitCode = await this.cloudTask.tool.spawn('dotnet', lsifLSToolArgs, { ignoreReturnCode: true });
                 lsifResults.push({ inputPath: sourcesRoot, state: this.processLsifExitCode(lsifExitCode, sourcesRoot), exitCode: lsifExitCode, outputFile: outFilePath });
@@ -40236,10 +40235,9 @@ class CachingTask {
         await utilities_1.writeFileAsync(jsonOutputPath, jsonOutput);
     }
     async installTypeScriptTools(lsifLSDll) {
-        await this.cloudTask.tool.spawn('npm', 'install yarn --global');
         const modulesFolder = lsifLSDll.replace(`${RichCodeNavLSIF}.dll`, '');
-        await this.cloudTask.tool.spawn('yarn', `add lsif-tsc@0.4.5`, { cwd: modulesFolder, ignoreReturnCode: true });
-        await this.cloudTask.tool.spawn('yarn', `add lsif-npm@0.4.2`, { cwd: modulesFolder, ignoreReturnCode: true });
+        await this.cloudTask.tool.spawn('npm', `install lsif-tsc@0.4.10 --no-package-lock`, { cwd: modulesFolder, ignoreReturnCode: true });
+        await this.cloudTask.tool.spawn('npm', `install lsif-npm@0.4.5 --no-package-lock`, { cwd: modulesFolder, ignoreReturnCode: true });
     }
     processLsifExitCode(lsifExitCode, inputPath) {
         if (lsifExitCode === 5) {
@@ -40259,7 +40257,7 @@ class CachingTask {
     async getRichNavLogFiles(outDirs) {
         const files = Array();
         for (const outDir of outDirs) {
-            const richNavLogFiles = await utilities_1.recursiveSearchForFilePattern(outDir, '*.RichCodeNav.log');
+            const richNavLogFiles = await utilities_1.recursiveSearchForFilePattern(outDir, '**/*.RichCodeNav.log');
             files.push(...richNavLogFiles);
         }
         return files;
@@ -75233,6 +75231,8 @@ const statAsync = promisify(fs.stat);
 exports.statAsync = statAsync;
 const writeFileAsync = promisify(fs.writeFile);
 exports.writeFileAsync = writeFileAsync;
+const unlinkAsync = promisify(fs.unlink);
+exports.unlinkAsync = unlinkAsync;
 function existsAsync(path) {
     return new Promise((resolve) => fs.exists(path, (exists) => resolve(exists)));
 }
