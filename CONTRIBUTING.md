@@ -6,7 +6,6 @@ Building and contributing to this repo requires the following dependencies:
 
 1. [Node.js](https://nodejs.org/) v12 or later.
 1. [yarn](https://www.npmjs.com/package/yarn)
-1. [ncc](https://github.com/zeit/ncc) - CLI for compiling Node.js module into a single file
 
 We recommend using [VS Code](https://code.visualstudio.com/) for development.
 
@@ -19,6 +18,8 @@ Do **not** use `npm` to install packages. Our yarn.lock file will only be effect
 ## Build
 
 `yarn build`
+
+(Note: If you get "'rm' is not recognized..." error from powershell, try add "C:\Program Files\Git\usr\bin" or a directory pointing to a "rm.exe" to your PATH.)
 
 ## Test
 
