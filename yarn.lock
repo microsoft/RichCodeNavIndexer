@@ -71,22 +71,6 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@cloudkernel/rich-code-nav-indexer-core@^0.1.31-alpha":
-  version "0.1.31-alpha"
-  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@cloudkernel/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.31-alpha.tgz#9a74f64a814f0e98168f59b31e83fdfc2b144561"
-  integrity sha1-mnT2SoFPDpgWj1mzHoP9/CsURWE=
-  dependencies:
-    applicationinsights "^1.2.0"
-    axios "^0.18.1"
-    cloudbuild-task-contracts "^0.1.66-alpha"
-    minimatch "^3.0.4"
-    mkdirp "^1.0.3"
-    promisify-node "^0.5.0"
-    request "^2.88.0"
-    rmdir-recursive "^0.0.1"
-    stream-buffers "^3.0.2"
-    which "^2.0.2"
-
 "@octokit/auth-token@^2.4.0":
   version "2.4.0"
   resolved "https://registry.npmjs.org/@octokit/auth-token/-/auth-token-2.4.0.tgz#b64178975218b99e4dfe948253f0673cbbb59d9f"
@@ -198,6 +182,22 @@
   integrity sha512-oSZuKc2LDNtt3vW7Iq9XNvIm3i6CxMkrzkuyHinR6IjVRb7EuiMshn3AVDdXdDtAVHvxwxj3ikt3jsTlFE6zEA==
   dependencies:
     debug "^4.0.0"
+
+"@richnav/rich-code-nav-indexer-core@^0.1.33-alpha":
+  version "0.1.33-alpha"
+  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.33-alpha.tgz#bd9fb21fe0cbefc0f45a935e819fbb58da32d40d"
+  integrity sha1-vZ+yH+DL78D0WpNegZ+7WNoy1A0=
+  dependencies:
+    applicationinsights "^1.2.0"
+    axios "^0.18.1"
+    cloudbuild-task-contracts "^0.1.66-alpha"
+    minimatch "^3.0.4"
+    mkdirp "^1.0.3"
+    promisify-node "^0.5.0"
+    request "^2.88.0"
+    rmdir-recursive "^0.0.1"
+    stream-buffers "^3.0.2"
+    which "^2.0.2"
 
 "@types/mocha@^5.2.7":
   version "5.2.7"
