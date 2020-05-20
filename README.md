@@ -1,3 +1,7 @@
+**Pre-requisite:  
+You must sign-up and be approved for Rich Code Navigation Private Preview prior to installing this GitHub Action.  
+For more information, please go to aka.ms/richnavigation**
+
 # GitHub Action for Rich Code Navigation indexing
 
 [![GitHub Actions status](https://github.com/microsoft/RichCodeNavIndexer/workflows/CI/PR/badge.svg)](https://github.com/microsoft/RichCodeNavIndexer/actions)
