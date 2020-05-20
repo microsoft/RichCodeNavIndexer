@@ -7,7 +7,7 @@ This action indexes the repo it runs within and uploads the language service dat
 ## Example usage
 
 ```yaml
-- uses: microsoft/RichCodeNavIndexer@v0.1-alpha
+- uses: microsoft/RichCodeNavIndexer@v0.1-preview
 ```
 
 ## Inputs
