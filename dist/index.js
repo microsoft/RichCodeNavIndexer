@@ -2080,6 +2080,7 @@ var AutoCollectHttpDependencies = (function () {
             this._initialize();
         }
         if (DiagChannel.IsInitialized) {
+            __webpack_require__(124).enable(true, this._client);
             __webpack_require__(165).enable(isEnabled, this._client);
             __webpack_require__(160).enable(isEnabled, this._client);
             __webpack_require__(381).enable(isEnabled, this._client);
@@ -2098,6 +2099,10 @@ var AutoCollectHttpDependencies = (function () {
         var clientRequestPatch = function (request, options) {
             var shouldCollect = !options[AutoCollectHttpDependencies.disableCollectionRequestOption] &&
                 !request[AutoCollectHttpDependencies.alreadyAutoCollectedFlag];
+            // If someone else patched traceparent headers onto this request
+            if (options.headers && options.headers['user-agent'] && options.headers['user-agent'].toString().indexOf('azsdk-js') !== -1) {
+                shouldCollect = false;
+            }
             request[AutoCollectHttpDependencies.alreadyAutoCollectedFlag] = true;
             if (request && options && shouldCollect) {
                 CorrelationContextManager_1.CorrelationContextManager.wrapEmitter(request);
@@ -2721,6 +2726,7 @@ function withDefaults (request, newDefaults) {
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 Object.defineProperty(exports, "__esModule", { value: true });
+var AsyncHooksScopeManager_1 = __webpack_require__(882);
 var Logging = __webpack_require__(986);
 exports.IsInitialized = !process.env["APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL"];
 var TAG = "DiagnosticChannel";
@@ -2737,7 +2743,8 @@ if (exports.IsInitialized) {
         redis: publishers.redis,
         pg: publishers.pg,
         pgPool: publishers.pgPool,
-        winston: publishers.winston
+        winston: publishers.winston,
+        azuresdk: publishers.azuresdk
     };
     for (var mod in modules) {
         if (unpatchedModules.indexOf(mod) === -1) {
@@ -2756,7 +2763,9 @@ function registerContextPreservation(cb) {
     if (!exports.IsInitialized) {
         return;
     }
-    __webpack_require__(595).channel.addContextPreservation(cb);
+    var diagChannel = __webpack_require__(803);
+    diagChannel.channel.addContextPreservation(cb);
+    diagChannel.channel.spanContextPropagator = AsyncHooksScopeManager_1.AsyncScopeManager;
 }
 exports.registerContextPreservation = registerContextPreservation;
 //# sourceMappingURL=initialization.js.map
@@ -2990,8 +2999,8 @@ var TelemetryClient = (function () {
             // Ideally we would have a central place for "internal" telemetry processors and users can configure which ones are in use.
             // This will do for now. Otherwise clearTelemetryProcessors() would be problematic.
             accepted = accepted && TelemetryProcessors.samplingTelemetryProcessor(envelope, { correlationContext: CorrelationContextManager_1.CorrelationContextManager.getCurrentContext() });
-            TelemetryProcessors.performanceMetricsTelemetryProcessor(envelope, this.quickPulseClient);
             if (accepted) {
+                TelemetryProcessors.performanceMetricsTelemetryProcessor(envelope, this.quickPulseClient);
                 this.channel.send(envelope);
             }
         }
@@ -5600,7 +5609,7 @@ module.exports = function generate_allOf(it, $keyword, $ruleType) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var path = __webpack_require__(622);
 var mysqlPatchFunction = function (originalMysql, originalMysqlPath) {
     // The `name` passed in here is for debugging purposes,
@@ -6072,7 +6081,7 @@ var RequestResponseHeaders = __webpack_require__(503);
 var RequestParser = __webpack_require__(834);
 var CorrelationIdManager = __webpack_require__(607);
 /**
- * Helper class to read data from the requst/response objects and convert them into the telemetry contract
+ * Helper class to read data from the request/response objects and convert them into the telemetry contract
  */
 var HttpDependencyParser = (function (_super) {
     __extends(HttpDependencyParser, _super);
@@ -6132,6 +6141,12 @@ var HttpDependencyParser = (function (_super) {
             dependencyTypeName: remoteDependencyType,
             target: remoteDependencyTarget
         };
+        if (baseTelemetry && baseTelemetry.time) {
+            dependencyTelemetry.time = baseTelemetry.time;
+        }
+        else if (this.startTime) {
+            dependencyTelemetry.time = new Date(this.startTime);
+        }
         // We should keep any parameters the user passed in
         // Except the fields defined above in requestTelemetry, which take priority
         // Except the properties field, where they're merged instead, with baseTelemetry taking priority
@@ -6176,7 +6191,7 @@ var HttpDependencyParser = (function (_super) {
             options.pathname = parsedQuery.pathname;
             options.search = parsedQuery.search;
         }
-        // Simiarly, url.format ignores hostname and port if host is specified,
+        // Similarly, url.format ignores hostname and port if host is specified,
         // even if host doesn't have the port, but http.request does not work
         // this way. It will use the port if one is not specified in host,
         // effectively treating host as hostname, but will use the port specified
@@ -6205,7 +6220,59 @@ module.exports = HttpDependencyParser;
 /* 121 */,
 /* 122 */,
 /* 123 */,
-/* 124 */,
+/* 124 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var diagnostic_channel_1 = __webpack_require__(803);
+var Traceparent = __webpack_require__(425);
+var SpanParser = __webpack_require__(791);
+var AsyncHooksScopeManager_1 = __webpack_require__(882);
+var clients = [];
+exports.subscriber = function (event) {
+    var span = event.data;
+    var telemetry = SpanParser.spanToTelemetryContract(span);
+    var spanContext = span.context();
+    var traceparent = new Traceparent();
+    traceparent.traceId = spanContext.traceId;
+    traceparent.spanId = spanContext.spanId;
+    traceparent.traceFlag = spanContext.traceFlags.toString();
+    traceparent.parentId = span.parentSpanId ? "|" + spanContext.traceId + "." + span.parentSpanId + "." : null;
+    AsyncHooksScopeManager_1.AsyncScopeManager.with(span, function () {
+        clients.forEach(function (client) {
+            if (span.kind === AsyncHooksScopeManager_1.SpanKind.SERVER) {
+                // Server or Consumer
+                client.trackRequest(telemetry);
+            }
+            else if (span.kind === AsyncHooksScopeManager_1.SpanKind.CLIENT || span.kind === AsyncHooksScopeManager_1.SpanKind.INTERNAL) {
+                // Client or Producer or Internal
+                client.trackDependency(telemetry);
+            }
+            // else - ignore producer/consumer spans for now until it is clear how this sdk should interpret them
+        });
+    });
+};
+function enable(enabled, client) {
+    if (enabled) {
+        if (clients.length === 0) {
+            diagnostic_channel_1.channel.subscribe("azure-coretracing", exports.subscriber);
+        }
+        ;
+        clients.push(client);
+    }
+    else {
+        clients = clients.filter(function (c) { return c != client; });
+        if (clients.length === 0) {
+            diagnostic_channel_1.channel.unsubscribe("azure-coretracing", exports.subscriber);
+        }
+    }
+}
+exports.enable = enable;
+//# sourceMappingURL=azure-coretracing.sub.js.map
+
+/***/ }),
 /* 125 */,
 /* 126 */
 /***/ (function(module) {
@@ -7407,7 +7474,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var tediousPatchFunction = function (originalTedious) {
     var originalMakeRequest = originalTedious.Connection.prototype.makeRequest;
     originalTedious.Connection.prototype.makeRequest = function makeRequest() {
@@ -7470,7 +7537,7 @@ var httpFollow = __webpack_require__(549).http;
 var httpsFollow = __webpack_require__(549).https;
 var url = __webpack_require__(835);
 var zlib = __webpack_require__(761);
-var pkg = __webpack_require__(668);
+var pkg = __webpack_require__(570);
 var createError = __webpack_require__(433);
 var enhanceError = __webpack_require__(70);
 
@@ -8265,7 +8332,7 @@ function state(list, sortMethod)
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Contracts_1 = __webpack_require__(267);
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var clients = [];
 var subscriber = function (event) {
     var message = event.data.message;
@@ -8714,7 +8781,7 @@ function getUserAgentNode () {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var clients = [];
 exports.subscriber = function (event) {
     clients.forEach(function (client) {
@@ -8732,6 +8799,7 @@ exports.subscriber = function (event) {
             success: success,
             /* TODO: transmit result code from mysql */
             resultCode: success ? "0" : "1",
+            time: event.data.time,
             dependencyTypeName: "mysql"
         });
     });
@@ -8770,7 +8838,7 @@ module.exports = {"$id":"content.json#","$schema":"http://json-schema.org/draft-
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var mongodbcorePatchFunction = function (originalMongoCore) {
     var originalConnect = originalMongoCore.Server.prototype.connect;
     originalMongoCore.Server.prototype.connect = function contextPreservingConnect() {
@@ -8834,7 +8902,7 @@ module.exports = Domain;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var clients = [];
 exports.subscriber = function (event) {
     if (event.data.event.commandName === "ismaster") {
@@ -8851,6 +8919,7 @@ exports.subscriber = function (event) {
             success: event.data.succeeded,
             /* TODO: transmit result code from mongo */
             resultCode: event.data.succeeded ? "0" : "1",
+            time: event.data.startedData.time,
             dependencyTypeName: 'mongodb'
         });
     });
@@ -9009,7 +9078,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 exports.AzureMonitorSymbol = "Azure_Monitor_Tracer";
 /**
  * By default, @azure/core-tracing default tracer is a NoopTracer.
@@ -9022,11 +9091,13 @@ exports.AzureMonitorSymbol = "Azure_Monitor_Tracer";
  */
 var azureCoreTracingPatchFunction = function (coreTracing) {
     try {
-        var BasicTracer = __webpack_require__(520).BasicTracer;
+        var tracing = __webpack_require__(520);
+        var opentelemetry = __webpack_require__(456);
         var tracerConfig = diagnostic_channel_1.channel.spanContextPropagator
-            ? { scopeManager: diagnostic_channel_1.channel.spanContextPropagator }
+            ? { contextManager: diagnostic_channel_1.channel.spanContextPropagator }
             : undefined;
-        var tracer_1 = new BasicTracer(tracerConfig);
+        new tracing.BasicTracerProvider().register(tracerConfig);
+        var tracer_1 = opentelemetry.trace.getTracer("applicationinsights tracer");
         // Patch startSpan instead of using spanProcessor.onStart because parentSpan must be
         // set while the span is constructed
         var startSpanOriginal_1 = tracer_1.startSpan;
@@ -9038,34 +9109,25 @@ var azureCoreTracingPatchFunction = function (coreTracing) {
                     options = __assign({}, options, { parent: {
                             traceId: parentOperation.operation.traceparent.traceId,
                             spanId: parentOperation.operation.traceparent.spanId,
+                            traceFlags: 1,
                         } });
                 }
             }
             var span = startSpanOriginal_1.call(this, name, options);
-            span.addEvent("Application Insights Integration enabled");
+            var originalEnd = span.end;
+            span.end = function () {
+                var result = originalEnd.apply(this, arguments);
+                diagnostic_channel_1.channel.publish("azure-coretracing", span);
+                return result;
+            };
             return span;
         };
-        tracer_1.addSpanProcessor(new AzureMonitorSpanProcessor());
         tracer_1[exports.AzureMonitorSymbol] = true;
         coreTracing.setTracer(tracer_1); // recordSpanData is not present on BasicTracer - cast to any
     }
     catch (e) { /* squash errors */ }
     return coreTracing;
 };
-var AzureMonitorSpanProcessor = /** @class */ (function () {
-    function AzureMonitorSpanProcessor() {
-    }
-    AzureMonitorSpanProcessor.prototype.onStart = function (span) {
-        // noop since startSpan is already patched
-    };
-    AzureMonitorSpanProcessor.prototype.onEnd = function (span) {
-        diagnostic_channel_1.channel.publish("azure-coretracing", span);
-    };
-    AzureMonitorSpanProcessor.prototype.shutdown = function () {
-        // noop
-    };
-    return AzureMonitorSpanProcessor;
-}());
 exports.azureCoreTracing = {
     versionSpecifier: ">= 1.0.0 < 2.0.0",
     patch: azureCoreTracingPatchFunction,
@@ -9084,7 +9146,7 @@ exports.enable = enable;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Contracts_1 = __webpack_require__(267);
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var clients = [];
 // Mapping from bunyan levels defined at https://github.com/trentm/node-bunyan/blob/master/lib/bunyan.js#L256
 var bunyanToAILevelMap = {
@@ -9495,6 +9557,7 @@ var Sender = (function () {
         this._resendInterval = Sender.WAIT_BETWEEN_RESEND;
         this._maxBytesOnDisk = Sender.MAX_BYTES_ON_DISK;
         this._numConsecutiveFailures = 0;
+        this._resendTimer = null;
         if (!Sender.OS_PROVIDES_FILE_PROTECTION) {
             // Node's chmod levels do not appropriately restrict file access on Windows
             // Use the built-in command line tool ICACLS on Windows to properly restrict
@@ -9576,7 +9639,13 @@ var Sender = (function () {
                     if (_this._enableDiskRetryMode) {
                         // try to send any cached events if the user is back online
                         if (res.statusCode === 200) {
-                            setTimeout(function () { return _this._sendFirstFileOnDisk(); }, _this._resendInterval).unref();
+                            if (!_this._resendTimer) {
+                                _this._resendTimer = setTimeout(function () {
+                                    _this._resendTimer = null;
+                                    _this._sendFirstFileOnDisk();
+                                }, _this._resendInterval);
+                                _this._resendTimer.unref();
+                            }
                             // store to disk in case of burst throttling
                         }
                         else if (res.statusCode === 408 ||
@@ -9821,7 +9890,7 @@ var Sender = (function () {
         var directory = path.join(os.tmpdir(), Sender.TEMPDIR_PREFIX + this._config.instrumentationKey);
         // This will create the dir if it does not exist
         // Default permissions on *nix are directory listing from other users but no file creations
-        Logging.info(Sender.TAG, "Checking existance of data storage directory: " + directory);
+        Logging.info(Sender.TAG, "Checking existence of data storage directory: " + directory);
         this._confirmDirExists(directory, function (error) {
             if (error) {
                 Logging.warn(Sender.TAG, "Error while checking/creating directory: " + (error && error.message));
@@ -9857,7 +9926,7 @@ var Sender = (function () {
         // tmpdir is /tmp for *nix and USERDIR/AppData/Local/Temp for Windows
         var directory = path.join(os.tmpdir(), Sender.TEMPDIR_PREFIX + this._config.instrumentationKey);
         try {
-            Logging.info(Sender.TAG, "Checking existance of data storage directory: " + directory);
+            Logging.info(Sender.TAG, "Checking existence of data storage directory: " + directory);
             if (!fs.existsSync(directory)) {
                 fs.mkdirSync(directory);
             }
@@ -9931,7 +10000,7 @@ var Sender = (function () {
     Sender.POWERSHELL_PATH = process.env.systemdrive + "/windows/system32/windowspowershell/v1.0/powershell.exe";
     Sender.ACLED_DIRECTORIES = {};
     Sender.ACL_IDENTITY = null;
-    // the amount of time the SDK will wait between resending cached data, this buffer is to avoid any throtelling from the service side
+    // the amount of time the SDK will wait between resending cached data, this buffer is to avoid any throttling from the service side
     Sender.WAIT_BETWEEN_RESEND = 60 * 1000;
     Sender.MAX_BYTES_ON_DISK = 50 * 1000 * 1000;
     Sender.MAX_CONNECTION_FAILURES_BEFORE_WARN = 5;
@@ -19204,7 +19273,7 @@ function sync (path, options) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var clients = [];
 exports.subscriber = function (event) {
     clients.forEach(function (client) {
@@ -19219,6 +19288,7 @@ exports.subscriber = function (event) {
             duration: event.data.duration,
             success: success,
             resultCode: success ? "0" : "1",
+            time: event.data.time,
             dependencyTypeName: "postgres"
         });
     });
@@ -20389,7 +20459,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var endpoint = __webpack_require__(385);
-var universalUserAgent = __webpack_require__(526);
+var universalUserAgent = __webpack_require__(796);
 var isPlainObject = _interopDefault(__webpack_require__(696));
 var nodeFetch = _interopDefault(__webpack_require__(454));
 var requestError = __webpack_require__(463);
@@ -20536,7 +20606,7 @@ exports.request = request;
 /* 331 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-module.exports = __webpack_require__(791);
+module.exports = __webpack_require__(668);
 
 /***/ }),
 /* 332 */
@@ -20555,7 +20625,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var mongodbPatchFunction = function (originalMongo) {
     var listener = originalMongo.instrument({
         operationIdGenerator: {
@@ -23500,7 +23570,7 @@ module.exports = {"$id":"request.json#","$schema":"http://json-schema.org/draft-
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var clients = [];
 exports.subscriber = function (event) {
     clients.forEach(function (client) {
@@ -23516,6 +23586,7 @@ exports.subscriber = function (event) {
             success: !event.data.err,
             /* TODO: transmit result code from redis */
             resultCode: event.data.err ? "1" : "0",
+            time: event.data.time,
             dependencyTypeName: "redis"
         });
     });
@@ -23706,7 +23777,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var isPlainObject = _interopDefault(__webpack_require__(696));
-var universalUserAgent = __webpack_require__(526);
+var universalUserAgent = __webpack_require__(796);
 
 function lowercaseKeys(object) {
   if (!object) {
@@ -24117,7 +24188,7 @@ var Channel = (function () {
     /**
      * Enable or disable disk-backed retry caching to cache events when client is offline (enabled by default)
      * These cached events are stored in your system or user's temporary directory and access restricted to your user when possible.
-     * @param value if true events that occured while client is offline will be cached on disk
+     * @param value if true events that occurred while client is offline will be cached on disk
      * @param resendInterval The wait interval for resending cached events.
      * @param maxBytesOnDisk The maximum size (in bytes) that the created temporary directory for cache events can grow to, before caching is disabled.
      * @returns {Configuration} this class
@@ -30691,7 +30762,13 @@ module.exports = Request
 
 
 /***/ }),
-/* 456 */,
+/* 456 */
+/***/ (function() {
+
+eval("require")("@opentelemetry/api");
+
+
+/***/ }),
 /* 457 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -31142,7 +31219,7 @@ var NodeClient = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
-     * Log RequestTelemetry from HTTP request and response. This method will log immediately without waitng for request completion
+     * Log RequestTelemetry from HTTP request and response. This method will log immediately without waiting for request completion
      * and it requires duration parameter to be specified on NodeHttpRequestTelemetry object.
      * Use trackNodeHttpRequest function to log the telemetry after request completion
      * @param telemetry Object encapsulating incoming request, response and duration information
@@ -32833,12 +32910,12 @@ module.exports = {
      */
     requestIdHeader: "request-id",
     /**
-     * Legacy Header containing the id of the immidiate caller
+     * Legacy Header containing the id of the immediate caller
      */
     parentIdHeader: "x-ms-request-id",
     /**
      * Legacy Header containing the correlation id that kept the same for every telemetry item
-     * accross transactions
+     * across transactions
      */
     rootIdHeader: "x-ms-request-root-id",
     /**
@@ -32954,6 +33031,7 @@ module.exports = require("timers");
 Object.defineProperty(exports, "__esModule", { value: true });
 var Logging = __webpack_require__(986);
 var DiagChannel = __webpack_require__(67);
+var Traceparent = __webpack_require__(425);
 var CorrelationContextManager = (function () {
     function CorrelationContextManager() {
     }
@@ -32990,6 +33068,14 @@ var CorrelationContextManager = (function () {
             };
         }
         return null;
+    };
+    CorrelationContextManager.spanToContextObject = function (spanContext, parentId, name) {
+        var traceContext = new Traceparent();
+        traceContext.traceId = spanContext.traceId;
+        traceContext.spanId = spanContext.spanId;
+        traceContext.traceFlag = spanContext.traceFlags || Traceparent.DEFAULT_TRACE_FLAG;
+        traceContext.parentId = parentId;
+        return CorrelationContextManager.generateContextObject(traceContext.traceId, traceContext.parentId, name, null, traceContext);
     };
     /**
      *  Runs a function inside a given Context.
@@ -33872,7 +33958,7 @@ function noop() {}
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var events_1 = __webpack_require__(614);
 function postgres6PatchFunction(originalPg, originalPgPath) {
     var originalClientQuery = originalPg.Client.prototype.query;
@@ -34135,7 +34221,7 @@ exports.postgres6 = {
     patch: postgres6PatchFunction,
 };
 exports.postgres7 = {
-    versionSpecifier: "7.*",
+    versionSpecifier: ">=7.* <=8.*",
     patch: postgres7PatchFunction,
 };
 function enable() {
@@ -34232,7 +34318,7 @@ var CorrelationIdManager = __webpack_require__(607);
 var Tracestate = __webpack_require__(294);
 var Traceparent = __webpack_require__(425);
 /**
- * Helper class to read data from the requst/response objects and convert them into the telemetry contract
+ * Helper class to read data from the request/response objects and convert them into the telemetry contract
  */
 var HttpRequestParser = (function (_super) {
     __extends(HttpRequestParser, _super);
@@ -34280,6 +34366,12 @@ var HttpRequestParser = (function (_super) {
             success: this._isSuccess(),
             properties: this.properties
         };
+        if (baseTelemetry && baseTelemetry.time) {
+            requestTelemetry.time = baseTelemetry.time;
+        }
+        else if (this.startTime) {
+            requestTelemetry.time = new Date(this.startTime);
+        }
         // We should keep any parameters the user passed in
         // Except the fields defined above in requestTelemetry, which take priority
         // Except the properties field, where they're merged instead, with baseTelemetry taking priority
@@ -34469,35 +34561,7 @@ module.exports = HttpRequestParser;
 /***/ }),
 /* 524 */,
 /* 525 */,
-/* 526 */
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var osName = _interopDefault(__webpack_require__(2));
-
-function getUserAgent() {
-  try {
-    return `Node.js/${process.version.substr(1)} (${osName()}; ${process.arch})`;
-  } catch (error) {
-    if (/wmic os get Caption/.test(error.message)) {
-      return "Windows <version undetectable>";
-    }
-
-    throw error;
-  }
-}
-
-exports.getUserAgent = getUserAgent;
-//# sourceMappingURL=index.js.map
-
-
-/***/ }),
+/* 526 */,
 /* 527 */,
 /* 528 */,
 /* 529 */
@@ -34538,7 +34602,7 @@ function hasFirstPage (link) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 function postgresPool1PatchFunction(originalPgPool) {
     var originalConnect = originalPgPool.prototype.connect;
     originalPgPool.prototype.connect = function connect(callback) {
@@ -36320,7 +36384,7 @@ module.exports = parse;
 /* 570 */
 /***/ (function(module) {
 
-module.exports = {"name":"diagnostic-channel","version":"0.2.0","main":"./dist/src/channel.js","types":"./dist/src/channel.d.ts","scripts":{"build":"tsc","lint":"tslint -c tslint.json -p tsconfig.json","clean":"rimraf ./dist","test":"mocha ./dist/tests/**/*.js"},"homepage":"https://github.com/Microsoft/node-diagnostic-channel","bugs":{"url":"https://github.com/Microsoft/node-diagnostic-channel/issues"},"repository":{"type":"git","url":"https://github.com/Microsoft/node-diagnostic-channel.git"},"description":"Provides a context-saving pub/sub channel to connect diagnostic event publishers and subscribers","dependencies":{"semver":"^5.3.0"},"devDependencies":{"@types/mocha":"^2.2.40","@types/node":"^7.0.12","mocha":"^3.2.0","rimraf":"^2.6.1","tslint":"^5.0.0","typescript":"^2.2.1"},"files":["dist/src/**/*.d.ts","dist/src/**/*.js","LICENSE","README.md","package.json"],"license":"MIT"};
+module.exports = {"name":"axios","version":"0.18.1","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test && bundlesize","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://github.com/axios/axios","devDependencies":{"bundlesize":"^0.5.7","coveralls":"^2.11.9","es6-promise":"^4.0.5","grunt":"^1.0.1","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.0.0","grunt-contrib-nodeunit":"^1.0.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^19.0.0","grunt-karma":"^2.0.0","grunt-ts":"^6.0.0-beta.3","grunt-webpack":"^1.0.18","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^1.3.0","karma-chrome-launcher":"^2.0.0","karma-coverage":"^1.0.0","karma-firefox-launcher":"^1.0.0","karma-jasmine":"^1.0.2","karma-jasmine-ajax":"^0.1.13","karma-opera-launcher":"^1.0.0","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^1.1.0","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.7","karma-webpack":"^1.7.0","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","sinon":"^1.17.4","webpack":"^1.13.1","webpack-dev-server":"^1.14.1","url-search-params":"^0.6.1","typescript":"^2.0.3"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"typings":"./index.d.ts","dependencies":{"follow-redirects":"1.5.10","is-buffer":"^2.0.2"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]};
 
 /***/ }),
 /* 571 */,
@@ -36689,7 +36753,7 @@ Signature._oldVersionDetect = function (obj) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var redisPatchFunction = function (originalRedis) {
     var originalSend = originalRedis.RedisClient.prototype.internal_send_command;
     // Note: This is mixing together both context tracking and dependency tracking
@@ -36721,7 +36785,7 @@ var redisPatchFunction = function (originalRedis) {
     return originalRedis;
 };
 exports.redis = {
-    versionSpecifier: ">= 2.0.0 < 3.0.0",
+    versionSpecifier: ">= 2.0.0 < 4.0.0",
     patch: redisPatchFunction,
 };
 function enable() {
@@ -37232,6 +37296,7 @@ module.exports = {
 var https = __webpack_require__(211);
 var AutoCollectHttpDependencies = __webpack_require__(61);
 var Logging = __webpack_require__(986);
+var Util = __webpack_require__(933);
 var QuickPulseConfig = {
     method: "POST",
     time: "x-ms-qps-transmission-time",
@@ -37265,6 +37330,13 @@ var QuickPulseSender = (function () {
                 _b['Content-Length'] = Buffer.byteLength(payload),
                 _b),
             _a);
+        // HTTPS only
+        if (this._config.httpsAgent) {
+            options.agent = this._config.httpsAgent;
+        }
+        else {
+            options.agent = Util.tlsRestrictedAgent;
+        }
         var req = https.request(options, function (res) {
             var shouldPOSTData = res.headers[QuickPulseConfig.subscribed] === "true";
             _this._consecutiveErrors = 0;
@@ -37302,121 +37374,7 @@ module.exports = QuickPulseSender;
 /* 592 */,
 /* 593 */,
 /* 594 */,
-/* 595 */
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for details.
-Object.defineProperty(exports, "__esModule", { value: true });
-var patchRequire_1 = __webpack_require__(796);
-var patchRequire_2 = __webpack_require__(796);
-exports.makePatchingRequire = patchRequire_2.makePatchingRequire;
-var trueFilter = function (publishing) { return true; };
-var ContextPreservingEventEmitter = (function () {
-    function ContextPreservingEventEmitter() {
-        this.version = __webpack_require__(570).version; // Allow for future versions to replace things?
-        this.subscribers = {};
-        this.contextPreservationFunction = function (cb) { return cb; };
-        this.knownPatches = {};
-        this.currentlyPublishing = false;
-    }
-    ContextPreservingEventEmitter.prototype.shouldPublish = function (name) {
-        var listeners = this.subscribers[name];
-        if (listeners) {
-            return listeners.some(function (_a) {
-                var filter = _a.filter;
-                return !filter || filter(false);
-            });
-        }
-        return false;
-    };
-    ContextPreservingEventEmitter.prototype.publish = function (name, event) {
-        if (this.currentlyPublishing) {
-            return; // Avoid reentrancy
-        }
-        var listeners = this.subscribers[name];
-        // Note: Listeners called synchronously to preserve context
-        if (listeners) {
-            var standardEvent_1 = {
-                timestamp: Date.now(),
-                data: event,
-            };
-            this.currentlyPublishing = true;
-            listeners.forEach(function (_a) {
-                var listener = _a.listener, filter = _a.filter;
-                try {
-                    if (filter && filter(true)) {
-                        listener(standardEvent_1);
-                    }
-                }
-                catch (e) {
-                    // Subscriber threw an error
-                }
-            });
-            this.currentlyPublishing = false;
-        }
-    };
-    ContextPreservingEventEmitter.prototype.subscribe = function (name, listener, filter) {
-        if (filter === void 0) { filter = trueFilter; }
-        if (!this.subscribers[name]) {
-            this.subscribers[name] = [];
-        }
-        this.subscribers[name].push({ listener: listener, filter: filter });
-    };
-    ContextPreservingEventEmitter.prototype.unsubscribe = function (name, listener, filter) {
-        if (filter === void 0) { filter = trueFilter; }
-        var listeners = this.subscribers[name];
-        if (listeners) {
-            for (var index = 0; index < listeners.length; ++index) {
-                if (listeners[index].listener === listener && listeners[index].filter === filter) {
-                    listeners.splice(index, 1);
-                    return true;
-                }
-            }
-        }
-        return false;
-    };
-    // Used for tests
-    ContextPreservingEventEmitter.prototype.reset = function () {
-        var _this = this;
-        this.subscribers = {};
-        this.contextPreservationFunction = function (cb) { return cb; };
-        // Modify the knownPatches object rather than replace, since a reference will be used in the require patcher
-        Object.getOwnPropertyNames(this.knownPatches).forEach(function (prop) { return delete _this.knownPatches[prop]; });
-    };
-    ContextPreservingEventEmitter.prototype.bindToContext = function (cb) {
-        return this.contextPreservationFunction(cb);
-    };
-    ContextPreservingEventEmitter.prototype.addContextPreservation = function (preserver) {
-        var previousPreservationStack = this.contextPreservationFunction;
-        this.contextPreservationFunction = (function (cb) { return preserver(previousPreservationStack(cb)); });
-    };
-    ContextPreservingEventEmitter.prototype.registerMonkeyPatch = function (packageName, patcher) {
-        if (!this.knownPatches[packageName]) {
-            this.knownPatches[packageName] = [];
-        }
-        this.knownPatches[packageName].push(patcher);
-    };
-    ContextPreservingEventEmitter.prototype.getPatchesObject = function () {
-        return this.knownPatches;
-    };
-    return ContextPreservingEventEmitter;
-}());
-if (!global.diagnosticsSource) {
-    global.diagnosticsSource = new ContextPreservingEventEmitter();
-    // TODO: should this only patch require after at least one monkey patch is registered?
-    /* tslint:disable-next-line:no-var-requires */
-    var moduleModule = __webpack_require__(282);
-    // Note: We pass in the object now before any patches are registered, but the object is passed by reference
-    // so any updates made to the object will be visible in the patcher.
-    moduleModule.prototype.require = patchRequire_1.makePatchingRequire(global.diagnosticsSource.getPatchesObject());
-}
-exports.channel = global.diagnosticsSource;
-//# sourceMappingURL=channel.js.map
-
-/***/ }),
+/* 595 */,
 /* 596 */,
 /* 597 */,
 /* 598 */,
@@ -37780,7 +37738,7 @@ var CorrelationIdManager = (function () {
     };
     CorrelationIdManager.TAG = "CorrelationIdManager";
     CorrelationIdManager.correlationIdPrefix = "cid-v1:";
-    CorrelationIdManager.w3cEnabled = false;
+    CorrelationIdManager.w3cEnabled = true;
     // To avoid extraneous HTTP requests, we maintain a queue of callbacks waiting on a particular appId lookup,
     // as well as a cache of completed lookups so future requests can be resolved immediately.
     CorrelationIdManager.pendingLookups = {};
@@ -39600,7 +39558,7 @@ module.exports = {
 module.exports = parseOptions;
 
 const { Deprecation } = __webpack_require__(692);
-const { getUserAgent } = __webpack_require__(526);
+const { getUserAgent } = __webpack_require__(796);
 const once = __webpack_require__(969);
 
 const pkg = __webpack_require__(606);
@@ -39869,7 +39827,7 @@ function RequestSigner(request, credentials) {
   if (typeof request === 'string') request = url.parse(request)
 
   var headers = request.headers = (request.headers || {}),
-      hostParts = this.matchHost(request.hostname || request.host || headers.Host || headers.host)
+      hostParts = (!this.service || !this.region) && this.matchHost(request.hostname || request.host || headers.Host || headers.host)
 
   this.request = request
   this.credentials = credentials || this.defaultCredentials()
@@ -39906,6 +39864,19 @@ RequestSigner.prototype.matchHost = function(host) {
   if (hostParts[1] === 'es')
     hostParts = hostParts.reverse()
 
+  if (hostParts[1] == 's3') {
+    hostParts[0] = 's3'
+    hostParts[1] = 'us-east-1'
+  } else {
+    for (var i = 0; i < 2; i++) {
+      if (/^s3-/.test(hostParts[i])) {
+        hostParts[1] = hostParts[i].slice(3)
+        hostParts[0] = 's3'
+        break
+      }
+    }
+  }
+
   return hostParts
 }
 
@@ -39919,10 +39890,9 @@ RequestSigner.prototype.isSingleRegion = function() {
 }
 
 RequestSigner.prototype.createHost = function() {
-  var region = this.isSingleRegion() ? '' :
-        (this.service === 's3' && this.region !== 'us-east-1' ? '-' : '.') + this.region,
-      service = this.service === 'ses' ? 'email' : this.service
-  return service + region + '.amazonaws.com'
+  var region = this.isSingleRegion() ? '' : '.' + this.region,
+      subdomain = this.service === 'ses' ? 'email' : this.service
+  return subdomain + region + '.amazonaws.com'
 }
 
 RequestSigner.prototype.prepareRequest = function() {
@@ -40278,6 +40248,24 @@ exports.TelemetryTypeStringToQuickPulseDocumentType = {
     AvailabilityData: exports.QuickPulseDocumentType.Availability,
     PageViewData: exports.QuickPulseDocumentType.PageView
 };
+// OpenTelemetry Span Attributes
+exports.SpanAttribute = {
+    // HTTP
+    HttpHost: "http.host",
+    HttpMethod: "http.method",
+    HttpPort: "http.port",
+    HttpStatusCode: "http.status_code",
+    HttpUrl: "http.url",
+    HttpUserAgent: "http.user_agent",
+    // GRPC
+    GrpcMethod: "grpc.method",
+    GrpcService: "rpc.service",
+};
+exports.DependencyTypeName = {
+    Grpc: "GRPC",
+    Http: "HTTP",
+    InProc: "InProc",
+};
 var _a;
 //# sourceMappingURL=Constants.js.map
 
@@ -40418,9 +40406,62 @@ function getNextPage (octokit, link, headers) {
 /***/ }),
 /* 667 */,
 /* 668 */
-/***/ (function(module) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
-module.exports = {"name":"axios","version":"0.18.1","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test && bundlesize","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://github.com/axios/axios","devDependencies":{"bundlesize":"^0.5.7","coveralls":"^2.11.9","es6-promise":"^4.0.5","grunt":"^1.0.1","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.0.0","grunt-contrib-nodeunit":"^1.0.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^19.0.0","grunt-karma":"^2.0.0","grunt-ts":"^6.0.0-beta.3","grunt-webpack":"^1.0.18","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^1.3.0","karma-chrome-launcher":"^2.0.0","karma-coverage":"^1.0.0","karma-firefox-launcher":"^1.0.0","karma-jasmine":"^1.0.2","karma-jasmine-ajax":"^0.1.13","karma-opera-launcher":"^1.0.0","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^1.1.0","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.7","karma-webpack":"^1.7.0","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","sinon":"^1.17.4","webpack":"^1.13.1","webpack-dev-server":"^1.14.1","url-search-params":"^0.6.1","typescript":"^2.0.3"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"typings":"./index.d.ts","dependencies":{"follow-redirects":"1.5.10","is-buffer":"^2.0.2"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]};
+"use strict";
+
+
+var utils = __webpack_require__(781);
+var bind = __webpack_require__(553);
+var Axios = __webpack_require__(321);
+var defaults = __webpack_require__(756);
+
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+
+  // Copy context to instance
+  utils.extend(instance, context);
+
+  return instance;
+}
+
+// Create the default instance to be exported
+var axios = createInstance(defaults);
+
+// Expose Axios class to allow class inheritance
+axios.Axios = Axios;
+
+// Factory for creating new instances
+axios.create = function create(instanceConfig) {
+  return createInstance(utils.merge(defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = __webpack_require__(718);
+axios.CancelToken = __webpack_require__(734);
+axios.isCancel = __webpack_require__(699);
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = __webpack_require__(183);
+
+module.exports = axios;
+
+// Allow use of default import syntax in TypeScript
+module.exports.default = axios;
+
 
 /***/ }),
 /* 669 */
@@ -43067,7 +43108,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 // register a "filter" with each logger that publishes the data about to be logged
 var winston2PatchFunction = function (originalWinston) {
     var originalLog = originalWinston.Logger.prototype.log;
@@ -43125,6 +43166,7 @@ var winston3PatchFunction = function (originalWinston) {
             // tslint:disable-next-line:prefer-const - try to obtain level from Symbol(level) afterwards
             var message = info.message, level = info.level, meta = info.meta, splat = __rest(info, ["message", "level", "meta"]);
             level = typeof Symbol["for"] === "function" ? info[Symbol["for"]("level")] : level; // Symbol(level) is uncolorized, so prefer getting it from here
+            message = info instanceof Error ? info : message; // Winston places Errors at info, strings at info.message
             var levelKind = mapLevelToKind(this.winston, level);
             meta = meta || {}; // Winston _somtimes_ puts metadata inside meta, so start from here
             for (var key in splat) {
@@ -45788,7 +45830,12 @@ module.exports = CancelToken;
 
 /***/ }),
 /* 735 */,
-/* 736 */,
+/* 736 */
+/***/ (function(module) {
+
+module.exports = {"name":"diagnostic-channel","version":"0.3.1","main":"./dist/src/channel.js","types":"./dist/src/channel.d.ts","scripts":{"build":"tsc","lint":"tslint -c tslint.json -p tsconfig.json","clean":"rimraf ./dist","test":"mocha ./dist/tests/**/*.js"},"homepage":"https://github.com/Microsoft/node-diagnostic-channel","bugs":{"url":"https://github.com/Microsoft/node-diagnostic-channel/issues"},"repository":{"type":"git","url":"https://github.com/Microsoft/node-diagnostic-channel.git"},"description":"Provides a context-saving pub/sub channel to connect diagnostic event publishers and subscribers","dependencies":{"semver":"^5.3.0"},"devDependencies":{"@types/mocha":"^2.2.40","@types/node":"^7.0.12","mocha":"^3.2.0","rimraf":"^2.6.1","tslint":"^5.0.0","typescript":"^2.2.1"},"files":["dist/src/**/*.d.ts","dist/src/**/*.js","LICENSE","README.md","package.json"],"license":"MIT"};
+
+/***/ }),
 /* 737 */,
 /* 738 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -48570,62 +48617,95 @@ module.exports = {
 /***/ }),
 /* 790 */,
 /* 791 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
 
-
-var utils = __webpack_require__(781);
-var bind = __webpack_require__(553);
-var Axios = __webpack_require__(321);
-var defaults = __webpack_require__(756);
-
-/**
- * Create an instance of Axios
- *
- * @param {Object} defaultConfig The default config for the instance
- * @return {Axios} A new instance of Axios
- */
-function createInstance(defaultConfig) {
-  var context = new Axios(defaultConfig);
-  var instance = bind(Axios.prototype.request, context);
-
-  // Copy axios.prototype to instance
-  utils.extend(instance, Axios.prototype, context);
-
-  // Copy context to instance
-  utils.extend(instance, context);
-
-  return instance;
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+var AsyncHooksScopeManager_1 = __webpack_require__(882);
+var Constants = __webpack_require__(661);
+function filterSpanAttributes(attributes) {
+    var newAttributes = __assign({}, attributes);
+    Object.keys(Constants.SpanAttribute).forEach(function (key) {
+        delete newAttributes[key];
+    });
+    return newAttributes;
 }
-
-// Create the default instance to be exported
-var axios = createInstance(defaults);
-
-// Expose Axios class to allow class inheritance
-axios.Axios = Axios;
-
-// Factory for creating new instances
-axios.create = function create(instanceConfig) {
-  return createInstance(utils.merge(defaults, instanceConfig));
-};
-
-// Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(718);
-axios.CancelToken = __webpack_require__(734);
-axios.isCancel = __webpack_require__(699);
-
-// Expose all/spread
-axios.all = function all(promises) {
-  return Promise.all(promises);
-};
-axios.spread = __webpack_require__(183);
-
-module.exports = axios;
-
-// Allow use of default import syntax in TypeScript
-module.exports.default = axios;
-
+function spanToTelemetryContract(span) {
+    var id = "|" + span.context().traceId + "." + span.context().spanId + ".";
+    var duration = Math.round(span._duration[0] * 1e3 + span._duration[1] / 1e6);
+    var isHttp = ((span.attributes.component || "").toUpperCase() === Constants.DependencyTypeName.Http) || (!!span.attributes[Constants.SpanAttribute.HttpUrl]);
+    var isGrpc = (span.attributes.component || "").toLowerCase() === Constants.DependencyTypeName.Grpc;
+    if (isHttp) {
+        // Read http span attributes
+        var method = span.attributes[Constants.SpanAttribute.HttpMethod] || "GET";
+        var url = new URL(span.attributes[Constants.SpanAttribute.HttpUrl]);
+        var host = span.attributes[Constants.SpanAttribute.HttpHost] || url.host;
+        var port = span.attributes[Constants.SpanAttribute.HttpPort] || url.port || null;
+        var pathname = url.pathname || "/";
+        // Translate to AI Dependency format
+        var name_1 = method + " " + pathname;
+        var dependencyTypeName = Constants.DependencyTypeName.Http;
+        var target = port ? host + ":" + port : host;
+        var data = url.toString();
+        var resultCode = span.attributes[Constants.SpanAttribute.HttpStatusCode] || span.status.code || 0;
+        var success = resultCode < 400; // Status.OK
+        return {
+            id: id, name: name_1, dependencyTypeName: dependencyTypeName,
+            target: target, data: data,
+            success: success, duration: duration,
+            url: data,
+            resultCode: String(resultCode),
+            properties: filterSpanAttributes(span.attributes)
+        };
+    }
+    else if (isGrpc) {
+        var method = span.attributes[Constants.SpanAttribute.GrpcMethod] || "rpc";
+        var service = span.attributes[Constants.SpanAttribute.GrpcService];
+        var name_2 = service ? method + " " + service : span.name;
+        return {
+            id: id, duration: duration, name: name_2,
+            target: service,
+            data: service || name_2,
+            url: service || name_2,
+            dependencyTypeName: Constants.DependencyTypeName.Grpc,
+            resultCode: String(span.status.code || 0),
+            success: span.status.code === 0,
+            properties: filterSpanAttributes(span.attributes),
+        };
+    }
+    else {
+        var name_3 = span.name;
+        var links = span.links && span.links.map(function (link) {
+            return {
+                operation_Id: link.spanContext.traceId,
+                id: link.spanContext.spanId
+            };
+        });
+        return {
+            id: id, duration: duration, name: name_3,
+            target: span.attributes["peer.address"],
+            data: span.attributes["peer.address"] || name_3,
+            url: span.attributes["peer.address"] || name_3,
+            dependencyTypeName: span.kind === AsyncHooksScopeManager_1.SpanKind.INTERNAL ? Constants.DependencyTypeName.InProc : (span.attributes.component || span.name),
+            resultCode: String(span.status.code || 0),
+            success: span.status.code === 0,
+            properties: __assign({}, filterSpanAttributes(span.attributes), { "_MS.links": links || undefined }),
+        };
+    }
+}
+exports.spanToTelemetryContract = spanToTelemetryContract;
+//# sourceMappingURL=SpanParser.js.map
 
 /***/ }),
 /* 792 */
@@ -48814,63 +48894,28 @@ module.exports = {findMade, findMadeSync}
 
 "use strict";
 
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for details.
-Object.defineProperty(exports, "__esModule", { value: true });
-var path = __webpack_require__(622);
-var semver = __webpack_require__(280);
-/* tslint:disable-next-line:no-var-requires */
-var moduleModule = __webpack_require__(282);
-var nativeModules = Object.keys(process.binding("natives"));
-var originalRequire = moduleModule.prototype.require;
-function makePatchingRequire(knownPatches) {
-    var patchedModules = {};
-    return function patchedRequire(moduleId) {
-        var originalModule = originalRequire.apply(this, arguments);
-        if (knownPatches[moduleId]) {
-            // Fetch the specific path of the module
-            var modulePath = moduleModule._resolveFilename(moduleId, this);
-            if (patchedModules.hasOwnProperty(modulePath)) {
-                // This module has already been patched, no need to reapply
-                return patchedModules[modulePath];
-            }
-            var moduleVersion = void 0;
-            if (nativeModules.indexOf(moduleId) < 0) {
-                try {
-                    moduleVersion = originalRequire.call(this, path.join(moduleId, "package.json")).version;
-                }
-                catch (e) {
-                    // This should only happen if moduleId is actually a path rather than a module
-                    // This is not a supported scenario
-                    return originalModule;
-                }
-            }
-            else {
-                // This module is implemented natively so we cannot find a package.json
-                // Instead, take the version of node itself
-                moduleVersion = process.version.substring(1);
-            }
-            var prereleaseTagIndex = moduleVersion.indexOf("-");
-            if (prereleaseTagIndex >= 0) {
-                // We ignore prerelease tags to avoid impossible to fix gaps in support
-                // e.g. supporting console in >= 4.0.0 would otherwise not include
-                // 8.0.0-pre
-                moduleVersion = moduleVersion.substring(0, prereleaseTagIndex);
-            }
-            var modifiedModule = originalModule;
-            for (var _i = 0, _a = knownPatches[moduleId]; _i < _a.length; _i++) {
-                var modulePatcher = _a[_i];
-                if (semver.satisfies(moduleVersion, modulePatcher.versionSpecifier)) {
-                    modifiedModule = modulePatcher.patch(modifiedModule, modulePath);
-                }
-            }
-            return patchedModules[modulePath] = modifiedModule;
-        }
-        return originalModule;
-    };
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var osName = _interopDefault(__webpack_require__(2));
+
+function getUserAgent() {
+  try {
+    return `Node.js/${process.version.substr(1)} (${osName()}; ${process.arch})`;
+  } catch (error) {
+    if (/wmic os get Caption/.test(error.message)) {
+      return "Windows <version undetectable>";
+    }
+
+    throw error;
+  }
 }
-exports.makePatchingRequire = makePatchingRequire;
-//# sourceMappingURL=patchRequire.js.map
+
+exports.getUserAgent = getUserAgent;
+//# sourceMappingURL=index.js.map
+
 
 /***/ }),
 /* 797 */,
@@ -48914,6 +48959,7 @@ class CachingTask {
         const telemProperties = {};
         const telemMeasures = {};
         let nugetHelper;
+        let eventName = telemetry_1.EventPrefix;
         try {
             this.cloudTask.log.debug('Reading all inputs...');
             let vsckService = 'https://prod.richnav.vsengsaas.visualstudio.com/';
@@ -48980,9 +49026,10 @@ class CachingTask {
             const vsckAuthSwitch = this.getAuthString();
             const createSnapshotTool = await utilities_1.spawnAndGetOutput('dotnet', [clientToolDll, 'create-snapshot', indexedUri].concat(refSetting).concat(urlSetting).concat(['-f', 'Json']).concat(sourceControlInfo.repoPatOption).concat(vsckAuthSwitch), this.cloudTask);
             if (createSnapshotTool.exitCode !== 0) {
-                this.cloudTask.log.error('dotnet create-snapshot output: ' + createSnapshotTool.stdout);
-                this.cloudTask.log.error('dotnet create-snapshot error: ' + createSnapshotTool.stderr);
-                throw new Error('Failed to create a workspace snapshot ID for the pull request.');
+                this.cloudTask.log.warning('dotnet create-snapshot error: ' + createSnapshotTool.stderr);
+                this.cloudTask.log.warning('Failed to create a workspace snapshot ID for the pull request. This most likely means your repository has not been approved by Rich Navigation. Please go to https://aka.ms/richnavigation for more info.');
+                telemProperties['vsclk.intellinav.unapprovedUri'] = sourceControlInfo.repoUri;
+                return;
             }
             const workspaceInfo = JSON.parse(createSnapshotTool.stdout.trim());
             telemProperties['vsclk.intellinav.workspaceid'] = workspaceInfo.workspaceId;
@@ -49078,10 +49125,14 @@ class CachingTask {
                     throw new Error('Index file exceeds upload file size limit.');
                 }
                 const uploadCommand = 'upload-index-file';
-                let uploadExitCode = await this.cloudTask.tool.spawn('dotnet', `${clientToolDll} ${uploadCommand} ${lsifOutputFile} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId} ${urlSetting.join(' ')} ${vsckAuthSwitch.join(' ')}`, { ignoreReturnCode: true });
+                let uploadArguments = `${clientToolDll} ${uploadCommand} ${lsifOutputFile} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId} ${urlSetting.join(' ')} ${vsckAuthSwitch.join(' ')}`;
+                if (lsifResults[lsifResults.length - 1].outputFile === lsifOutputFile) {
+                    uploadArguments += ' --isComplete';
+                }
+                let uploadExitCode = await this.cloudTask.tool.spawn('dotnet', uploadArguments, { ignoreReturnCode: true });
                 if (uploadExitCode !== 0) {
                     telemetry_1.logEvent(telemetry_1.EventPrefix + 'uploadFailed/once', telemProperties, telemMeasures);
-                    uploadExitCode = await this.cloudTask.tool.spawn('dotnet', `${clientToolDll} ${uploadCommand} ${lsifOutputFile} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId} ${urlSetting.join(' ')} ${vsckAuthSwitch.join(' ')}`, { ignoreReturnCode: true });
+                    uploadExitCode = await this.cloudTask.tool.spawn('dotnet', uploadArguments, { ignoreReturnCode: true });
                     if (uploadExitCode !== 0) {
                         telemetry_1.logEvent(telemetry_1.EventPrefix + 'uploadFailed/twice', telemProperties, telemMeasures);
                         throw new Error('Failed to upload index file after 1 retry.');
@@ -49099,16 +49150,17 @@ class CachingTask {
             }
             telemMeasures['vsclk.intellinav.duration'] = new Date().getTime() - startTime;
             telemMeasures['vsclk.intellinav.succeeded'] = 1;
-            telemetry_1.logEvent(telemetry_1.EventPrefix + 'job/stop', telemProperties, telemMeasures);
+            eventName += 'job/stop';
         }
         catch (ex) {
             telemMeasures['vsclk.intellinav.duration'] = new Date().getTime() - startTime;
             telemMeasures['vsclk.intellinav.succeeded'] = 0;
-            telemProperties['vsclk.intellinav.failureMessage'] = ex;
-            telemetry_1.logError(telemetry_1.EventPrefix + 'error', telemProperties, telemMeasures);
+            telemProperties['vsclk.intellinav.failureMessage'] = ex.message;
+            eventName += 'error';
             this.cloudTask.result.setFailed(ex.toString());
         }
         finally {
+            telemetry_1.logEvent(eventName, telemProperties, telemMeasures);
             if (nugetHelper) {
                 await nugetHelper.deleteVsckDirectory();
             }
@@ -49209,7 +49261,121 @@ __export(__webpack_require__(355));
 
 /***/ }),
 /* 802 */,
-/* 803 */,
+/* 803 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+Object.defineProperty(exports, "__esModule", { value: true });
+var patchRequire_1 = __webpack_require__(836);
+var patchRequire_2 = __webpack_require__(836);
+exports.makePatchingRequire = patchRequire_2.makePatchingRequire;
+var trueFilter = function (publishing) { return true; };
+var ContextPreservingEventEmitter = /** @class */ (function () {
+    function ContextPreservingEventEmitter() {
+        this.version = __webpack_require__(736).version; // Allow for future versions to replace things?
+        this.subscribers = {};
+        this.contextPreservationFunction = function (cb) { return cb; };
+        this.knownPatches = {};
+        this.currentlyPublishing = false;
+    }
+    ContextPreservingEventEmitter.prototype.shouldPublish = function (name) {
+        var listeners = this.subscribers[name];
+        if (listeners) {
+            return listeners.some(function (_a) {
+                var filter = _a.filter;
+                return !filter || filter(false);
+            });
+        }
+        return false;
+    };
+    ContextPreservingEventEmitter.prototype.publish = function (name, event) {
+        if (this.currentlyPublishing) {
+            return; // Avoid reentrancy
+        }
+        var listeners = this.subscribers[name];
+        // Note: Listeners called synchronously to preserve context
+        if (listeners) {
+            var standardEvent_1 = {
+                timestamp: Date.now(),
+                data: event,
+            };
+            this.currentlyPublishing = true;
+            listeners.forEach(function (_a) {
+                var listener = _a.listener, filter = _a.filter;
+                try {
+                    if (filter && filter(true)) {
+                        listener(standardEvent_1);
+                    }
+                }
+                catch (e) {
+                    // Subscriber threw an error
+                }
+            });
+            this.currentlyPublishing = false;
+        }
+    };
+    ContextPreservingEventEmitter.prototype.subscribe = function (name, listener, filter) {
+        if (filter === void 0) { filter = trueFilter; }
+        if (!this.subscribers[name]) {
+            this.subscribers[name] = [];
+        }
+        this.subscribers[name].push({ listener: listener, filter: filter });
+    };
+    ContextPreservingEventEmitter.prototype.unsubscribe = function (name, listener, filter) {
+        if (filter === void 0) { filter = trueFilter; }
+        var listeners = this.subscribers[name];
+        if (listeners) {
+            for (var index = 0; index < listeners.length; ++index) {
+                if (listeners[index].listener === listener && listeners[index].filter === filter) {
+                    listeners.splice(index, 1);
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    // Used for tests
+    ContextPreservingEventEmitter.prototype.reset = function () {
+        var _this = this;
+        this.subscribers = {};
+        this.contextPreservationFunction = function (cb) { return cb; };
+        // Modify the knownPatches object rather than replace, since a reference will be used in the require patcher
+        Object.getOwnPropertyNames(this.knownPatches).forEach(function (prop) { return delete _this.knownPatches[prop]; });
+    };
+    ContextPreservingEventEmitter.prototype.bindToContext = function (cb) {
+        return this.contextPreservationFunction(cb);
+    };
+    ContextPreservingEventEmitter.prototype.addContextPreservation = function (preserver) {
+        var previousPreservationStack = this.contextPreservationFunction;
+        this.contextPreservationFunction = (function (cb) { return preserver(previousPreservationStack(cb)); });
+    };
+    ContextPreservingEventEmitter.prototype.registerMonkeyPatch = function (packageName, patcher) {
+        if (!this.knownPatches[packageName]) {
+            this.knownPatches[packageName] = [];
+        }
+        this.knownPatches[packageName].push(patcher);
+    };
+    ContextPreservingEventEmitter.prototype.getPatchesObject = function () {
+        return this.knownPatches;
+    };
+    return ContextPreservingEventEmitter;
+}());
+if (!global.diagnosticsSource) {
+    global.diagnosticsSource = new ContextPreservingEventEmitter();
+    // TODO: should this only patch require after at least one monkey patch is registered?
+    /* tslint:disable-next-line:no-var-requires */
+    var moduleModule = __webpack_require__(282);
+    // Note: We pass in the object now before any patches are registered, but the object is passed by reference
+    // so any updates made to the object will be visible in the patcher.
+    moduleModule.prototype.require = patchRequire_1.makePatchingRequire(global.diagnosticsSource.getPatchesObject());
+}
+exports.channel = global.diagnosticsSource;
+//# sourceMappingURL=channel.js.map
+
+/***/ }),
 /* 804 */,
 /* 805 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
@@ -50480,7 +50646,7 @@ module.exports = function equal(a, b) {
 "use strict";
 
 /**
- * Base class for helpers that read data from HTTP requst/response objects and convert them
+ * Base class for helpers that read data from HTTP request/response objects and convert them
  * into the telemetry contract objects.
  */
 var RequestParser = (function () {
@@ -50530,7 +50696,70 @@ module.exports = RequestParser;
 module.exports = require("url");
 
 /***/ }),
-/* 836 */,
+/* 836 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+Object.defineProperty(exports, "__esModule", { value: true });
+var path = __webpack_require__(622);
+var semver = __webpack_require__(280);
+/* tslint:disable-next-line:no-var-requires */
+var moduleModule = __webpack_require__(282);
+var nativeModules = Object.keys(process.binding("natives"));
+var originalRequire = moduleModule.prototype.require;
+function makePatchingRequire(knownPatches) {
+    var patchedModules = {};
+    return function patchedRequire(moduleId) {
+        var originalModule = originalRequire.apply(this, arguments);
+        if (knownPatches[moduleId]) {
+            // Fetch the specific path of the module
+            var modulePath = moduleModule._resolveFilename(moduleId, this);
+            if (patchedModules.hasOwnProperty(modulePath)) {
+                // This module has already been patched, no need to reapply
+                return patchedModules[modulePath];
+            }
+            var moduleVersion = void 0;
+            if (nativeModules.indexOf(moduleId) < 0) {
+                try {
+                    moduleVersion = originalRequire.call(this, path.join(moduleId, "package.json")).version;
+                }
+                catch (e) {
+                    // This should only happen if moduleId is actually a path rather than a module
+                    // This is not a supported scenario
+                    return originalModule;
+                }
+            }
+            else {
+                // This module is implemented natively so we cannot find a package.json
+                // Instead, take the version of node itself
+                moduleVersion = process.version.substring(1);
+            }
+            var prereleaseTagIndex = moduleVersion.indexOf("-");
+            if (prereleaseTagIndex >= 0) {
+                // We ignore prerelease tags to avoid impossible to fix gaps in support
+                // e.g. supporting console in >= 4.0.0 would otherwise not include
+                // 8.0.0-pre
+                moduleVersion = moduleVersion.substring(0, prereleaseTagIndex);
+            }
+            var modifiedModule = originalModule;
+            for (var _i = 0, _a = knownPatches[moduleId]; _i < _a.length; _i++) {
+                var modulePatcher = _a[_i];
+                if (semver.satisfies(moduleVersion, modulePatcher.versionSpecifier)) {
+                    modifiedModule = modulePatcher.patch(modifiedModule, modulePath);
+                }
+            }
+            return patchedModules[modulePath] = modifiedModule;
+        }
+        return originalModule;
+    };
+}
+exports.makePatchingRequire = makePatchingRequire;
+//# sourceMappingURL=patchRequire.js.map
+
+/***/ }),
 /* 837 */,
 /* 838 */,
 /* 839 */,
@@ -68797,7 +69026,7 @@ module.exports = require("tty");
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var bunyanPatchFunction = function (originalBunyan) {
     var originalEmit = originalBunyan.prototype._emit;
     originalBunyan.prototype._emit = function (rec, noemit) {
@@ -69277,7 +69506,96 @@ function regex(str) {
 
 
 /***/ }),
-/* 882 */,
+/* 882 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var CorrelationContextManager_1 = __webpack_require__(509);
+var events_1 = __webpack_require__(614);
+/**
+ * Type of span. Can be used to specify additional relationships between spans
+ * in addition to a parent/child relationship.
+ */
+var SpanKind;
+(function (SpanKind) {
+    /** Default value. Indicates that the span is used internally. */
+    SpanKind[SpanKind["INTERNAL"] = 0] = "INTERNAL";
+    /**
+     * Indicates that the span covers server-side handling of an RPC or other
+     * remote request.
+     */
+    SpanKind[SpanKind["SERVER"] = 1] = "SERVER";
+    /**
+     * Indicates that the span covers the client-side wrapper around an RPC or
+     * other remote request.
+     */
+    SpanKind[SpanKind["CLIENT"] = 2] = "CLIENT";
+    /**
+     * Indicates that the span describes producer sending a message to a
+     * broker. Unlike client and server, there is no direct critical path latency
+     * relationship between producer and consumer spans.
+     */
+    SpanKind[SpanKind["PRODUCER"] = 3] = "PRODUCER";
+    /**
+     * Indicates that the span describes consumer receiving a message from a
+     * broker. Unlike client and server, there is no direct critical path latency
+     * relationship between producer and consumer spans.
+     */
+    SpanKind[SpanKind["CONSUMER"] = 4] = "CONSUMER";
+})(SpanKind = exports.SpanKind || (exports.SpanKind = {}));
+var OpenTelemetryScopeManagerWrapper = (function () {
+    function OpenTelemetryScopeManagerWrapper() {
+    }
+    OpenTelemetryScopeManagerWrapper.prototype.active = function () {
+        var context = CorrelationContextManager_1.CorrelationContextManager.getCurrentContext();
+        return __assign({}, context, { getValue: function () { return context; }, setValue: function () { } });
+    };
+    OpenTelemetryScopeManagerWrapper.prototype.with = function (span, fn) {
+        var parentSpanId = span.parentSpanId;
+        var name = span.name;
+        var correlationContext = OpenTelemetryScopeManagerWrapper._spanToContext(span, parentSpanId, name);
+        return CorrelationContextManager_1.CorrelationContextManager.runWithContext(correlationContext, fn)();
+    };
+    OpenTelemetryScopeManagerWrapper.prototype.bind = function (target) {
+        if (typeof target === "function") {
+            return CorrelationContextManager_1.CorrelationContextManager.wrapCallback(target);
+        }
+        else if (target instanceof events_1.EventEmitter) {
+            CorrelationContextManager_1.CorrelationContextManager.wrapEmitter(target);
+        }
+        return target;
+    };
+    OpenTelemetryScopeManagerWrapper.prototype.enable = function () {
+        CorrelationContextManager_1.CorrelationContextManager.enable();
+        return this;
+    };
+    OpenTelemetryScopeManagerWrapper.prototype.disable = function () {
+        CorrelationContextManager_1.CorrelationContextManager.disable();
+        return this;
+    };
+    OpenTelemetryScopeManagerWrapper._spanToContext = function (span, parentSpanId, name) {
+        var _parentId = parentSpanId ? "|" + span.context().traceId + "." + parentSpanId + "." : span.context().traceId;
+        var context = __assign({}, span.context(), { traceFlags: span.context().traceFlags.toString() });
+        var correlationContext = CorrelationContextManager_1.CorrelationContextManager.spanToContextObject(context, _parentId, name);
+        return correlationContext;
+    };
+    return OpenTelemetryScopeManagerWrapper;
+}());
+exports.OpenTelemetryScopeManagerWrapper = OpenTelemetryScopeManagerWrapper;
+exports.AsyncScopeManager = new OpenTelemetryScopeManagerWrapper();
+//# sourceMappingURL=AsyncHooksScopeManager.js.map
+
+/***/ }),
 /* 883 */
 /***/ (function(module) {
 
@@ -73827,7 +74145,7 @@ var Config = (function () {
         this.httpsAgent = undefined;
         this.profileQueryEndpoint = csCode.ingestionendpoint || csEnv.ingestionendpoint || process.env[Config.ENV_profileQueryEndpoint] || this.endpointBase;
         this._quickPulseHost = csCode.liveendpoint || csEnv.liveendpoint || process.env[Config.ENV_quickPulseHost] || Constants.DEFAULT_LIVEMETRICS_HOST;
-        // Parse quickPulseHost if it startswith http(s)://
+        // Parse quickPulseHost if it starts with http(s)://
         if (this._quickPulseHost.match(/^https?:\/\//)) {
             this._quickPulseHost = url.parse(this._quickPulseHost).host;
         }
@@ -74452,7 +74770,7 @@ module.exports = function generate_validate(it, $keyword, $ruleType) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Contracts_1 = __webpack_require__(267);
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var clients = [];
 var winstonToAILevelMap = {
     syslog: function (og) {
@@ -75717,7 +76035,7 @@ module.exports = Logging;
 Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-var diagnostic_channel_1 = __webpack_require__(595);
+var diagnostic_channel_1 = __webpack_require__(803);
 var stream_1 = __webpack_require__(413);
 var consolePatchFunction = function (originalConsole) {
     var aiLoggingOutStream = new stream_1.Writable();
