@@ -183,10 +183,10 @@
   dependencies:
     debug "^4.0.0"
 
-"@richnav/rich-code-nav-indexer-core@^0.1.33-alpha":
-  version "0.1.33-alpha"
-  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.33-alpha.tgz#bd9fb21fe0cbefc0f45a935e819fbb58da32d40d"
-  integrity sha1-vZ+yH+DL78D0WpNegZ+7WNoy1A0=
+"@richnav/rich-code-nav-indexer-core@^0.1.36-alpha":
+  version "0.1.36-alpha"
+  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.36-alpha.tgz#85052009201c3ccf9d4bcefd39ad89f6ab2a1d45"
+  integrity sha1-hQUgCSAcPM+dS879Oa2J9qsqHUU=
   dependencies:
     applicationinsights "^1.2.0"
     axios "^0.18.1"
@@ -255,14 +255,14 @@ anymatch@~3.1.1:
     picomatch "^2.0.4"
 
 applicationinsights@^1.2.0:
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-1.7.5.tgz#423d9b58cd20117d724b86811935de9ddab8b852"
-  integrity sha512-sl3rNhVnQOG4ecJNKh7dlAZOc/DLfZTRs1F6PO3nb969AsnVg7C4xWRoybI9+mbtqyPR4NA2JbG4bHJOGP3j+A==
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-1.8.0.tgz#c4c54f7ab420cf97fc07eab2e6e037b5f2158eae"
+  integrity sha512-XgGnuSJrxmfxdqpaJ3XD02Qd1gr7oOpfsijH7y1c9WNag4m7hJq5TUpAYHsJXUOCruaV7H8xNyTrXo82YKlsBQ==
   dependencies:
     cls-hooked "^4.2.2"
     continuation-local-storage "^3.2.1"
-    diagnostic-channel "0.2.0"
-    diagnostic-channel-publishers "^0.3.4"
+    diagnostic-channel "0.3.1"
+    diagnostic-channel-publishers "0.4.0"
 
 applicationinsights@^1.6.0:
   version "1.7.0"
@@ -329,9 +329,9 @@ aws-sign2@~0.7.0:
   integrity sha1-tG6JCTSpWR8tL2+G1+ap8bP+dqg=
 
 aws4@^1.8.0:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
-  integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.10.0.tgz#a17b3a8ea811060e74d47d306122400ad4497ae2"
+  integrity sha512-3YDiu347mtVtjpyV3u5kVqQLP242c06zwDOgpeRnybmXlYYsLbtTrUBUm8i8srONt+FWobl5aibnU1030PeeuA==
 
 axios@^0.18.1:
   version "0.18.1"
@@ -598,20 +598,27 @@ deprecation@^2.0.0, deprecation@^2.3.1:
   resolved "https://registry.npmjs.org/deprecation/-/deprecation-2.3.1.tgz#6368cbdb40abf3373b525ac87e4a260c3a700919"
   integrity sha512-xmHIy4F3scKVwMsQ4WnVaS8bHOx0DmVwRywosKhaILI0ywMDWPtBSku2HNxRvF7jtwDRsoEwYQSfbxj8b7RlJQ==
 
+diagnostic-channel-publishers@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-0.4.0.tgz#254e3bab1dc9021db8aba3efbaefeabf10b84a77"
+  integrity sha512-f6LtD+qukpsjKfckvb0LbYdnCTiiDY3s9ahEH7fInvwq/n6FtoB+HqCB0wR+emZmA/+vwzK0XRe2k1c4gEPmyg==
+
 diagnostic-channel-publishers@^0.3.3:
   version "0.3.3"
   resolved "https://registry.npmjs.org/diagnostic-channel-publishers/-/diagnostic-channel-publishers-0.3.3.tgz#376b7798f4fa90f37eb4f94d2caca611b0e9c330"
   integrity sha512-qIocRYU5TrGUkBlDDxaziAK1+squ8Yf2Ls4HldL3xxb/jzmWO2Enux7CvevNKYmF2kDXZ9HiRqwjPsjk8L+i2Q==
 
-diagnostic-channel-publishers@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-0.3.4.tgz#d862a5156090093e0d12f6e59e8d3b119efa9563"
-  integrity sha512-SZ1zMfFiEabf4Qx0Og9V1gMsRoqz3O+5ENkVcNOfI+SMJ3QhQsdEoKX99r0zvreagXot2parPxmrwwUM/ja8ug==
-
 diagnostic-channel@0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/diagnostic-channel/-/diagnostic-channel-0.2.0.tgz#cc99af9612c23fb1fff13612c72f2cbfaa8d5a17"
   integrity sha1-zJmvlhLCP7H/8TYSxy8sv6qNWhc=
+  dependencies:
+    semver "^5.3.0"
+
+diagnostic-channel@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/diagnostic-channel/-/diagnostic-channel-0.3.1.tgz#7faa143e107f861be3046539eb4908faab3f53fd"
+  integrity sha512-6eb9YRrimz8oTr5+JDzGmSYnXy5V7YnK5y/hd8AUDK1MssHjQKm9LlD6NSrHx4vMDF3+e/spI2hmWTviElgWZA==
   dependencies:
     semver "^5.3.0"
 
@@ -770,9 +777,9 @@ extsprintf@^1.2.0:
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
 fast-deep-equal@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
-  integrity sha512-8UEa58QDLauDNfpbrX55Q9jrGHThw2ZMdOky5Gl1CDtVeJDPVrG4Jxx1N8jw2gkWaff5UUuX1KJd+9zGe2B+ZA==
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
+  integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
 fast-json-stable-stringify@^2.0.0:
   version "2.1.0"
