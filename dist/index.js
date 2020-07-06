@@ -1607,7 +1607,6 @@ module.exports = function generate_propertyNames(it, $keyword, $ruleType) {
   if ($breakOnError) {
     out += ' ' + ($closingBraces) + ' if (' + ($errs) + ' == errors) {';
   }
-  out = it.util.cleanUpCode(out);
   return out;
 }
 
@@ -1831,7 +1830,7 @@ function addKeyword(keyword, definition) {
         metaSchema = {
           anyOf: [
             metaSchema,
-            { '$ref': 'https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/data.json#' }
+            { '$ref': 'https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#' }
           ]
         };
       }
@@ -3962,6 +3961,9 @@ module.exports = function generate__limitItems(it, $keyword, $ruleType) {
   } else {
     $schemaValue = $schema;
   }
+  if (!($isData || typeof $schema == 'number')) {
+    throw new Error($keyword + ' must be number');
+  }
   var $op = $keyword == 'maxItems' ? '>' : '<';
   out += 'if ( ';
   if ($isData) {
@@ -5591,7 +5593,6 @@ module.exports = function generate_allOf(it, $keyword, $ruleType) {
       out += ' ' + ($closingBraces.slice(0, -1)) + ' ';
     }
   }
-  out = it.util.cleanUpCode(out);
   return out;
 }
 
@@ -8643,7 +8644,6 @@ module.exports = function generate_contains(it, $keyword, $ruleType) {
   if (it.opts.allErrors) {
     out += ' } ';
   }
-  out = it.util.cleanUpCode(out);
   return out;
 }
 
@@ -12944,6 +12944,7 @@ module.exports = function generate_dependencies(it, $keyword, $ruleType) {
     $propertyDeps = {},
     $ownProperties = it.opts.ownProperties;
   for ($property in $schema) {
+    if ($property == '__proto__') continue;
     var $sch = $schema[$property];
     var $deps = Array.isArray($sch) ? $propertyDeps : $schemaDeps;
     $deps[$property] = $sch;
@@ -13090,7 +13091,6 @@ module.exports = function generate_dependencies(it, $keyword, $ruleType) {
   if ($breakOnError) {
     out += '   ' + ($closingBraces) + ' if (' + ($errs) + ' == errors) {';
   }
-  out = it.util.cleanUpCode(out);
   return out;
 }
 
@@ -20998,6 +20998,12 @@ module.exports = function generate__limit(it, $keyword, $ruleType) {
     $op = $isMax ? '<' : '>',
     $notOp = $isMax ? '>' : '<',
     $errorKeyword = undefined;
+  if (!($isData || typeof $schema == 'number' || $schema === undefined)) {
+    throw new Error($keyword + ' must be number');
+  }
+  if (!($isDataExcl || $schemaExcl === undefined || typeof $schemaExcl == 'number' || typeof $schemaExcl == 'boolean')) {
+    throw new Error($exclusiveKeyword + ' must be number or boolean');
+  }
   if ($isDataExcl) {
     var $schemaValueExcl = it.util.getData($schemaExcl.$data, $dataLvl, it.dataPathArr),
       $exclusive = 'exclusive' + $lvl,
@@ -21477,9 +21483,9 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
     $dataNxt = $it.dataLevel = it.dataLevel + 1,
     $nextData = 'data' + $dataNxt,
     $dataProperties = 'dataProperties' + $lvl;
-  var $schemaKeys = Object.keys($schema || {}),
+  var $schemaKeys = Object.keys($schema || {}).filter(notProto),
     $pProperties = it.schema.patternProperties || {},
-    $pPropertyKeys = Object.keys($pProperties),
+    $pPropertyKeys = Object.keys($pProperties).filter(notProto),
     $aProperties = it.schema.additionalProperties,
     $someProperties = $schemaKeys.length || $pPropertyKeys.length,
     $noAdditional = $aProperties === false,
@@ -21489,7 +21495,13 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
     $ownProperties = it.opts.ownProperties,
     $currentBaseId = it.baseId;
   var $required = it.schema.required;
-  if ($required && !(it.opts.$data && $required.$data) && $required.length < it.opts.loopRequired) var $requiredHash = it.util.toHash($required);
+  if ($required && !(it.opts.$data && $required.$data) && $required.length < it.opts.loopRequired) {
+    var $requiredHash = it.util.toHash($required);
+  }
+
+  function notProto(p) {
+    return p !== '__proto__';
+  }
   out += 'var ' + ($errs) + ' = errors;var ' + ($nextValid) + ' = true;';
   if ($ownProperties) {
     out += ' var ' + ($dataProperties) + ' = undefined;';
@@ -21784,7 +21796,6 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
   if ($breakOnError) {
     out += ' ' + ($closingBraces) + ' if (' + ($errs) + ' == errors) {';
   }
-  out = it.util.cleanUpCode(out);
   return out;
 }
 
@@ -25020,6 +25031,9 @@ module.exports = function generate_multipleOf(it, $keyword, $ruleType) {
     $schemaValue = 'schema' + $lvl;
   } else {
     $schemaValue = $schema;
+  }
+  if (!($isData || typeof $schema == 'number')) {
+    throw new Error($keyword + ' must be number');
   }
   out += 'var division' + ($lvl) + ';if (';
   if ($isData) {
@@ -32034,7 +32048,6 @@ module.exports = function generate_if(it, $keyword, $ruleType) {
     if ($breakOnError) {
       out += ' else { ';
     }
-    out = it.util.cleanUpCode(out);
   } else {
     if ($breakOnError) {
       out += ' if (true) { ';
@@ -36035,6 +36048,9 @@ module.exports = function generate__limitProperties(it, $keyword, $ruleType) {
   } else {
     $schemaValue = $schema;
   }
+  if (!($isData || typeof $schema == 'number')) {
+    throw new Error($keyword + ' must be number');
+  }
   var $op = $keyword == 'maxProperties' ? '>' : '<';
   out += 'if ( ';
   if ($isData) {
@@ -36819,7 +36835,7 @@ function getPageLinks (link) {
 /* 578 */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","$id":"https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/data.json#","description":"Meta-schema for $data reference (JSON Schema extension proposal)","type":"object","required":["$data"],"properties":{"$data":{"type":"string","anyOf":[{"format":"relative-json-pointer"},{"format":"json-pointer"}]}},"additionalProperties":false};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","$id":"https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#","description":"Meta-schema for $data reference (JSON Schema extension proposal)","type":"object","required":["$data"],"properties":{"$data":{"type":"string","anyOf":[{"format":"relative-json-pointer"},{"format":"json-pointer"}]}},"additionalProperties":false};
 
 /***/ }),
 /* 579 */,
@@ -38251,7 +38267,7 @@ module.exports = function (metaSchema, keywordsJsonPointers) {
         keywords[key] = {
           anyOf: [
             schema,
-            { $ref: 'https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/data.json#' }
+            { $ref: 'https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#' }
           ]
         };
       }
@@ -39273,7 +39289,6 @@ module.exports = function generate_items(it, $keyword, $ruleType) {
   if ($breakOnError) {
     out += ' ' + ($closingBraces) + ' if (' + ($errs) + ' == errors) {';
   }
-  out = it.util.cleanUpCode(out);
   return out;
 }
 
@@ -44513,7 +44528,6 @@ const path_1 = __webpack_require__(622);
 const url = __importStar(__webpack_require__(835));
 const utilities_1 = __webpack_require__(79);
 const mkdirp = __webpack_require__(263);
-const cloudKernelSource = 'RichCodeNavFeed';
 const nugetUrl = 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe';
 class NugetHelper {
     constructor(cloudTask, vsckVersion, systemVSSConnectionApiToken) {
@@ -44521,12 +44535,11 @@ class NugetHelper {
         this.vsckVersion = vsckVersion;
         this.systemVSSConnectionApiToken = systemVSSConnectionApiToken;
         this.nugetPath = 'nuget';
-        this.isPrivate = cloudTask.inputs.getBoolInput('isPrivateFeed');
     }
-    async installNugetGlobalTool(packageName) {
+    async installNugetGlobalTool(packageName, feedSource) {
         let dotnetArgs = `tool install`;
         const configFile = path_1.resolve(await this.getVsckWorkingDir(), 'nuget.config');
-        const version = await this.getNugetPackageVersion(packageName);
+        const version = await this.getNugetPackageVersion(packageName, feedSource);
         dotnetArgs += ` --version ${version}`;
         this.cloudTask.log.debug(`Installing ${packageName} package version ${version}...`);
         const outputDir = await this.getVsckWorkingDir();
@@ -44536,17 +44549,17 @@ class NugetHelper {
             throw new Error(`Failed to install NuGet package ${packageName} version ${version}`);
         }
     }
-    async installNugetPackage(packageName) {
+    async installNugetPackage(packageName, version, installDirectory) {
         const configFile = path_1.resolve(await this.getVsckWorkingDir(), 'nuget.config');
         let versionArgs = '-prerelease';
-        if (this.vsckVersion && this.vsckVersion !== 'latest') {
-            versionArgs += ` -Version ${this.vsckVersion}`;
+        if (version && version !== 'latest') {
+            versionArgs += ` -Version ${version}`;
         }
-        this.cloudTask.log.debug(`Installing ${packageName} package version "${this.vsckVersion}"...`);
-        const outputDir = await this.getVsckWorkingDir();
-        const nugetInstallCode = await this.cloudTask.tool.spawn(await this.getNuGetExePath(), `install ${packageName} ${versionArgs} -OutputDirectory ${outputDir} -Source ${cloudKernelSource} -ConfigFile ${configFile}`, { ignoreReturnCode: true });
+        this.cloudTask.log.debug(`Installing ${packageName} package version "${version}"...`);
+        const outputDir = (installDirectory !== null && installDirectory !== void 0 ? installDirectory : await this.getVsckWorkingDir());
+        const nugetInstallCode = await this.cloudTask.tool.spawn(await this.getNuGetExePath(), `install ${packageName} ${versionArgs} -OutputDirectory ${outputDir} -ConfigFile ${configFile}`, { ignoreReturnCode: true });
         if (nugetInstallCode !== 0) {
-            throw new Error(`Failed to install NuGet package ${packageName} version "${this.vsckVersion}". Exit code: ${nugetInstallCode}.`);
+            throw new Error(`Failed to install NuGet package ${packageName} version "${version}". Exit code: ${nugetInstallCode}.`);
         }
     }
     async getVsckWorkingDir() {
@@ -44554,11 +44567,13 @@ class NugetHelper {
         await mkdirp(vsckDir);
         return vsckDir;
     }
-    async addRichCodeNavFeed(feedSource) {
+    async addNuGetFeed(feedSource, feedName, isPrivate) {
         const nugetConfig = path_1.resolve(await this.getVsckWorkingDir(), 'nuget.config');
-        fs_1.writeFileSync(nugetConfig, '<configuration/>');
-        let args = `sources add -name ${cloudKernelSource} -source "${url.format(feedSource)}" -ConfigFile ${nugetConfig}`;
-        if (this.isPrivate) {
+        if (!(await utilities_1.existsAsync(nugetConfig))) {
+            fs_1.writeFileSync(nugetConfig, '<configuration/>');
+        }
+        let args = `sources add -name ${feedName} -source "${url.format(feedSource)}" -ConfigFile ${nugetConfig}`;
+        if (isPrivate) {
             if (!this.systemVSSConnectionApiToken) {
                 throw new Error('Couldn\'t find System.AccessToken to authenticate to AzureDevOps');
             }
@@ -44607,11 +44622,11 @@ class NugetHelper {
         const vsckDirectory = await this.getVsckWorkingDir();
         await utilities_1.rmdirAsync(vsckDirectory);
     }
-    async getNugetPackageVersion(packageName) {
+    async getNugetPackageVersion(packageName, feedSource) {
         const configFile = path_1.resolve(await this.getVsckWorkingDir(), 'nuget.config');
         let version = this.vsckVersion;
         if (!version || version === 'latest') {
-            const nugetOutput = await utilities_1.spawnAndGetOutput(await this.getNuGetExePath(), ['list', '-pre', '-source', cloudKernelSource, packageName, '-ConfigFile', configFile], this.cloudTask);
+            const nugetOutput = await utilities_1.spawnAndGetOutput(await this.getNuGetExePath(), ['list', '-pre', '-source', feedSource, packageName, '-ConfigFile', configFile], this.cloudTask);
             if (nugetOutput.exitCode !== 0) {
                 this.cloudTask.log.warning(nugetOutput.stdout);
                 this.cloudTask.log.warning('Failed to get the latest version of NuGet package. Please specify a valid version of the build tools to install.');
@@ -47765,6 +47780,9 @@ module.exports = function generate__limitLength(it, $keyword, $ruleType) {
   } else {
     $schemaValue = $schema;
   }
+  if (!($isData || typeof $schema == 'number')) {
+    throw new Error($keyword + ' must be number');
+  }
   var $op = $keyword == 'maxLength' ? '>' : '<';
   out += 'if ( ';
   if ($isData) {
@@ -48947,6 +48965,10 @@ const RichCodeNavClientTool = 'RichCodeNav.ClientTool';
 const RichCodeNavLSIF = 'RichCodeNav.LSIF';
 const RichCodeNavLint = 'RichCodeNav.Lint';
 const ArtifactLogs = 'VSCK-Logs';
+const RichNavFeedSource = 'RichCodeNavFeed';
+const LsifTscVersion = '0.4.10';
+const LsifNpmVersion = '0.4.5';
+const RoslynVersion = '3.7.0-4.20317.1';
 class CachingTask {
     constructor(cloudTask, apiTokens) {
         this.cloudTask = cloudTask;
@@ -48954,7 +48976,7 @@ class CachingTask {
         cloudTask.log.debug(`Running on node.js ${process.version}`);
     }
     async run() {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const startTime = new Date().getTime();
         const telemProperties = {};
         const telemMeasures = {};
@@ -48997,7 +49019,8 @@ class CachingTask {
             nugetHelper = new nugetHelper_1.NugetHelper(this.cloudTask, vsckVersion, (_c = this.apiTokens) === null || _c === void 0 ? void 0 : _c.systemVSSConnection);
             const maxUploadFileSize = 150 * 1024 * 1024;
             const urlSetting = ['--setting', `ServiceBaseUrl=${vsckService}`];
-            await nugetHelper.addRichCodeNavFeed(feedSource);
+            const isPrivate = (_d = this.cloudTask.inputs.getBoolInput('isPrivateFeed'), (_d !== null && _d !== void 0 ? _d : false));
+            await nugetHelper.addNuGetFeed(feedSource, RichNavFeedSource, isPrivate);
             const sourceControlInfo = this.getSourceControlInformationProvider(useRichNavMsbuildLog, languageInput);
             telemProperties['vsclk.intellinav.repo.uri'] = sourceControlInfo.repoUri;
             telemProperties['vsclk.intellinav.languages'] = languageInput ? languageInput : 'all';
@@ -49013,10 +49036,10 @@ class CachingTask {
                     telemMeasures['vsclk.intellinav.edittedfiles'] = changedFiles.changedFiles;
                 }
             }
-            await nugetHelper.installNugetGlobalTool(RichCodeNavClientTool);
+            await nugetHelper.installNugetGlobalTool(RichCodeNavClientTool, RichNavFeedSource);
             const clientToolDll = await nugetHelper.getNuGetToolPath(RichCodeNavClientTool);
             this.cloudTask.log.debug('Creating a WorkspaceSnapshot Id...');
-            let refSetting = ['--ref', (_f = (_e = (_d = this.cloudTask.pullRequest) === null || _d === void 0 ? void 0 : _d.sourceBranch.ref, (_e !== null && _e !== void 0 ? _e : this.cloudTask.repo.ref)), (_f !== null && _f !== void 0 ? _f : this.cloudTask.repo.sha))];
+            let refSetting = ['--ref', (_g = (_f = (_e = this.cloudTask.pullRequest) === null || _e === void 0 ? void 0 : _e.sourceBranch.ref, (_f !== null && _f !== void 0 ? _f : this.cloudTask.repo.ref)), (_g !== null && _g !== void 0 ? _g : this.cloudTask.repo.sha))];
             telemProperties['vsclk.intellinav.git.reference'] = refSetting[1];
             let indexedUri = sourceControlInfo.repoUri;
             if (this.cloudTask.pullRequest) {
@@ -49047,10 +49070,13 @@ class CachingTask {
             const lsifStartTime = new Date().getTime();
             const isDevSwitch = dev ? '--dev' : '';
             let lsifLSDll;
-            await nugetHelper.installNugetPackage(RichCodeNavLSIF);
+            await nugetHelper.installNugetPackage(RichCodeNavLSIF, nugetHelper.vsckVersion);
             lsifLSDll = await nugetHelper.getNuGetPackageBinariesPath(RichCodeNavLSIF);
             if (sourceControlInfo.lsifLanguageSwitch.indexOf('script') > 0 || sourceControlInfo.lsifLanguageSwitch === '' && sourceControlInfo.shouldRunLsif) {
                 await this.installTypeScriptTools(lsifLSDll);
+            }
+            if (sourceControlInfo.lsifLanguageSwitch.indexOf('csharp') > 0 || (sourceControlInfo.lsifLanguageSwitch === '' && sourceControlInfo.shouldRunLsif) || useRichNavMsbuildLog) {
+                await this.installCSharpTools(lsifLSDll, nugetHelper);
             }
             const lsifResults = [];
             const sourcesRoot = this.cloudTask.repo.path;
@@ -49091,10 +49117,10 @@ class CachingTask {
             if (sourceControlInfo.shouldRunLsif) {
                 const outFilePath = path_1.resolve(await nugetHelper.getVsckWorkingDir(), 'vsck-export.zip');
                 if (configFiles) {
-                    lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t -c ${configFiles}`;
+                    lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t -c ${configFiles} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId}`;
                 }
                 else {
-                    lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t`;
+                    lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId}`;
                 }
                 lsifExitCode = await this.cloudTask.tool.spawn('dotnet', lsifLSToolArgs, { ignoreReturnCode: true });
                 lsifResults.push({ inputPath: sourcesRoot, state: this.processLsifExitCode(lsifExitCode, sourcesRoot), exitCode: lsifExitCode, outputFile: outFilePath });
@@ -49145,7 +49171,7 @@ class CachingTask {
             if (dev) {
                 const lspLogsPath = path_1.resolve(os.tmpdir(), 'LspLogs');
                 if (await utilities_1.existsAsync(lspLogsPath)) {
-                    await ((_g = this.cloudTask.artifacts) === null || _g === void 0 ? void 0 : _g.publish(lspLogsPath, ArtifactLogs));
+                    await ((_h = this.cloudTask.artifacts) === null || _h === void 0 ? void 0 : _h.publish(lspLogsPath, ArtifactLogs));
                 }
             }
             telemMeasures['vsclk.intellinav.duration'] = new Date().getTime() - startTime;
@@ -49202,8 +49228,15 @@ class CachingTask {
     }
     async installTypeScriptTools(lsifLSDll) {
         const modulesFolder = lsifLSDll.replace(`${RichCodeNavLSIF}.dll`, '');
-        await this.cloudTask.tool.spawn('npm', `install lsif-tsc@0.4.10 --no-package-lock`, { cwd: modulesFolder, ignoreReturnCode: true });
-        await this.cloudTask.tool.spawn('npm', `install lsif-npm@0.4.5 --no-package-lock`, { cwd: modulesFolder, ignoreReturnCode: true });
+        await this.cloudTask.tool.spawn('npm', `install lsif-tsc@${LsifTscVersion} --no-package-lock`, { cwd: modulesFolder, ignoreReturnCode: true });
+        await this.cloudTask.tool.spawn('npm', `install lsif-npm@${LsifNpmVersion} --no-package-lock`, { cwd: modulesFolder, ignoreReturnCode: true });
+    }
+    async installCSharpTools(lsifDll, nugetHelper) {
+        const roslynToolsFolder = lsifDll.replace(`${RichCodeNavLSIF}.dll`, 'RoslynTools');
+        await nugetHelper.addNuGetFeed('https://dotnet.myget.org/F/roslyn/api/v3/index.json', 'RoslynFeed', false);
+        await nugetHelper.addNuGetFeed('https://api.nuget.org/v3/index.json', 'nuget.org', false);
+        await nugetHelper.addNuGetFeed('https://pkgs.dev.azure.com/azure-public/vside/_packaging/vssdk/nuget/v3/index.json', 'vssdk', false);
+        await nugetHelper.installNugetPackage('Microsoft.CodeAnalysis.Lsif.Generator', RoslynVersion, roslynToolsFolder);
     }
     processLsifExitCode(lsifExitCode, inputPath) {
         if (lsifExitCode === 5) {
@@ -49496,7 +49529,7 @@ function compile(schema, root, localRefs, baseId) {
                    + vars(defaults, defaultCode) + vars(customRules, customRuleCode)
                    + sourceCode;
 
-    if (opts.processCode) sourceCode = opts.processCode(sourceCode);
+    if (opts.processCode) sourceCode = opts.processCode(sourceCode, _schema);
     // console.log('\n\n\n *** \n', JSON.stringify(sourceCode));
     var validate;
     try {
@@ -65883,8 +65916,6 @@ module.exports = {
   ucs2length: __webpack_require__(691),
   varOccurences: varOccurences,
   varReplace: varReplace,
-  cleanUpCode: cleanUpCode,
-  finalCleanUpCode: finalCleanUpCode,
   schemaHasRules: schemaHasRules,
   schemaHasRulesExcept: schemaHasRulesExcept,
   schemaUnknownRules: schemaUnknownRules,
@@ -65906,7 +65937,7 @@ function copy(o, to) {
 }
 
 
-function checkDataType(dataType, data, negate) {
+function checkDataType(dataType, data, strictNumbers, negate) {
   var EQUAL = negate ? ' !== ' : ' === '
     , AND = negate ? ' || ' : ' && '
     , OK = negate ? '!' : ''
@@ -65919,15 +65950,18 @@ function checkDataType(dataType, data, negate) {
                           NOT + 'Array.isArray(' + data + '))';
     case 'integer': return '(typeof ' + data + EQUAL + '"number"' + AND +
                            NOT + '(' + data + ' % 1)' +
-                           AND + data + EQUAL + data + ')';
+                           AND + data + EQUAL + data +
+                           (strictNumbers ? (AND + OK + 'isFinite(' + data + ')') : '') + ')';
+    case 'number': return '(typeof ' + data + EQUAL + '"' + dataType + '"' +
+                          (strictNumbers ? (AND + OK + 'isFinite(' + data + ')') : '') + ')';
     default: return 'typeof ' + data + EQUAL + '"' + dataType + '"';
   }
 }
 
 
-function checkDataTypes(dataTypes, data) {
+function checkDataTypes(dataTypes, data, strictNumbers) {
   switch (dataTypes.length) {
-    case 1: return checkDataType(dataTypes[0], data, true);
+    case 1: return checkDataType(dataTypes[0], data, strictNumbers, true);
     default:
       var code = '';
       var types = toHash(dataTypes);
@@ -65940,7 +65974,7 @@ function checkDataTypes(dataTypes, data) {
       }
       if (types.number) delete types.integer;
       for (var t in types)
-        code += (code ? ' && ' : '' ) + checkDataType(t, data, true);
+        code += (code ? ' && ' : '' ) + checkDataType(t, data, strictNumbers, true);
 
       return code;
   }
@@ -66003,42 +66037,6 @@ function varReplace(str, dataVar, expr) {
   dataVar += '([^0-9])';
   expr = expr.replace(/\$/g, '$$$$');
   return str.replace(new RegExp(dataVar, 'g'), expr + '$1');
-}
-
-
-var EMPTY_ELSE = /else\s*{\s*}/g
-  , EMPTY_IF_NO_ELSE = /if\s*\([^)]+\)\s*\{\s*\}(?!\s*else)/g
-  , EMPTY_IF_WITH_ELSE = /if\s*\(([^)]+)\)\s*\{\s*\}\s*else(?!\s*if)/g;
-function cleanUpCode(out) {
-  return out.replace(EMPTY_ELSE, '')
-            .replace(EMPTY_IF_NO_ELSE, '')
-            .replace(EMPTY_IF_WITH_ELSE, 'if (!($1))');
-}
-
-
-var ERRORS_REGEXP = /[^v.]errors/g
-  , REMOVE_ERRORS = /var errors = 0;|var vErrors = null;|validate.errors = vErrors;/g
-  , REMOVE_ERRORS_ASYNC = /var errors = 0;|var vErrors = null;/g
-  , RETURN_VALID = 'return errors === 0;'
-  , RETURN_TRUE = 'validate.errors = null; return true;'
-  , RETURN_ASYNC = /if \(errors === 0\) return data;\s*else throw new ValidationError\(vErrors\);/
-  , RETURN_DATA_ASYNC = 'return data;'
-  , ROOTDATA_REGEXP = /[^A-Za-z_$]rootData[^A-Za-z0-9_$]/g
-  , REMOVE_ROOTDATA = /if \(rootData === undefined\) rootData = data;/;
-
-function finalCleanUpCode(out, async) {
-  var matches = out.match(ERRORS_REGEXP);
-  if (matches && matches.length == 2) {
-    out = async
-          ? out.replace(REMOVE_ERRORS_ASYNC, '')
-               .replace(RETURN_ASYNC, RETURN_DATA_ASYNC)
-          : out.replace(REMOVE_ERRORS, '')
-               .replace(RETURN_VALID, RETURN_TRUE);
-  }
-
-  matches = out.match(ROOTDATA_REGEXP);
-  if (!matches || matches.length !== 3) return out;
-  return out.replace(REMOVE_ROOTDATA, '');
 }
 
 
@@ -66120,7 +66118,7 @@ function getData($data, lvl, paths) {
 
 function joinPaths (a, b) {
   if (a == '""') return b;
-  return (a + ' + ' + b).replace(/' \+ '/g, '');
+  return (a + ' + ' + b).replace(/([^\\])' \+ '/g, '$1');
 }
 
 
@@ -70776,7 +70774,7 @@ module.exports = function generate_uniqueItems(it, $keyword, $ruleType) {
     } else {
       out += ' var itemIndices = {}, item; for (;i--;) { var item = ' + ($data) + '[i]; ';
       var $method = 'checkDataType' + ($typeIsArray ? 's' : '');
-      out += ' if (' + (it.util[$method]($itemType, 'item', true)) + ') continue; ';
+      out += ' if (' + (it.util[$method]($itemType, 'item', it.opts.strictNumbers, true)) + ') continue; ';
       if ($typeIsArray) {
         out += ' if (typeof item == \'string\') item = \'"\' + item; ';
       }
@@ -70978,7 +70976,6 @@ module.exports = function generate_anyOf(it, $keyword, $ruleType) {
     if (it.opts.allErrors) {
       out += ' } ';
     }
-    out = it.util.cleanUpCode(out);
   } else {
     if ($breakOnError) {
       out += ' if (true) { ';
@@ -73277,7 +73274,7 @@ module.exports = Envelope;
 var metaSchema = __webpack_require__(522);
 
 module.exports = {
-  $id: 'https://github.com/epoberezkin/ajv/blob/master/lib/definition_schema.js',
+  $id: 'https://github.com/ajv-validator/ajv/blob/master/lib/definition_schema.js',
   definitions: {
     simpleTypes: metaSchema.definitions.simpleTypes
   },
@@ -74417,7 +74414,7 @@ module.exports = function generate_validate(it, $keyword, $ruleType) {
       var $schemaPath = it.schemaPath + '.type',
         $errSchemaPath = it.errSchemaPath + '/type',
         $method = $typeIsArray ? 'checkDataTypes' : 'checkDataType';
-      out += ' if (' + (it.util[$method]($typeSchema, $data, true)) + ') { ';
+      out += ' if (' + (it.util[$method]($typeSchema, $data, it.opts.strictNumbers, true)) + ') { ';
       if ($coerceToTypes) {
         var $dataType = 'dataType' + $lvl,
           $coerced = 'coerced' + $lvl;
@@ -74570,7 +74567,7 @@ module.exports = function generate_validate(it, $keyword, $ruleType) {
         $rulesGroup = arr2[i2 += 1];
         if ($shouldUseGroup($rulesGroup)) {
           if ($rulesGroup.type) {
-            out += ' if (' + (it.util.checkDataType($rulesGroup.type, $data)) + ') { ';
+            out += ' if (' + (it.util.checkDataType($rulesGroup.type, $data, it.opts.strictNumbers)) + ') { ';
           }
           if (it.opts.useDefaults) {
             if ($rulesGroup.type == 'object' && it.schema.properties) {
@@ -74737,10 +74734,6 @@ module.exports = function generate_validate(it, $keyword, $ruleType) {
     out += ' }; return validate;';
   } else {
     out += ' var ' + ($valid) + ' = errors === errs_' + ($lvl) + ';';
-  }
-  out = it.util.cleanUpCode(out);
-  if ($top) {
-    out = it.util.finalCleanUpCode(out, $async);
   }
 
   function $shouldUseGroup($rulesGroup) {
