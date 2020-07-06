@@ -183,10 +183,10 @@
   dependencies:
     debug "^4.0.0"
 
-"@richnav/rich-code-nav-indexer-core@^0.1.36-alpha":
-  version "0.1.36-alpha"
-  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.36-alpha.tgz#85052009201c3ccf9d4bcefd39ad89f6ab2a1d45"
-  integrity sha1-hQUgCSAcPM+dS879Oa2J9qsqHUU=
+"@richnav/rich-code-nav-indexer-core@^0.1.39-alpha":
+  version "0.1.39-alpha"
+  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.39-alpha.tgz#3cc7dd46dc267c0a6070d1997dbec334cfc7af69"
+  integrity sha1-PMfdRtwmfApgcNGZfb7DNM/Hr2k=
   dependencies:
     applicationinsights "^1.2.0"
     axios "^0.18.1"
@@ -215,9 +215,9 @@
   integrity sha512-RUMdvVK/w78oo+yBjruZltt0kJXYar2un/1bYQ2LuHG7GmFVm+QjxzEmySwREctaJdEnBvlMdUNWd9hXHxEI3g==
 
 ajv@^6.5.5:
-  version "6.12.2"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.2.tgz#c629c5eced17baf314437918d2da88c99d5958cd"
-  integrity sha512-k+V+hzjm5q/Mr8ef/1Y9goCmlsK4I6Sm74teeyGvFk1XrOsbsKLjEdrvny42CZ+a8sXbk8KWpY/bDwS+FLL2UQ==
+  version "6.12.3"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.3.tgz#18c5af38a111ddeb4f2697bd78d68abc1cabd706"
+  integrity sha512-4K0cK3L1hsqk9xIb2z9vs/XU+PGJZ9PNpJRDS9YLzmNdX6jmVPfamLvTJr0aDAusnHyCHO6MjzlkAsgtqp9teA==
   dependencies:
     fast-deep-equal "^3.1.1"
     fast-json-stable-stringify "^2.0.0"
