@@ -1,5 +1,5 @@
-import * as indexCore from '@cloudkernel/rich-code-nav-indexer-core';
-import { CachingTask, GitHubRepoInfo } from '@cloudkernel/rich-code-nav-indexer-core';
+import * as indexCore from '@richnav/rich-code-nav-indexer-core';
+import { CachingTask, GitHubRepoInfo } from '@richnav/rich-code-nav-indexer-core';
 import { factory } from 'cloudbuild-task-github-actions';
 
 class GitHubCachingTask extends CachingTask {

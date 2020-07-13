@@ -4,6 +4,9 @@
 
 This action indexes the repo it runs within and uploads the language service data to the Rich Code Nav service.
 
+**Pre-requisite:  
+You must [sign-up](https://aka.ms/richnavigation) and be approved for Rich Code Navigation Private Preview prior to installing this GitHub Action.**
+
 ## Example usage
 
 ```yaml
