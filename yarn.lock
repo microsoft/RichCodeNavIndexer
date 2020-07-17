@@ -183,10 +183,10 @@
   dependencies:
     debug "^4.0.0"
 
-"@richnav/rich-code-nav-indexer-core@^0.1.41-alpha":
-  version "0.1.41-alpha"
-  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.41-alpha.tgz#cc571fb14cb39e183a50c73c226e597884c75fe5"
-  integrity sha1-zFcfsUyznhg6UMc8Im5ZeITHX+U=
+"@richnav/rich-code-nav-indexer-core@^0.1.43-alpha":
+  version "0.1.43-alpha"
+  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.43-alpha.tgz#c5ac0b25f939bb6588e3c2e15e43579ee82e6216"
+  integrity sha1-xawLJfk5u2WI48LhXkNXnuguYhY=
   dependencies:
     applicationinsights "^1.2.0"
     axios "^0.18.1"

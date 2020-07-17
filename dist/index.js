@@ -51511,7 +51511,7 @@ class CachingTask {
                 indexedUri = sourceControlInfo.getPullRequestUri();
                 refSetting = [];
             }
-            const vsckAuthSwitch = this.getAuthString();
+            const vsckAuthSwitch = '--skipAuth';
             const createSnapshotTool = await utilities_1.spawnAndGetOutput('dotnet', [clientToolDll, 'create-snapshot', indexedUri].concat(refSetting).concat(urlSetting).concat(['-f', 'Json']).concat(sourceControlInfo.repoPatOption).concat(vsckAuthSwitch), this.cloudTask);
             if (createSnapshotTool.exitCode !== 0) {
                 this.cloudTask.log.warning('dotnet create-snapshot error: ' + createSnapshotTool.stderr);
@@ -51524,7 +51524,7 @@ class CachingTask {
             telemProperties['vsclk.intellinav.commitid'] = workspaceInfo.commitId;
             telemProperties['vsclk.intellinav.snapshotid'] = workspaceInfo.snapshotId;
             this.cloudTask.log.debug('Updating workspace snapshot state...');
-            const updateSnapshotArgs = `${clientToolDll} update-snapshot-state ${urlSetting.join(' ')} ${sourceControlInfo.repoPatOption.join(' ')} -f Json ${vsckAuthSwitch.join(' ')} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId}`;
+            const updateSnapshotArgs = `${clientToolDll} update-snapshot-state ${urlSetting.join(' ')} ${sourceControlInfo.repoPatOption.join(' ')} -f Json ${vsckAuthSwitch} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId}`;
             let updateCode = await this.cloudTask.tool.spawn('dotnet', `${updateSnapshotArgs} 4`, { ignoreReturnCode: true });
             if (updateCode !== 0) {
                 this.cloudTask.log.error('Failed to update the workspace snapshot state to InProgress');
@@ -51616,7 +51616,7 @@ class CachingTask {
                     throw new Error('Index file exceeds upload file size limit.');
                 }
                 const uploadCommand = 'upload-index-file';
-                let uploadArguments = `${clientToolDll} ${uploadCommand} ${lsifOutputFile} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId} ${urlSetting.join(' ')} ${vsckAuthSwitch.join(' ')}`;
+                let uploadArguments = `${clientToolDll} ${uploadCommand} ${lsifOutputFile} ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId} ${urlSetting.join(' ')} ${vsckAuthSwitch}`;
                 if (lsifResults[lsifResults.length - 1].outputFile === lsifOutputFile) {
                     uploadArguments += ' --isComplete';
                 }
@@ -51728,18 +51728,6 @@ class CachingTask {
             files.push(...richNavLogFiles);
         }
         return files;
-    }
-    getAuthString() {
-        var _a;
-        const errorString = 'Couldn\'t find appropriate Rich Code Navigation authentication. Please add a Rich Code Navigation service connection.';
-        if (((_a = this.apiTokens) === null || _a === void 0 ? void 0 : _a.serviceConnection) === undefined) {
-            return ['--skipAuth'];
-        }
-        if (this.apiTokens.serviceConnection.length > 0) {
-            return ['--vsclkToken', this.apiTokens.serviceConnection];
-        }
-        this.cloudTask.log.error(errorString);
-        return [];
     }
 }
 exports.CachingTask = CachingTask;
