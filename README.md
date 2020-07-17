@@ -11,13 +11,16 @@ You must [sign-up](https://aka.ms/richnavigation) and be approved for Rich Code 
 
 ```yaml
 - uses: microsoft/RichCodeNavIndexer@v0.1
+  with:
+    repo-token: ${{ github.token }}
 ```
 
 ## Inputs
 
+You may have specific requirements that need additional configurations beyond the default. There are a number of optional inputs that are accepted to support various repository requirements.
+
 |Name|Default|Description
 |--|--|--|
-`service-token` | | The token used when submitting the index to the Rich Code Nav service. Only necessary for repositories not already invited.
 `repo-token` | | Should be set to `${{ github.token }}` if your repository is private.
 `languages` | | List of languages to use when discovering repository symbols, separated by `,`
 `nugetFeed` | | Feed source to use when installing Rich Code Navigation NuGet packages
@@ -33,7 +36,7 @@ Name | Description
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+This project welcomes contributions and suggestions. Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
