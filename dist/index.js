@@ -51686,6 +51686,10 @@ class CachingTask {
             lsifInput["tool"] = "csc";
             lsifInput["arguments"] = logValues["CscCommandLineArgs"];
         }
+        else if (logValues["VbcCommandLineArgs"] !== undefined) {
+            lsifInput["tool"] = "vbc";
+            lsifInput["arguments"] = logValues["VbcCommandLineArgs"];
+        }
         lsifInput["projectFilePath"] = logValues["ProjectFilePath"];
         lsifInput["sourceRootPath"] = sourceRoot;
         const jsonOutput = JSON.stringify(lsifInput);
