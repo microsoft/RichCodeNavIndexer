@@ -183,10 +183,10 @@
   dependencies:
     debug "^4.0.0"
 
-"@richnav/rich-code-nav-indexer-core@^0.1.45-alpha":
-  version "0.1.45-alpha"
-  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.45-alpha.tgz#aff085ae10bb68f54752aedfeeb95a99c826deb2"
-  integrity sha1-r/CFrhC7aPVHUq7f7rlamcgm3rI=
+"@richnav/rich-code-nav-indexer-core@^0.1.47-alpha":
+  version "0.1.47-alpha"
+  resolved "https://pkgs.dev.azure.com/azure-public/vside/_packaging/vs-buildservices/npm/registry/@richnav/rich-code-nav-indexer-core/-/rich-code-nav-indexer-core-0.1.47-alpha.tgz#d8d639f1ea21187f106dee7799f8ec57434193bc"
+  integrity sha1-2NY58eohGH8Qbe53mfjsV0NBk7w=
   dependencies:
     applicationinsights "^1.2.0"
     axios "^0.18.1"
@@ -215,7 +215,7 @@
   resolved "https://registry.npmjs.org/@zeit/ncc/-/ncc-0.21.0.tgz#9516fc44ca81614c5b582d6e88542fdf37c401b6"
   integrity sha512-RUMdvVK/w78oo+yBjruZltt0kJXYar2un/1bYQ2LuHG7GmFVm+QjxzEmySwREctaJdEnBvlMdUNWd9hXHxEI3g==
 
-ajv@^6.5.5:
+ajv@^6.12.3:
   version "6.12.3"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.3.tgz#18c5af38a111ddeb4f2697bd78d68abc1cabd706"
   integrity sha512-4K0cK3L1hsqk9xIb2z9vs/XU+PGJZ9PNpJRDS9YLzmNdX6jmVPfamLvTJr0aDAusnHyCHO6MjzlkAsgtqp9teA==
@@ -256,9 +256,9 @@ anymatch@~3.1.1:
     picomatch "^2.0.4"
 
 applicationinsights@^1.2.0:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-1.8.2.tgz#d1ac5bbc6172ec91ef213903e40683dab9325492"
-  integrity sha512-m0G9oBBnKG39mzM++heTjMPbl09Fx3mInOKbmTchsVxMhNeCZ8BSfBS/HwS4CcL7MXhmH4Td1QYVGWo/he+sHw==
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-1.8.3.tgz#657ee0747007836f946ba49341cac3f28a2ed784"
+  integrity sha512-/a74eSG6WmZQuqJaCypTl4F1njCna7HJFWeuQPGmsQKux0hIpKoJ/wJKN4u8QgryexdpqH3SMZYLDu+yfe48xQ==
   dependencies:
     cls-hooked "^4.2.2"
     continuation-local-storage "^3.2.1"
@@ -925,11 +925,11 @@ har-schema@^2.0.0:
   integrity sha1-qUwiJOvKwEeCoNkDVSHyRzW37JI=
 
 har-validator@~5.1.3:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-5.1.3.tgz#1ef89ebd3e4996557675eed9893110dc350fa080"
-  integrity sha512-sNvOCzEQNr/qrvJgc3UG/kD4QtlHycrzwS+6mfTrrSq97BvaYcPZZI1ZSqGSPR73Cxn4LKTD4PttRwfU7jWq5g==
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-5.1.5.tgz#1f0803b9f8cb20c0fa13822df1ecddb36bde1efd"
+  integrity sha512-nmT2T0lljbxdQZfspsno9hgrG3Uir6Ks5afism62poxqBM6sDnMEuPmzTq8XN0OEwqKLLdh1jQI3qyE66Nzb3w==
   dependencies:
-    ajv "^6.5.5"
+    ajv "^6.12.3"
     har-schema "^2.0.0"
 
 has-flag@^3.0.0:

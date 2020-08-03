@@ -51588,7 +51588,10 @@ class CachingTask {
                     lsifLSToolArgs += ` -p ${sourcesRoot} -o ${outFilePath} ${isDevSwitch} ${sourceControlInfo.lsifLanguageSwitch} -l -t ${workspaceInfo.workspaceId} ${workspaceInfo.snapshotId}`;
                 }
                 lsifExitCode = await this.cloudTask.tool.spawn('dotnet', lsifLSToolArgs, { ignoreReturnCode: true });
-                lsifResults.push({ inputPath: sourcesRoot, state: this.processLsifExitCode(lsifExitCode, sourcesRoot), exitCode: lsifExitCode, outputFile: outFilePath });
+                const lsifFiles = await utilities_1.recursiveSearchForFilePattern(await nugetHelper.getVsckWorkingDir(), "**/*.zip");
+                lsifFiles.forEach((path) => {
+                    lsifResults.push({ inputPath: sourcesRoot, state: this.processLsifExitCode(lsifExitCode, sourcesRoot), exitCode: lsifExitCode, outputFile: path });
+                });
                 telemMeasures['vsclk.intellinav.lsif.time'] = new Date().getTime() - lsifStartTime;
                 telemProperties['vsclk.intellinav.lsif.exitCodes'] = lsifResults.map((p) => p.exitCode).toString();
                 lsifIndexingState = indexingState_1.aggregateState(lsifResults.map((p) => p.state));
