@@ -31,4 +31,4 @@ outputs:
 
 runs:
   using: node12
-  main: dist/index.js
+  main: lib/yarn-bootstrap.js
