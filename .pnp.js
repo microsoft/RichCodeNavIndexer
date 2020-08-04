@@ -43,7 +43,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@actions/io",
-        "npm:1.0.2"
+        "npm:1.0.1"
       ],
       [
         "@actions/tool-cache",
@@ -100,7 +100,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/core", "npm:1.2.4"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
-            ["@actions/io", "npm:1.0.2"],
+            ["@actions/io", "npm:1.0.1"],
             ["@actions/tool-cache", "npm:1.6.0"],
             ["@richnav/rich-code-nav-indexer-core", "npm:0.1.47-alpha"],
             ["@types/mocha", "npm:8.0.1"],
@@ -168,6 +168,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@actions/io", [
+        ["npm:1.0.1", {
+          "packageLocation": "./.yarn/cache/@actions-io-npm-1.0.1-e2acc53636-3ae9ca81c0.zip/node_modules/@actions/io/",
+          "packageDependencies": [
+            ["@actions/io", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:1.0.2", {
           "packageLocation": "./.yarn/cache/@actions-io-npm-1.0.2-e4efe2cabf-ccf358b298.zip/node_modules/@actions/io/",
           "packageDependencies": [
@@ -3251,7 +3258,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/core", "npm:1.2.4"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
-            ["@actions/io", "npm:1.0.2"],
+            ["@actions/io", "npm:1.0.1"],
             ["@actions/tool-cache", "npm:1.6.0"],
             ["@richnav/rich-code-nav-indexer-core", "npm:0.1.47-alpha"],
             ["@types/mocha", "npm:8.0.1"],
