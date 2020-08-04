@@ -23,7 +23,7 @@
 		"cloudbuild-task-github-actions": "^0.1.64-alpha"
 	},
 	"devDependencies": {
-		"@types/mocha": "^5.2.7",
+		"@types/mocha": "^8.0.1",
 		"@types/node": "^13.1.8",
 		"@zeit/ncc": "^0.21.0",
 		"jshint": "^2.11.0",
