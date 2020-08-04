@@ -3,11 +3,10 @@
 	"version": "0.0.0",
 	"private": true,
 	"description": "Rich Code Navigation indexing",
-	"main": "dist/index.js",
+	"main": "lib/main.js",
 	"scripts": {
-		"build": "tsc && ncc build lib/main.js && rm dist/package.json",
-		"lint": "./node_modules/.bin/tslint -p .",
-		"test": "./node_modules/.bin/mocha ./out/test/suite.js"
+		"build": "tsc",
+		"lint": "tslint -p ."
 	},
 	"author": "Rich Code Nav team <rich-code-nav@microsoft.com>",
 	"license": "MIT",
@@ -25,7 +24,6 @@
 	"devDependencies": {
 		"@types/mocha": "^8.0.1",
 		"@types/node": "^14.0.27",
-		"@zeit/ncc": "^0.22.3",
 		"jshint": "^2.11.0",
 		"mocha": "^8.1.0",
 		"tslint": "^6.1.3",
