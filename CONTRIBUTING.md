@@ -9,22 +9,25 @@ Building and contributing to this repo requires the following dependencies:
 
 We recommend using [VS Code](https://code.visualstudio.com/) for development.
 
-## Restore packages
+## Package dependencies
 
-Restore packages with `yarn`.
+We use yarn with [Zero Install](https://yarnpkg.com/features/zero-installs) as required so that GitHub Actions can execute the action defined in this repo immediately, since no package restore step is allowed to precede execution of a GitHub Action.
 
-Do **not** use `npm` to install packages. Our yarn.lock file will only be effective when using yarn.
+Set up VS Code to work with yarn's Zero Install mode by following these instructions ([source](https://yarnpkg.com/advanced/editor-sdks#vscode)):
+
+1. Press Ctrl+Shift+P in a TypeScript file
+1. Choose "Select TypeScript Version"
+1. Pick "Use Workspace Version"
+
+Also note [this caveat](https://yarnpkg.com/advanced/editor-sdks#caveat) and vote up 👍 [this issue](https://github.com/microsoft/vscode/issues/75559) 👍.
+
+**Important**: Do **not** use `npm` to install packages.
 
 ## Build
 
 `yarn build`
 
-(Note: If you get "'rm' is not recognized..." error from powershell, try add "C:\Program Files\Git\usr\bin" or a directory pointing to a "rm.exe" to your PATH.)
-
-## Test
-
-Use `yarn test` to run all tests in the repo.
-Use `yarn test --watch` to keep re-running tests on every save of a .ts file.
+Note: If you get "'rm' is not recognized..." error from powershell, try add "C:\Program Files\Git\usr\bin" or a directory pointing to a "rm.exe" to your PATH.
 
 ### Local GitHub Action emulation
 
