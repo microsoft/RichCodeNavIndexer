@@ -537,10 +537,10 @@ anymatch@~3.1.1:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-applicationinsights@^1.2.0, applicationinsights@^1.6.0:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-1.8.3.tgz#657ee0747007836f946ba49341cac3f28a2ed784"
-  integrity sha512-/a74eSG6WmZQuqJaCypTl4F1njCna7HJFWeuQPGmsQKux0hIpKoJ/wJKN4u8QgryexdpqH3SMZYLDu+yfe48xQ==
+applicationinsights@^1.2.0, applicationinsights@^1.8.4:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-1.8.4.tgz#e00d282149695bdcf097872e6f396be6250ae8e3"
+  integrity sha512-pxwAC0KrSbdJn62HDixyoa36+yxNeM+pMcbfeOC2VUsr6FSnZE5Y+HXnAC4XcDvzdGGOSUVgTP8JSHl+gNa7ow==
   dependencies:
     cls-hooked "^4.2.2"
     continuation-local-storage "^3.2.1"
