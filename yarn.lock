@@ -689,7 +689,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^1.2.0, applicationinsights@npm:^1.6.0":
+"applicationinsights@npm:^1.2.0":
   version: 1.8.3
   resolution: "applicationinsights@npm:1.8.3"
   dependencies:
@@ -698,6 +698,18 @@ __metadata:
     diagnostic-channel: 0.3.1
     diagnostic-channel-publishers: 0.4.0
   checksum: 76d1c56408d6ec00a39241f6312c42050f701721fe037819364ad72975cd2917619252eff621504c257f7684687f5e7c739fa0e3002875b132f9bf680f349586
+  languageName: node
+  linkType: hard
+
+"applicationinsights@npm:^1.8.4":
+  version: 1.8.4
+  resolution: "applicationinsights@npm:1.8.4"
+  dependencies:
+    cls-hooked: ^4.2.2
+    continuation-local-storage: ^3.2.1
+    diagnostic-channel: 0.3.1
+    diagnostic-channel-publishers: 0.4.0
+  checksum: 414a8c4fa33594a65211d50e216bf00e88799e447919c5b976c154ceefb2943580890281b589ee9135aa8a4134dcb1ffbbde90220aac5249694f05a5e3c3bb6f
   languageName: node
   linkType: hard
 
@@ -2270,9 +2282,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mocha@npm:^8.1.0":
-  version: 8.1.0
-  resolution: "mocha@npm:8.1.0"
+"mocha@npm:^8.1.1":
+  version: 8.1.1
+  resolution: "mocha@npm:8.1.1"
   dependencies:
     ansi-colors: 4.1.1
     browser-stdout: 1.3.1
@@ -2302,7 +2314,7 @@ fsevents@~2.1.2:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha
-  checksum: bf4f70a5db82857c2491881474533cd8c3637f5ba7aaa5fdd6e4e9b44b102ccadcb06b6c6b42767630f9f057d4ec753674d15d17925d4d6ec3e38cfbf4fa364c
+  checksum: f0cc3da2d05e013848d93b0dae2c469418969de96be8618a95893ed36dd73c7f48e257b0e3eed394a726289f7d5d5411515fbcd205341b5d5b9ea0304bafae5e
   languageName: node
   linkType: hard
 
@@ -2800,11 +2812,11 @@ resolve@^1.3.2:
     "@richnav/rich-code-nav-indexer-core": ^0.1.51-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
-    applicationinsights: ^1.6.0
+    applicationinsights: ^1.8.4
     axios: ^0.19.1
     cloudbuild-task-github-actions: ^0.1.66-alpha
     jshint: ^2.11.0
-    mocha: ^8.1.0
+    mocha: ^8.1.1
     tslint: ^6.1.3
     typescript: ^3.7.5
   languageName: unknown

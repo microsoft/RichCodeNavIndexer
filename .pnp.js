@@ -63,7 +63,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "applicationinsights",
-        "npm:1.8.3"
+        "npm:1.8.4"
       ],
       [
         "axios",
@@ -79,7 +79,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "mocha",
-        "npm:8.1.0"
+        "npm:8.1.1"
       ],
       [
         "tslint",
@@ -105,11 +105,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@richnav/rich-code-nav-indexer-core", "npm:0.1.51-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
-            ["applicationinsights", "npm:1.8.3"],
+            ["applicationinsights", "npm:1.8.4"],
             ["axios", "npm:0.19.2"],
             ["cloudbuild-task-github-actions", "npm:0.1.66-alpha"],
             ["jshint", "npm:2.12.0"],
-            ["mocha", "npm:8.1.0"],
+            ["mocha", "npm:8.1.1"],
             ["tslint", "virtual:dee38c1bf033ecc3135ef9f083d644ccf3a3ac4c41bd06b635d1f9f5b8e9012b3a39fdf22e46139de1109bc2c68b63d2c81a2b5166fc1f66aa308a736e0a8d37#npm:6.1.3"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2"]
           ],
@@ -883,7 +883,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cls-hooked", "npm:4.2.2"],
             ["continuation-local-storage", "npm:3.2.1"],
             ["diagnostic-channel", "npm:0.3.1"],
-            ["diagnostic-channel-publishers", "virtual:140541a294c7d6bec508c8b6468f9ba7c384f6375dd84c8e5bf2ad4aa4036f1ea427e20aa2aa176aeb9808dfa3a9b45699d55c5a3dc0cf4940b1f9d33d8f8c98#npm:0.4.0"]
+            ["diagnostic-channel-publishers", "virtual:29e2afff00541dde4713e6995aba2cc326a739a86941d0389c94592e7a49d2f530691e573d0fd2be17134d85f82a5d3a1ad8befa70d2d6f07506a42983421f7f#npm:0.4.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.8.4", {
+          "packageLocation": "./.yarn/cache/applicationinsights-npm-1.8.4-29e2afff00-414a8c4fa3.zip/node_modules/applicationinsights/",
+          "packageDependencies": [
+            ["applicationinsights", "npm:1.8.4"],
+            ["cls-hooked", "npm:4.2.2"],
+            ["continuation-local-storage", "npm:3.2.1"],
+            ["diagnostic-channel", "npm:0.3.1"],
+            ["diagnostic-channel-publishers", "virtual:29e2afff00541dde4713e6995aba2cc326a739a86941d0389c94592e7a49d2f530691e573d0fd2be17134d85f82a5d3a1ad8befa70d2d6f07506a42983421f7f#npm:0.4.0"]
           ],
           "linkType": "HARD",
         }]
@@ -1394,24 +1405,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["debug", [
-        ["virtual:ae509674327244c788e2d3ba5b17ec47e64b94c836d4fdc7d20c8ee3f5357cf775678f31e1820e9138319f3158342ab0ebea027b1fd1cbf4f2714c432d0daba7#npm:3.2.6", {
-          "packageLocation": "./.yarn/$$virtual/debug-virtual-f0c98a1130/0/cache/debug-npm-3.2.6-6214e40f12-619feb53b1.zip/node_modules/debug/",
-          "packageDependencies": [
-            ["debug", "virtual:ae509674327244c788e2d3ba5b17ec47e64b94c836d4fdc7d20c8ee3f5357cf775678f31e1820e9138319f3158342ab0ebea027b1fd1cbf4f2714c432d0daba7#npm:3.2.6"],
-            ["ms", "npm:2.1.2"],
-            ["supports-color", "npm:7.1.0"]
-          ],
-          "packagePeers": [
-            "supports-color"
-          ],
-          "linkType": "HARD",
-        }],
         ["virtual:bde6f435769d1a96c3f371d2e8a88314847816fb841f758b3628da60329c36f988ca42f6984dc53bb31dd306522878e1e5d568caeca7af42e4f19b238d6261b3#npm:3.1.0", {
           "packageLocation": "./.yarn/$$virtual/debug-virtual-f2284580f9/0/cache/debug-npm-3.1.0-9f0accb99b-1295acd5e0.zip/node_modules/debug/",
           "packageDependencies": [
             ["debug", "virtual:bde6f435769d1a96c3f371d2e8a88314847816fb841f758b3628da60329c36f988ca42f6984dc53bb31dd306522878e1e5d568caeca7af42e4f19b238d6261b3#npm:3.1.0"],
             ["ms", "npm:2.0.0"],
             ["supports-color", null]
+          ],
+          "packagePeers": [
+            "supports-color"
+          ],
+          "linkType": "HARD",
+        }],
+        ["virtual:f8af4eb0403f0d2a4aa44bbdb97b0e51233568f14c91d29058d6ffafd08db7fede0c0d59eed7171336bebeec3817859efc4a7513c258ee70fabdf504327e3d1f#npm:3.2.6", {
+          "packageLocation": "./.yarn/$$virtual/debug-virtual-ffac5de7fc/0/cache/debug-npm-3.2.6-6214e40f12-619feb53b1.zip/node_modules/debug/",
+          "packageDependencies": [
+            ["debug", "virtual:f8af4eb0403f0d2a4aa44bbdb97b0e51233568f14c91d29058d6ffafd08db7fede0c0d59eed7171336bebeec3817859efc4a7513c258ee70fabdf504327e3d1f#npm:3.2.6"],
+            ["ms", "npm:2.1.2"],
+            ["supports-color", "npm:7.1.0"]
           ],
           "packagePeers": [
             "supports-color"
@@ -1488,10 +1499,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["diagnostic-channel-publishers", [
-        ["virtual:140541a294c7d6bec508c8b6468f9ba7c384f6375dd84c8e5bf2ad4aa4036f1ea427e20aa2aa176aeb9808dfa3a9b45699d55c5a3dc0cf4940b1f9d33d8f8c98#npm:0.4.0", {
-          "packageLocation": "./.yarn/$$virtual/diagnostic-channel-publishers-virtual-50bcedba56/0/cache/diagnostic-channel-publishers-npm-0.4.0-2ebc5d4902-6949f56bdd.zip/node_modules/diagnostic-channel-publishers/",
+        ["virtual:29e2afff00541dde4713e6995aba2cc326a739a86941d0389c94592e7a49d2f530691e573d0fd2be17134d85f82a5d3a1ad8befa70d2d6f07506a42983421f7f#npm:0.4.0", {
+          "packageLocation": "./.yarn/$$virtual/diagnostic-channel-publishers-virtual-80dbd789a3/0/cache/diagnostic-channel-publishers-npm-0.4.0-2ebc5d4902-6949f56bdd.zip/node_modules/diagnostic-channel-publishers/",
           "packageDependencies": [
-            ["diagnostic-channel-publishers", "virtual:140541a294c7d6bec508c8b6468f9ba7c384f6375dd84c8e5bf2ad4aa4036f1ea427e20aa2aa176aeb9808dfa3a9b45699d55c5a3dc0cf4940b1f9d33d8f8c98#npm:0.4.0"],
+            ["diagnostic-channel-publishers", "virtual:29e2afff00541dde4713e6995aba2cc326a739a86941d0389c94592e7a49d2f530691e573d0fd2be17134d85f82a5d3a1ad8befa70d2d6f07506a42983421f7f#npm:0.4.0"],
             ["diagnostic-channel", "npm:0.3.1"]
           ],
           "packagePeers": [
@@ -2672,14 +2683,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["mocha", [
-        ["npm:8.1.0", {
-          "packageLocation": "./.yarn/cache/mocha-npm-8.1.0-ae50967432-bf4f70a5db.zip/node_modules/mocha/",
+        ["npm:8.1.1", {
+          "packageLocation": "./.yarn/cache/mocha-npm-8.1.1-f8af4eb040-f0cc3da2d0.zip/node_modules/mocha/",
           "packageDependencies": [
-            ["mocha", "npm:8.1.0"],
+            ["mocha", "npm:8.1.1"],
             ["ansi-colors", "npm:4.1.1"],
             ["browser-stdout", "npm:1.3.1"],
             ["chokidar", "npm:3.3.1"],
-            ["debug", "virtual:ae509674327244c788e2d3ba5b17ec47e64b94c836d4fdc7d20c8ee3f5357cf775678f31e1820e9138319f3158342ab0ebea027b1fd1cbf4f2714c432d0daba7#npm:3.2.6"],
+            ["debug", "virtual:f8af4eb0403f0d2a4aa44bbdb97b0e51233568f14c91d29058d6ffafd08db7fede0c0d59eed7171336bebeec3817859efc4a7513c258ee70fabdf504327e3d1f#npm:3.2.6"],
             ["diff", "npm:4.0.2"],
             ["escape-string-regexp", "npm:1.0.5"],
             ["find-up", "npm:4.1.0"],
@@ -3256,11 +3267,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@richnav/rich-code-nav-indexer-core", "npm:0.1.51-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
-            ["applicationinsights", "npm:1.8.3"],
+            ["applicationinsights", "npm:1.8.4"],
             ["axios", "npm:0.19.2"],
             ["cloudbuild-task-github-actions", "npm:0.1.66-alpha"],
             ["jshint", "npm:2.12.0"],
-            ["mocha", "npm:8.1.0"],
+            ["mocha", "npm:8.1.1"],
             ["tslint", "virtual:dee38c1bf033ecc3135ef9f083d644ccf3a3ac4c41bd06b635d1f9f5b8e9012b3a39fdf22e46139de1109bc2c68b63d2c81a2b5166fc1f66aa308a736e0a8d37#npm:6.1.3"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2"]
           ],
