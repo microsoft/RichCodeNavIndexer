@@ -495,9 +495,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.51-alpha":
-  version: 0.1.51-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.51-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.52-alpha":
+  version: 0.1.52-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.52-alpha"
   dependencies:
     applicationinsights: ^1.2.0
     axios: ^0.18.1
@@ -510,7 +510,7 @@ __metadata:
     rmdir-recursive: ^0.0.1
     stream-buffers: ^3.0.2
     which: ^2.0.2
-  checksum: 8ff587ed4b774183bbe230397ccca8570976aa660102109d89e5ac13487f2c33c7994de6e047672a6e9660b2acaf336d27ce10d2b76001b3ddf27404961bacec
+  checksum: d40eca3d1f5696dc44c43d3cecbdb4725dc94438926af2b8a2aa1cfba64f36bc5112d3e92369784883d9417f20cff86eecc74af23cf74c31e9f800df859cfc69
   languageName: node
   linkType: hard
 
@@ -611,19 +611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^1.2.0":
-  version: 1.8.3
-  resolution: "applicationinsights@npm:1.8.3"
-  dependencies:
-    cls-hooked: ^4.2.2
-    continuation-local-storage: ^3.2.1
-    diagnostic-channel: 0.3.1
-    diagnostic-channel-publishers: 0.4.0
-  checksum: 76d1c56408d6ec00a39241f6312c42050f701721fe037819364ad72975cd2917619252eff621504c257f7684687f5e7c739fa0e3002875b132f9bf680f349586
-  languageName: node
-  linkType: hard
-
-"applicationinsights@npm:^1.8.5":
+"applicationinsights@npm:^1.2.0, applicationinsights@npm:^1.8.5":
   version: 1.8.5
   resolution: "applicationinsights@npm:1.8.5"
   dependencies:
@@ -1125,15 +1113,6 @@ __metadata:
   version: 2.3.1
   resolution: "deprecation@npm:2.3.1"
   checksum: 59343a0b927c5b6f67abb899fda68bf42b132c05ef1a985952c1e220c41fe5035b2d54a28c7c2a8b5239075d1dc25c83340242ada75f1c06c1bb047176f05f9b
-  languageName: node
-  linkType: hard
-
-"diagnostic-channel-publishers@npm:0.4.0":
-  version: 0.4.0
-  resolution: "diagnostic-channel-publishers@npm:0.4.0"
-  peerDependencies:
-    diagnostic-channel: "*"
-  checksum: 6949f56bddb3051e4dab353dfe2dde03159ddbfb6f904babbda1a7b62db5398b519dbcdaff82841d328dede777cad22a770612607b22cb43b6dc38918d83e1f5
   languageName: node
   linkType: hard
 
@@ -2628,7 +2607,7 @@ resolve@^1.3.2:
     "@actions/github": ^4.0.0
     "@actions/io": ^1.0.2
     "@actions/tool-cache": ^1.3.0
-    "@richnav/rich-code-nav-indexer-core": ^0.1.51-alpha
+    "@richnav/rich-code-nav-indexer-core": ^0.1.52-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.5
