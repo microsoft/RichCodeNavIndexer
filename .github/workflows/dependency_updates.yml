@@ -16,8 +16,6 @@ jobs:
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3.1.0
       with:
-        # GITHUB_TOKEN or a `repo` scoped Personal Access Token (PAT)
-        # token: # optional, default is ${{ github.token }}
         commit-message: Update all dependencies
         branch: automatic_dependency_updates
         title: Update all dependencies
