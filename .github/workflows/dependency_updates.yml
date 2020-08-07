@@ -1,0 +1,23 @@
+name: Update dependencies
+
+on:
+  schedule:
+  - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - run: yarn up '*'
+
+    - name: push
+      uses: github-actions-x/commit@v2.6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        push-branch: automatic_dependency_updates
+        commit-message: Update all dependencies
+        name: Andrew Arnott[bot]
+        email: andrew.arnott@microsoft.com
