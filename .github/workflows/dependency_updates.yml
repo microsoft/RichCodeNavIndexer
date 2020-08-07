@@ -13,11 +13,14 @@ jobs:
 
     - run: yarn up '*'
 
-    - name: push
-      uses: github-actions-x/commit@v2.6
+    - name: Create pull request
+      uses: peter-evans/create-pull-request@v3.1.0
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: automatic_dependency_updates
+        # GITHUB_TOKEN or a `repo` scoped Personal Access Token (PAT)
+        # token: # optional, default is ${{ github.token }}
         commit-message: Update all dependencies
-        name: Andrew Arnott[bot]
-        email: andrew.arnott@microsoft.com
+        branch: automatic_dependency_updates
+        title: Update all dependencies
+        body: An updated update of all NPM dependencies.
+        #labels: auto-merge
+        #reviewers: # optional
