@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.51-alpha"
+        "npm:0.1.52-alpha"
       ],
       [
         "@types/mocha",
@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
             ["@actions/tool-cache", "npm:1.6.0"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.51-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.52-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.5"],
@@ -669,11 +669,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.51-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.51-alpha-2d71b2a462-8ff587ed4b.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.52-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.52-alpha-3b099b1c89-d40eca3d1f.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.51-alpha"],
-            ["applicationinsights", "npm:1.8.3"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.52-alpha"],
+            ["applicationinsights", "npm:1.8.5"],
             ["axios", "npm:0.18.1"],
             ["cloudbuild-task-contracts", "npm:0.1.66-alpha"],
             ["fs-extra", "npm:9.0.1"],
@@ -802,17 +802,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["applicationinsights", [
-        ["npm:1.8.3", {
-          "packageLocation": "./.yarn/cache/applicationinsights-npm-1.8.3-140541a294-76d1c56408.zip/node_modules/applicationinsights/",
-          "packageDependencies": [
-            ["applicationinsights", "npm:1.8.3"],
-            ["cls-hooked", "npm:4.2.2"],
-            ["continuation-local-storage", "npm:3.2.1"],
-            ["diagnostic-channel", "npm:0.3.1"],
-            ["diagnostic-channel-publishers", "virtual:140541a294c7d6bec508c8b6468f9ba7c384f6375dd84c8e5bf2ad4aa4036f1ea427e20aa2aa176aeb9808dfa3a9b45699d55c5a3dc0cf4940b1f9d33d8f8c98#npm:0.4.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:1.8.5", {
           "packageLocation": "./.yarn/cache/applicationinsights-npm-1.8.5-1ac1a18a81-787f777d6a.zip/node_modules/applicationinsights/",
           "packageDependencies": [
@@ -1411,17 +1400,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["diagnostic-channel-publishers", [
-        ["virtual:140541a294c7d6bec508c8b6468f9ba7c384f6375dd84c8e5bf2ad4aa4036f1ea427e20aa2aa176aeb9808dfa3a9b45699d55c5a3dc0cf4940b1f9d33d8f8c98#npm:0.4.0", {
-          "packageLocation": "./.yarn/$$virtual/diagnostic-channel-publishers-virtual-50bcedba56/0/cache/diagnostic-channel-publishers-npm-0.4.0-2ebc5d4902-6949f56bdd.zip/node_modules/diagnostic-channel-publishers/",
-          "packageDependencies": [
-            ["diagnostic-channel-publishers", "virtual:140541a294c7d6bec508c8b6468f9ba7c384f6375dd84c8e5bf2ad4aa4036f1ea427e20aa2aa176aeb9808dfa3a9b45699d55c5a3dc0cf4940b1f9d33d8f8c98#npm:0.4.0"],
-            ["diagnostic-channel", "npm:0.3.1"]
-          ],
-          "packagePeers": [
-            "diagnostic-channel"
-          ],
-          "linkType": "HARD",
-        }],
         ["virtual:1ac1a18a81207e4744d55b1b6bdec7041a6398b1ea9fa083cb944265995cc51642259f19bf9463bbd3bc8bf902fc3379399ddec2ff5234d63a10ae9539eafbb5#npm:0.4.1", {
           "packageLocation": "./.yarn/$$virtual/diagnostic-channel-publishers-virtual-5ca67be1e7/0/cache/diagnostic-channel-publishers-npm-0.4.1-7a9a5b750c-2ef7078af5.zip/node_modules/diagnostic-channel-publishers/",
           "packageDependencies": [
@@ -3080,7 +3058,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
             ["@actions/tool-cache", "npm:1.6.0"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.51-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.52-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.5"],
