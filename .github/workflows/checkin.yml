@@ -7,21 +7,19 @@ on:
       - validate/*
 
 jobs:
+  check_cache:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork
+    runs-on: ubuntu-latest
+    steps:
+    - run: yarn install --check-cache # https://yarnpkg.com/features/zero-installs#does-it-have-security-implications
+
   check_diff:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-        restore-keys: ${{ runner.os }}-yarn-
 
-    - name: yarn
-      run: yarn
-
-    - name: yarn run build
-      run: yarn run build
+    - run: yarn
+    - run: yarn run build
 
     - name: check for uncommitted changes
       # Ensure no changes.
@@ -37,13 +35,6 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-        restore-keys: ${{ runner.os }}-yarn-
-    - name: yarn
-      run: yarn
 
     - uses: ./
       with:
