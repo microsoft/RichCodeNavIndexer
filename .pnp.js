@@ -71,7 +71,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "cloudbuild-task-github-actions",
-        "npm:0.1.70-alpha"
+        "npm:0.1.78-alpha"
       ],
       [
         "jshint",
@@ -107,7 +107,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.5"],
             ["axios", "npm:0.19.2"],
-            ["cloudbuild-task-github-actions", "npm:0.1.70-alpha"],
+            ["cloudbuild-task-github-actions", "npm:0.1.78-alpha"],
             ["jshint", "npm:2.12.0"],
             ["mocha", "npm:8.1.1"],
             ["tslint", "virtual:dee38c1bf033ecc3135ef9f083d644ccf3a3ac4c41bd06b635d1f9f5b8e9012b3a39fdf22e46139de1109bc2c68b63d2c81a2b5166fc1f66aa308a736e0a8d37#npm:6.1.3"],
@@ -626,10 +626,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@octokit/webhooks", [
-        ["npm:7.9.1", {
-          "packageLocation": "./.yarn/cache/@octokit-webhooks-npm-7.9.1-afdc034006-19f66570ea.zip/node_modules/@octokit/webhooks/",
+        ["npm:7.9.3", {
+          "packageLocation": "./.yarn/cache/@octokit-webhooks-npm-7.9.3-749c46d471-f380d30864.zip/node_modules/@octokit/webhooks/",
           "packageDependencies": [
-            ["@octokit/webhooks", "npm:7.9.1"],
+            ["@octokit/webhooks", "npm:7.9.3"],
             ["@octokit/request-error", "npm:2.0.2"],
             ["@pika/plugin-ts-standard-pkg", "npm:0.9.2"],
             ["aggregate-error", "npm:3.0.1"],
@@ -1133,26 +1133,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:0.1.70-alpha", {
-          "packageLocation": "./.yarn/cache/cloudbuild-task-contracts-npm-0.1.70-alpha-3ca138dc9c-92a36c7eb9.zip/node_modules/cloudbuild-task-contracts/",
+        ["npm:0.1.78-alpha", {
+          "packageLocation": "./.yarn/cache/cloudbuild-task-contracts-npm-0.1.78-alpha-1017a79f2a-c4c43bcdf7.zip/node_modules/cloudbuild-task-contracts/",
           "packageDependencies": [
-            ["cloudbuild-task-contracts", "npm:0.1.70-alpha"]
+            ["cloudbuild-task-contracts", "npm:0.1.78-alpha"]
           ],
           "linkType": "HARD",
         }]
       ]],
       ["cloudbuild-task-github-actions", [
-        ["npm:0.1.70-alpha", {
-          "packageLocation": "./.yarn/cache/cloudbuild-task-github-actions-npm-0.1.70-alpha-acd8311bae-122fe83ee9.zip/node_modules/cloudbuild-task-github-actions/",
+        ["npm:0.1.78-alpha", {
+          "packageLocation": "./.yarn/cache/cloudbuild-task-github-actions-npm-0.1.78-alpha-32c5de3d91-77a5a7faee.zip/node_modules/cloudbuild-task-github-actions/",
           "packageDependencies": [
-            ["cloudbuild-task-github-actions", "npm:0.1.70-alpha"],
+            ["cloudbuild-task-github-actions", "npm:0.1.78-alpha"],
             ["@actions/core", "npm:1.2.4"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
             ["@actions/tool-cache", "npm:1.6.0"],
-            ["@octokit/webhooks", "npm:7.9.1"],
-            ["cloudbuild-task-contracts", "npm:0.1.70-alpha"]
+            ["@octokit/webhooks", "npm:7.9.3"],
+            ["cloudbuild-task-contracts", "npm:0.1.78-alpha"]
           ],
           "linkType": "HARD",
         }]
@@ -3063,7 +3063,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.5"],
             ["axios", "npm:0.19.2"],
-            ["cloudbuild-task-github-actions", "npm:0.1.70-alpha"],
+            ["cloudbuild-task-github-actions", "npm:0.1.78-alpha"],
             ["jshint", "npm:2.12.0"],
             ["mocha", "npm:8.1.1"],
             ["tslint", "virtual:dee38c1bf033ecc3135ef9f083d644ccf3a3ac4c41bd06b635d1f9f5b8e9012b3a39fdf22e46139de1109bc2c68b63d2c81a2b5166fc1f66aa308a736e0a8d37#npm:6.1.3"],
