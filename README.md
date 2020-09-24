@@ -21,7 +21,7 @@ You may have specific requirements that need additional configurations beyond th
 
 |Name|Default|Description
 |--|--|--|
-`repo-token` | | Should be set to `${{ github.token }}` if your repository is private.
+`repo-token` | | Required input to get access to the repo and should be set to `${{ github.token }}`.
 `languages` | | List of languages to use when discovering repository symbols, separated by `,`
 `nugetFeed` | | Feed source to use when installing Rich Code Navigation NuGet packages
 `nugetVersion` | `latest` | The version of the Rich Code Navigation nuget packages to use. Use `latest` to download the latest package (including prereleases).
