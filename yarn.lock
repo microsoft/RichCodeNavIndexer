@@ -495,9 +495,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.73-alpha":
-  version: 0.1.73-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.73-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.79-alpha":
+  version: 0.1.79-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.79-alpha"
   dependencies:
     applicationinsights: ^1.2.0
     axios: ^0.18.1
@@ -509,8 +509,9 @@ __metadata:
     request: ^2.88.0
     rmdir-recursive: ^0.0.1
     stream-buffers: ^3.0.2
+    uuid: ^8.3.1
     which: ^2.0.2
-  checksum: 5f912cd5b354d7a71cfb81428dc2a70b240e75ad9d37d217e9d33dddbe8b224b4f72d08a91c7ca1e43bfefd37b8a752fb96edf2ffb10284f682b3eca648e68b4
+  checksum: e03fb8a8333e89f162bbc8bed5fe5267e362916c231ea7628fd4df1d87fdd7e66b6eade8f8eba13227f2657d76c452188d4e223f6326da5807066dc8a394201c
   languageName: node
   linkType: hard
 
@@ -628,19 +629,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^1.2.0":
-  version: 1.8.5
-  resolution: "applicationinsights@npm:1.8.5"
-  dependencies:
-    cls-hooked: ^4.2.2
-    continuation-local-storage: ^3.2.1
-    diagnostic-channel: 0.3.1
-    diagnostic-channel-publishers: 0.4.1
-  checksum: 787f777d6af07c902a34b888fceca665ea884a41abecdfc78735165e919e888d767f351ea46e49b8017d58417ece77eea879fa56c249fffeb2dfcd21fdf86c55
-  languageName: node
-  linkType: hard
-
-"applicationinsights@npm:^1.8.7":
+"applicationinsights@npm:^1.2.0, applicationinsights@npm:^1.8.7":
   version: 1.8.7
   resolution: "applicationinsights@npm:1.8.7"
   dependencies:
@@ -2673,7 +2662,7 @@ resolve@^1.3.2:
     "@actions/github": ^4.0.0
     "@actions/io": ^1.0.2
     "@actions/tool-cache": ^1.3.0
-    "@richnav/rich-code-nav-indexer-core": ^0.1.73-alpha
+    "@richnav/rich-code-nav-indexer-core": ^0.1.79-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.7
@@ -3176,6 +3165,15 @@ typescript@^4.0.2:
   bin:
     uuid: ./bin/uuid
   checksum: 1ce3f37e214d6d0dc94a6a9663a0365013ace66bc3fd5b203e6f5d2eeb978aaee1192367222386345d30b4c6a447928c501121aa84c637724bf105ef57284949
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.3.1":
+  version: 8.3.1
+  resolution: "uuid@npm:8.3.1"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 6a5d07c5564614271237d8bbc5c1c72abf056343e91af8f67a8e6d29957a1a061f347b8425a1e499af32f5a8f0039c44d200dff663b9a8090c51a7f7b5031534
   languageName: node
   linkType: hard
 
