@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.73-alpha"
+        "npm:0.1.81-alpha"
       ],
       [
         "@types/mocha",
@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
             ["@actions/tool-cache", "npm:1.6.0"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.73-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.81-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.7"],
@@ -669,11 +669,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.73-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.73-alpha-43a2601ac6-5f912cd5b3.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.81-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.81-alpha-47b9c2f29e-8c005f65d4.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.73-alpha"],
-            ["applicationinsights", "npm:1.8.5"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.81-alpha"],
+            ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.18.1"],
             ["cloudbuild-task-contracts", "npm:0.1.66-alpha"],
             ["fs-extra", "npm:9.0.1"],
@@ -683,6 +683,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["request", "npm:2.88.2"],
             ["rmdir-recursive", "npm:0.0.1"],
             ["stream-buffers", "npm:3.0.2"],
+            ["uuid", "npm:8.3.1"],
             ["which", "npm:2.0.2"]
           ],
           "linkType": "HARD",
@@ -820,17 +821,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["applicationinsights", [
-        ["npm:1.8.5", {
-          "packageLocation": "./.yarn/cache/applicationinsights-npm-1.8.5-1ac1a18a81-787f777d6a.zip/node_modules/applicationinsights/",
-          "packageDependencies": [
-            ["applicationinsights", "npm:1.8.5"],
-            ["cls-hooked", "npm:4.2.2"],
-            ["continuation-local-storage", "npm:3.2.1"],
-            ["diagnostic-channel", "npm:0.3.1"],
-            ["diagnostic-channel-publishers", "virtual:0bf811dc2aab8159dc1c382e92f93e33f5b14018e00847c7892187a5a88496ea134eec986751f434154b26f789e72e2a53380cd76bf47643c48b7ace1a96f56d#npm:0.4.1"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:1.8.7", {
           "packageLocation": "./.yarn/cache/applicationinsights-npm-1.8.7-0bf811dc2a-74e76d9d7d.zip/node_modules/applicationinsights/",
           "packageDependencies": [
@@ -3124,7 +3114,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
             ["@actions/tool-cache", "npm:1.6.0"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.73-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.81-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.7"],
@@ -3657,6 +3647,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/uuid-npm-3.4.0-4fd8ef88ad-1ce3f37e21.zip/node_modules/uuid/",
           "packageDependencies": [
             ["uuid", "npm:3.4.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:8.3.1", {
+          "packageLocation": "./.yarn/cache/uuid-npm-8.3.1-8a5b02e900-6a5d07c556.zip/node_modules/uuid/",
+          "packageDependencies": [
+            ["uuid", "npm:8.3.1"]
           ],
           "linkType": "HARD",
         }]
