@@ -31,7 +31,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "fallbackPool": [
       [
         "@actions/core",
-        "npm:1.2.4"
+        "npm:1.2.6"
       ],
       [
         "@actions/exec",
@@ -97,7 +97,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["@actions/core", "npm:1.2.4"],
+            ["@actions/core", "npm:1.2.6"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
@@ -3116,7 +3116,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["rich-code-nav-indexer", "workspace:."],
-            ["@actions/core", "npm:1.2.4"],
+            ["@actions/core", "npm:1.2.6"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],

@@ -5,7 +5,7 @@ __metadata:
   version: 4
   cacheKey: 5
 
-"@actions/core@npm:^1.2.1, @actions/core@npm:^1.2.3":
+"@actions/core@npm:^1.2.3":
   version: 1.2.4
   resolution: "@actions/core@npm:1.2.4"
   checksum: 3b2a63bac21fab0a48c8ba817e18942ea6af5318951d818ff97377d474fc549df8acf893be2c0997cc05a80fd4a96223430bbb757e79969db99e44320397176f
@@ -2664,7 +2664,7 @@ resolve@^1.3.2:
   version: 0.0.0-use.local
   resolution: "rich-code-nav-indexer@workspace:."
   dependencies:
-    "@actions/core": ^1.2.1
+    "@actions/core": ^1.2.6
     "@actions/exec": ^1.0.3
     "@actions/github": ^4.0.0
     "@actions/io": ^1.0.2
