@@ -19,7 +19,7 @@
 		"@richnav/rich-code-nav-indexer-core": "^0.1.81-alpha",
 		"applicationinsights": "^1.8.7",
 		"axios": "^0.20.0",
-		"cloudbuild-task-github-actions": "^0.1.78-alpha"
+		"cloudbuild-task-github-actions": "^0.1.105-beta"
 	},
 	"devDependencies": {
 		"@types/mocha": "^8.0.1",
