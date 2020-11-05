@@ -5,10 +5,17 @@ __metadata:
   version: 4
   cacheKey: 5
 
-"@actions/core@npm:^1.2.1, @actions/core@npm:^1.2.3, @actions/core@npm:^1.2.4":
+"@actions/core@npm:^1.2.3":
   version: 1.2.4
   resolution: "@actions/core@npm:1.2.4"
   checksum: 3b2a63bac21fab0a48c8ba817e18942ea6af5318951d818ff97377d474fc549df8acf893be2c0997cc05a80fd4a96223430bbb757e79969db99e44320397176f
+  languageName: node
+  linkType: hard
+
+"@actions/core@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "@actions/core@npm:1.2.6"
+  checksum: 984c7d5ae95c02f62f69549a9d5cfbc0db0b035f519775301b397c167791ceee269fb504cb622da541d1fa305ee4ad3fc30d017c6407045aa4eb6809eee4c549
   languageName: node
   linkType: hard
 
@@ -458,15 +465,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/webhooks@npm:^7.9.3":
-  version: 7.9.3
-  resolution: "@octokit/webhooks@npm:7.9.3"
+"@octokit/webhooks@npm:^7.15.1":
+  version: 7.15.1
+  resolution: "@octokit/webhooks@npm:7.15.1"
   dependencies:
     "@octokit/request-error": ^2.0.2
     "@pika/plugin-ts-standard-pkg": ^0.9.2
-    aggregate-error: ^3.0.1
+    aggregate-error: ^3.1.0
     debug: ^4.0.0
-  checksum: f380d30864a5122a6dda3b1ec166517d341450d2918cb013250f23d2fa697196444f1fbd2af6e7665626d3dcaa931555a6edd89f95b168241cd5f1e36583a7cc
+  checksum: 7d93aec54f3ebda4541207d366e9dc562d484e47e561069302a1e9f7cfb8e7ae259ce4d3e13a01a15e4546b26a758562d790f8a9ddd37d8257ac473724e457cd
   languageName: node
   linkType: hard
 
@@ -550,13 +557,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aggregate-error@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "aggregate-error@npm:3.0.1"
+"aggregate-error@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "aggregate-error@npm:3.1.0"
   dependencies:
     clean-stack: ^2.0.0
     indent-string: ^4.0.0
-  checksum: aee96f00c21c9a8c005d949a448e656339235faeec5c050e041ed3d33812fc3478a777ffd6309eb61c17ceb66dd0d2c6220e06e565ec994f536d9a16814e0ebf
+  checksum: 704d2001a303c185e9b836d211f7eef2f4557195a11c3271143b4dcda5f6f263abe746d9b8a06b5871d07870686c7db9c0b2c38e2d3cbc593784eaaee8a29043
   languageName: node
   linkType: hard
 
@@ -920,10 +927,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cloudbuild-task-contracts@npm:0.1.78-alpha":
-  version: 0.1.78-alpha
-  resolution: "cloudbuild-task-contracts@npm:0.1.78-alpha"
-  checksum: c4c43bcdf7366f9bdbd244a9a197caa9937471f59b7828a319d4c83390a77f1df37bd707df4e2c0f7a6971b390248c2a0f031b3eb36798120349e2ee803d22ac
+"cloudbuild-task-contracts@npm:0.1.105-beta":
+  version: 0.1.105-beta
+  resolution: "cloudbuild-task-contracts@npm:0.1.105-beta"
+  checksum: 85ccbf7864d22204808e1b1cf0e245fe63f153635f68a15ad83230e21654fa99de3a188d06f55d6a040bfcdff059395dfdd0b127bbaed36ed9db6004aeaeb502
   languageName: node
   linkType: hard
 
@@ -934,18 +941,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cloudbuild-task-github-actions@npm:^0.1.78-alpha":
-  version: 0.1.78-alpha
-  resolution: "cloudbuild-task-github-actions@npm:0.1.78-alpha"
+"cloudbuild-task-github-actions@npm:^0.1.105-beta":
+  version: 0.1.105-beta
+  resolution: "cloudbuild-task-github-actions@npm:0.1.105-beta"
   dependencies:
-    "@actions/core": ^1.2.4
+    "@actions/core": ^1.2.6
     "@actions/exec": ^1.0.4
     "@actions/github": ^4.0.0
     "@actions/io": ^1.0.2
     "@actions/tool-cache": ^1.6.0
-    "@octokit/webhooks": ^7.9.3
-    cloudbuild-task-contracts: 0.1.78-alpha
-  checksum: 77a5a7faee09f42c97af46718bba4b470d3b8c3f0afadf407d0ca62316d25a436847630d45efccdd5635bddd8b7b47676cf65a2f6f9aa6311e3fd00af4e4fb37
+    "@octokit/webhooks": ^7.15.1
+    cloudbuild-task-contracts: 0.1.105-beta
+  checksum: 523c16e746fb7aad925ce1499786833ae084e46d6246787b633f92128f84f09a531f6f1cc9cf8ecd2c3c1e16657677db53077c8719d174472d06c03633c0ac36
   languageName: node
   linkType: hard
 
@@ -2657,7 +2664,7 @@ resolve@^1.3.2:
   version: 0.0.0-use.local
   resolution: "rich-code-nav-indexer@workspace:."
   dependencies:
-    "@actions/core": ^1.2.1
+    "@actions/core": ^1.2.6
     "@actions/exec": ^1.0.3
     "@actions/github": ^4.0.0
     "@actions/io": ^1.0.2
@@ -2667,7 +2674,7 @@ resolve@^1.3.2:
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.7
     axios: ^0.20.0
-    cloudbuild-task-github-actions: ^0.1.78-alpha
+    cloudbuild-task-github-actions: ^0.1.105-beta
     jshint: ^2.12.0
     mocha: ^8.1.3
     tslint: ^6.1.3

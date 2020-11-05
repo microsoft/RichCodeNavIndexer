@@ -31,7 +31,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "fallbackPool": [
       [
         "@actions/core",
-        "npm:1.2.4"
+        "npm:1.2.6"
       ],
       [
         "@actions/exec",
@@ -71,7 +71,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "cloudbuild-task-github-actions",
-        "npm:0.1.78-alpha"
+        "npm:0.1.105-beta"
       ],
       [
         "jshint",
@@ -97,7 +97,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["@actions/core", "npm:1.2.4"],
+            ["@actions/core", "npm:1.2.6"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
@@ -107,7 +107,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.20.0"],
-            ["cloudbuild-task-github-actions", "npm:0.1.78-alpha"],
+            ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
             ["jshint", "npm:2.12.0"],
             ["mocha", "npm:8.1.3"],
             ["tslint", "virtual:dee38c1bf033ecc3135ef9f083d644ccf3a3ac4c41bd06b635d1f9f5b8e9012b3a39fdf22e46139de1109bc2c68b63d2c81a2b5166fc1f66aa308a736e0a8d37#npm:6.1.3"],
@@ -121,6 +121,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@actions-core-npm-1.2.4-f3f9ed5788-3b2a63bac2.zip/node_modules/@actions/core/",
           "packageDependencies": [
             ["@actions/core", "npm:1.2.4"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.2.6", {
+          "packageLocation": "./.yarn/cache/@actions-core-npm-1.2.6-f205abe96a-984c7d5ae9.zip/node_modules/@actions/core/",
+          "packageDependencies": [
+            ["@actions/core", "npm:1.2.6"]
           ],
           "linkType": "HARD",
         }]
@@ -626,13 +633,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@octokit/webhooks", [
-        ["npm:7.9.3", {
-          "packageLocation": "./.yarn/cache/@octokit-webhooks-npm-7.9.3-749c46d471-f380d30864.zip/node_modules/@octokit/webhooks/",
+        ["npm:7.15.1", {
+          "packageLocation": "./.yarn/cache/@octokit-webhooks-npm-7.15.1-74a72a94d4-7d93aec54f.zip/node_modules/@octokit/webhooks/",
           "packageDependencies": [
-            ["@octokit/webhooks", "npm:7.9.3"],
+            ["@octokit/webhooks", "npm:7.15.1"],
             ["@octokit/request-error", "npm:2.0.2"],
             ["@pika/plugin-ts-standard-pkg", "npm:0.9.2"],
-            ["aggregate-error", "npm:3.0.1"],
+            ["aggregate-error", "npm:3.1.0"],
             ["debug", "virtual:f97e87ce5c078d09fc4187e51128c0b4e6d65e6ffc1d9c4aa1addf154ab797eb9b519b8b4202754bea5d95fe88e15fd3426b3e05808bd29b6ed4b061efc87658#npm:4.2.0"]
           ],
           "linkType": "HARD",
@@ -735,10 +742,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["aggregate-error", [
-        ["npm:3.0.1", {
-          "packageLocation": "./.yarn/cache/aggregate-error-npm-3.0.1-46f220b212-aee96f00c2.zip/node_modules/aggregate-error/",
+        ["npm:3.1.0", {
+          "packageLocation": "./.yarn/cache/aggregate-error-npm-3.1.0-415a406f4e-704d2001a3.zip/node_modules/aggregate-error/",
           "packageDependencies": [
-            ["aggregate-error", "npm:3.0.1"],
+            ["aggregate-error", "npm:3.1.0"],
             ["clean-stack", "npm:2.2.0"],
             ["indent-string", "npm:4.0.0"]
           ],
@@ -1154,33 +1161,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["cloudbuild-task-contracts", [
+        ["npm:0.1.105-beta", {
+          "packageLocation": "./.yarn/cache/cloudbuild-task-contracts-npm-0.1.105-beta-2e30541dbd-85ccbf7864.zip/node_modules/cloudbuild-task-contracts/",
+          "packageDependencies": [
+            ["cloudbuild-task-contracts", "npm:0.1.105-beta"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:0.1.66-alpha", {
           "packageLocation": "./.yarn/cache/cloudbuild-task-contracts-npm-0.1.66-alpha-bdf49055d8-9975b3dc09.zip/node_modules/cloudbuild-task-contracts/",
           "packageDependencies": [
             ["cloudbuild-task-contracts", "npm:0.1.66-alpha"]
           ],
           "linkType": "HARD",
-        }],
-        ["npm:0.1.78-alpha", {
-          "packageLocation": "./.yarn/cache/cloudbuild-task-contracts-npm-0.1.78-alpha-1017a79f2a-c4c43bcdf7.zip/node_modules/cloudbuild-task-contracts/",
-          "packageDependencies": [
-            ["cloudbuild-task-contracts", "npm:0.1.78-alpha"]
-          ],
-          "linkType": "HARD",
         }]
       ]],
       ["cloudbuild-task-github-actions", [
-        ["npm:0.1.78-alpha", {
-          "packageLocation": "./.yarn/cache/cloudbuild-task-github-actions-npm-0.1.78-alpha-32c5de3d91-77a5a7faee.zip/node_modules/cloudbuild-task-github-actions/",
+        ["npm:0.1.105-beta", {
+          "packageLocation": "./.yarn/cache/cloudbuild-task-github-actions-npm-0.1.105-beta-5f98d508c8-523c16e746.zip/node_modules/cloudbuild-task-github-actions/",
           "packageDependencies": [
-            ["cloudbuild-task-github-actions", "npm:0.1.78-alpha"],
-            ["@actions/core", "npm:1.2.4"],
+            ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
+            ["@actions/core", "npm:1.2.6"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
             ["@actions/tool-cache", "npm:1.6.0"],
-            ["@octokit/webhooks", "npm:7.9.3"],
-            ["cloudbuild-task-contracts", "npm:0.1.78-alpha"]
+            ["@octokit/webhooks", "npm:7.15.1"],
+            ["cloudbuild-task-contracts", "npm:0.1.105-beta"]
           ],
           "linkType": "HARD",
         }]
@@ -3109,7 +3116,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["rich-code-nav-indexer", "workspace:."],
-            ["@actions/core", "npm:1.2.4"],
+            ["@actions/core", "npm:1.2.6"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
@@ -3119,7 +3126,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.20.0"],
-            ["cloudbuild-task-github-actions", "npm:0.1.78-alpha"],
+            ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
             ["jshint", "npm:2.12.0"],
             ["mocha", "npm:8.1.3"],
             ["tslint", "virtual:dee38c1bf033ecc3135ef9f083d644ccf3a3ac4c41bd06b635d1f9f5b8e9012b3a39fdf22e46139de1109bc2c68b63d2c81a2b5166fc1f66aa308a736e0a8d37#npm:6.1.3"],
