@@ -27,6 +27,8 @@ You may have specific requirements that need additional configurations beyond th
 `nugetVersion` | `latest` | The version of the Rich Code Navigation nuget packages to use. Use `latest` to download the latest package (including prereleases).
 `environment` | `production` | `development`, `staging`, or `production`
 `richNavLogOutputDirectory` | | A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
+`sourceRootDir` | | The directory on the machine where the source code is located, if different from the default.
+`uploadRichNavArtifacts` | `false` | A boolean indicating whether Rich Nav log files should be uploaded as a build artifact. Not yet supported for GitHub Actions. Instead, please use the output variable `lspLogsPath` to publish Rich Nav artifacts.
 
 ## Outputs
 
