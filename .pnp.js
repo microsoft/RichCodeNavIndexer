@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.115-alpha"
+        "npm:0.1.131-alpha"
       ],
       [
         "@types/mocha",
@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
             ["@actions/tool-cache", "npm:1.6.0"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.115-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.131-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.7"],
@@ -676,14 +676,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.115-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.115-alpha-e8f703b9d3-05ed617aec.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.131-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.131-alpha-c588499156-60bcad3119.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.115-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.131-alpha"],
             ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.18.1"],
             ["cloudbuild-task-contracts", "npm:0.1.105-beta"],
-            ["fs-extra", "npm:9.0.1"],
+            ["fs-extra", "npm:9.1.0"],
             ["minimatch", "npm:3.0.4"],
             ["mkdirp", "npm:1.0.4"],
             ["promisify-node", "npm:0.5.0"],
@@ -1807,14 +1807,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["fs-extra", [
-        ["npm:9.0.1", {
-          "packageLocation": "./.yarn/cache/fs-extra-npm-9.0.1-2925889105-b7374cb058.zip/node_modules/fs-extra/",
+        ["npm:9.1.0", {
+          "packageLocation": "./.yarn/cache/fs-extra-npm-9.1.0-983c2ddb4c-e667d8df54.zip/node_modules/fs-extra/",
           "packageDependencies": [
-            ["fs-extra", "npm:9.0.1"],
+            ["fs-extra", "npm:9.1.0"],
             ["at-least-node", "npm:1.0.0"],
-            ["graceful-fs", "npm:4.2.4"],
+            ["graceful-fs", "npm:4.2.6"],
             ["jsonfile", "npm:6.1.0"],
-            ["universalify", "npm:1.0.0"]
+            ["universalify", "npm:2.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -1951,6 +1951,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/graceful-fs-npm-4.2.4-734467635f-d095ee4dc6.zip/node_modules/graceful-fs/",
           "packageDependencies": [
             ["graceful-fs", "npm:4.2.4"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:4.2.6", {
+          "packageLocation": "./.yarn/cache/graceful-fs-npm-4.2.6-535b2234f1-84d39c7756.zip/node_modules/graceful-fs/",
+          "packageDependencies": [
+            ["graceful-fs", "npm:4.2.6"]
           ],
           "linkType": "HARD",
         }]
@@ -2431,7 +2438,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/jsonfile-npm-6.1.0-20a4796cee-9419c886ab.zip/node_modules/jsonfile/",
           "packageDependencies": [
             ["jsonfile", "npm:6.1.0"],
-            ["graceful-fs", "npm:4.2.4"],
+            ["graceful-fs", "npm:4.2.6"],
             ["universalify", "npm:2.0.0"]
           ],
           "linkType": "HARD",
@@ -3121,7 +3128,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.0.2"],
             ["@actions/tool-cache", "npm:1.6.0"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.115-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.131-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.7"],
@@ -3622,13 +3629,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["universalify", [
-        ["npm:1.0.0", {
-          "packageLocation": "./.yarn/cache/universalify-npm-1.0.0-eff81409f3-d74303a8d9.zip/node_modules/universalify/",
-          "packageDependencies": [
-            ["universalify", "npm:1.0.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:2.0.0", {
           "packageLocation": "./.yarn/cache/universalify-npm-2.0.0-03b8b418a8-36bfbdc97b.zip/node_modules/universalify/",
           "packageDependencies": [
