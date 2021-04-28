@@ -29,6 +29,9 @@ You may have specific requirements that need additional configurations beyond th
 `richNavLogOutputDirectory` | | A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
 `sourceRootDir` | | The directory on the machine where the source code is located, if different from the default.
 `uploadRichNavArtifacts` | `false` | A boolean indicating whether Rich Nav log files should be uploaded as a build artifact. Not yet supported for GitHub Actions. Instead, please use the output variable `lspLogsPath` to publish Rich Nav artifacts.
+`configFiles` | | The config file(s) for the project(s) to be indexed either as glob patterns or specific file paths relative to the root of the repo, separated by ','
+`maxParallelIndexingJobs` | 2 | The number of indexers to be run in parallel.
+`typescriptVersion` | 0.6.0-next.7 | Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif
 
 ## Outputs
 
