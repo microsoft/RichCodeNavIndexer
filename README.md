@@ -31,7 +31,9 @@ You may have specific requirements that need additional configurations beyond th
 `uploadRichNavArtifacts` | `false` | A boolean indicating whether Rich Nav log files should be uploaded as a build artifact. Not yet supported for GitHub Actions. Instead, please use the output variable `lspLogsPath` to publish Rich Nav artifacts.
 `configFiles` | | The config file(s) for the project(s) to be indexed either as glob patterns or specific file paths relative to the root of the repo, separated by ','
 `maxParallelIndexingJobs` | 2 | The number of indexers to be run in parallel.
-`typescriptVersion` | 0.6.0-next.7 | Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif
+`typescriptVersion` | 0.6.0-next.13 | Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif
+`advancedOptionsCpp` | | Additional command line arguments to the c++ LSIF tool. E.g. --arch x86 --verbose
+`csharpVersion` | 4.0.0-3.21372.2 | Optional version of Csharp tools to use. For versions see https://dnceng.visualstudio.com/public/_packaging?_a=feed&feed=dotnet-tools
 
 ## Outputs
 

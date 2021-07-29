@@ -36,6 +36,12 @@ inputs:
   typescriptVersion:
     description: Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif
     required: false
+  advancedOptionsCpp:
+    description: Additional command line arguments to the c++ LSIF tool. E.g. --arch x86 --verbose
+    required: false
+  csharpVersion:
+    description: Optional version of Csharp tools to use. For versions see https://dnceng.visualstudio.com/public/_packaging?_a=feed&feed=dotnet-tools
+    required: false
 
 outputs:
   lspLogsPath:
