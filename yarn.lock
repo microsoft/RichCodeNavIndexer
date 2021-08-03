@@ -56,7 +56,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@actions/tool-cache@npm:^1.3.0, @actions/tool-cache@npm:^1.6.0":
+"@actions/io@npm:^1.1.0, @actions/io@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@actions/io@npm:1.1.1"
+  checksum: eb23d40a50f93842fbdbbd9f82ed2bfcb0558c6a253d9d44cfb0a09d235deb8c2caf2e97f79359abeff9ed45239f108a9e329f5a71dfd01ddfb88d15ab057ad7
+  languageName: node
+  linkType: hard
+
+"@actions/tool-cache@npm:^1.6.0":
   version: 1.6.0
   resolution: "@actions/tool-cache@npm:1.6.0"
   dependencies:
@@ -67,6 +74,20 @@ __metadata:
     semver: ^6.1.0
     uuid: ^3.3.2
   checksum: 9003ddc6006e0aab5e0f8e5b8480299c4d89a3a63e1a9e061abaff24040ee8488d08559553ceef4abc09d998cbe9d705b249caab1bdad6d015e1a10060048a60
+  languageName: node
+  linkType: hard
+
+"@actions/tool-cache@npm:^1.6.1":
+  version: 1.7.1
+  resolution: "@actions/tool-cache@npm:1.7.1"
+  dependencies:
+    "@actions/core": ^1.2.6
+    "@actions/exec": ^1.0.0
+    "@actions/http-client": ^1.0.8
+    "@actions/io": ^1.1.1
+    semver: ^6.1.0
+    uuid: ^3.3.2
+  checksum: e002f3d9b7749acb11ef9d565244d0992151d8f8af97eee7d0477700d5834ed02c31014f81088e4b11fa98f65a554ce8325daa29a6b65bd7baff9b90410335dc
   languageName: node
   linkType: hard
 
@@ -636,7 +657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^1.2.0, applicationinsights@npm:^1.8.7":
+"applicationinsights@npm:^1.2.0":
   version: 1.8.7
   resolution: "applicationinsights@npm:1.8.7"
   dependencies:
@@ -645,6 +666,18 @@ __metadata:
     diagnostic-channel: 0.3.1
     diagnostic-channel-publishers: 0.4.1
   checksum: 74e76d9d7d0df2f5b183c2d89db723b9e03cd97a43d78a4b91c21716b40b719f87e817001f64f4508171314785f56b40fc66f20f3d348daaa16dda51e410ef66
+  languageName: node
+  linkType: hard
+
+"applicationinsights@npm:^1.8.10":
+  version: 1.8.10
+  resolution: "applicationinsights@npm:1.8.10"
+  dependencies:
+    cls-hooked: ^4.2.2
+    continuation-local-storage: ^3.2.1
+    diagnostic-channel: 0.3.1
+    diagnostic-channel-publishers: 0.4.4
+  checksum: 2a7a22fa31828feb4741427c0a30e932bbf1c85c46c6f0d1251be2bf52e48cd975b0c48eb0dce8a88a6b8f06b371a126b6c783ac2171032c16ac6267e158e2fe
   languageName: node
   linkType: hard
 
@@ -1156,6 +1189,15 @@ __metadata:
   peerDependencies:
     diagnostic-channel: "*"
   checksum: 2ef7078af50976e546cf9cbd150148b417f616011f8695effab61053b957882e5a938b52e528eff17c6e41d08a95e9c90391283ea76388d61293c5a92dfbe590
+  languageName: node
+  linkType: hard
+
+"diagnostic-channel-publishers@npm:0.4.4":
+  version: 0.4.4
+  resolution: "diagnostic-channel-publishers@npm:0.4.4"
+  peerDependencies:
+    diagnostic-channel: "*"
+  checksum: ff8a7a3072e87cd107c91a78d1c9024592181e3f21f4742c043066128eaf724692b4cec0386d396478d99d6ed5cd493e29fae7311852a9c73d199f4d22dd515f
   languageName: node
   linkType: hard
 
@@ -2641,12 +2683,12 @@ resolve@^1.3.2:
     "@actions/core": ^1.2.6
     "@actions/exec": ^1.0.3
     "@actions/github": ^4.0.0
-    "@actions/io": ^1.0.2
-    "@actions/tool-cache": ^1.3.0
+    "@actions/io": ^1.1.0
+    "@actions/tool-cache": ^1.6.1
     "@richnav/rich-code-nav-indexer-core": ^0.1.149-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
-    applicationinsights: ^1.8.7
+    applicationinsights: ^1.8.10
     axios: ^0.20.0
     cloudbuild-task-github-actions: ^0.1.105-beta
     jshint: ^2.12.0
