@@ -4,7 +4,7 @@
 
 This action indexes the repo it runs within and uploads the language service data to the Rich Code Nav service.
 
-**Pre-requisite:  
+**Pre-requisite:
 You must [sign-up](https://aka.ms/richnavigation) and be approved for Rich Code Navigation Private Preview prior to installing this GitHub Action.**
 
 ## Example usage
@@ -23,17 +23,20 @@ You may have specific requirements that need additional configurations beyond th
 |--|--|--|
 `repo-token` | | Required input to get access to the repo and should be set to `${{ github.token }}`.
 `languages` | | List of languages to use when discovering repository symbols, separated by `,`
+`environment` | `production` | `development`, `staging`, or `production`
 `nugetFeed` | | Feed source to use when installing Rich Code Navigation NuGet packages
 `nugetVersion` | `latest` | The version of the Rich Code Navigation nuget packages to use. Use `latest` to download the latest package (including prereleases).
-`environment` | `production` | `development`, `staging`, or `production`
+`configFiles` | | The config file(s) for the project(s) to be indexed either as glob patterns or specific file paths relative to the root of the repo, separated by ','
 `richNavLogOutputDirectory` | | A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
 `sourceRootDir` | | The directory on the machine where the source code is located, if different from the default.
 `uploadRichNavArtifacts` | `false` | A boolean indicating whether Rich Nav log files should be uploaded as a build artifact. Not yet supported for GitHub Actions. Instead, please use the output variable `lspLogsPath` to publish Rich Nav artifacts.
-`configFiles` | | The config file(s) for the project(s) to be indexed either as glob patterns or specific file paths relative to the root of the repo, separated by ','
 `maxParallelIndexingJobs` | 2 | The number of indexers to be run in parallel.
 `typescriptVersion` | 0.6.0-next.13 | Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif
-`advancedOptionsCpp` | | Additional command line arguments to the c++ LSIF tool. E.g. --arch x86 --verbose
 `csharpVersion` | 4.0.0-3.21372.2 | Optional version of Csharp tools to use. For versions see https://dnceng.visualstudio.com/public/_packaging?_a=feed&feed=dotnet-tools
+`advancedOptionsCpp` | | Additional command line arguments to the c++ LSIF tool. E.g. --arch x86 --verbose
+`defaultExpiry` | 30 | The default maximum number of days for an index to be saved (may be overridden by prExpiry and branchRetention settings)
+`prExpiry` | 3 | The maximum number of days for the index of a PR to be saved
+`branchRetention` | | A comma-separated list of specific branches and maximum number of days to retain; e.g. main, 15, release/production, 30
 
 ## Outputs
 
