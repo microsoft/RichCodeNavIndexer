@@ -43,15 +43,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@actions/io",
-        "npm:1.0.2"
+        "npm:1.1.1"
       ],
       [
         "@actions/tool-cache",
-        "npm:1.6.0"
+        "npm:1.7.1"
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.131-alpha"
+        "npm:0.1.149-alpha"
       ],
       [
         "@types/mocha",
@@ -63,7 +63,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "applicationinsights",
-        "npm:1.8.7"
+        "npm:1.8.10"
       ],
       [
         "axios",
@@ -100,12 +100,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/core", "npm:1.2.6"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
-            ["@actions/io", "npm:1.0.2"],
-            ["@actions/tool-cache", "npm:1.6.0"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.131-alpha"],
+            ["@actions/io", "npm:1.1.1"],
+            ["@actions/tool-cache", "npm:1.7.1"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.149-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
-            ["applicationinsights", "npm:1.8.7"],
+            ["applicationinsights", "npm:1.8.10"],
             ["axios", "npm:0.20.0"],
             ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
             ["jshint", "npm:2.12.0"],
@@ -172,6 +172,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/io", "npm:1.0.2"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.1.1", {
+          "packageLocation": "./.yarn/cache/@actions-io-npm-1.1.1-2cd3dcb315-eb23d40a50.zip/node_modules/@actions/io/",
+          "packageDependencies": [
+            ["@actions/io", "npm:1.1.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@actions/tool-cache", [
@@ -183,6 +190,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/http-client", "npm:1.0.8"],
             ["@actions/io", "npm:1.0.2"],
+            ["semver", "npm:6.3.0"],
+            ["uuid", "npm:3.4.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.7.1", {
+          "packageLocation": "./.yarn/unplugged/@actions-tool-cache-npm-1.7.1-65278858df/node_modules/@actions/tool-cache/",
+          "packageDependencies": [
+            ["@actions/tool-cache", "npm:1.7.1"],
+            ["@actions/core", "npm:1.2.6"],
+            ["@actions/exec", "npm:1.0.4"],
+            ["@actions/http-client", "npm:1.0.8"],
+            ["@actions/io", "npm:1.1.1"],
             ["semver", "npm:6.3.0"],
             ["uuid", "npm:3.4.0"]
           ],
@@ -676,12 +696,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.131-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.131-alpha-c588499156-60bcad3119.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.149-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.149-alpha-8a82da4d68-8594be2b01.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.131-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.149-alpha"],
             ["applicationinsights", "npm:1.8.7"],
-            ["axios", "npm:0.18.1"],
+            ["axios", "npm:0.21.1"],
             ["cloudbuild-task-contracts", "npm:0.1.105-beta"],
             ["fs-extra", "npm:9.1.0"],
             ["minimatch", "npm:3.0.4"],
@@ -828,6 +848,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["applicationinsights", [
+        ["npm:1.8.10", {
+          "packageLocation": "./.yarn/cache/applicationinsights-npm-1.8.10-42af20d980-2a7a22fa31.zip/node_modules/applicationinsights/",
+          "packageDependencies": [
+            ["applicationinsights", "npm:1.8.10"],
+            ["cls-hooked", "npm:4.2.2"],
+            ["continuation-local-storage", "npm:3.2.1"],
+            ["diagnostic-channel", "npm:0.3.1"],
+            ["diagnostic-channel-publishers", "virtual:42af20d98018d95904ec13b02ea29106f19ee253f73315a37b4c92ef8df390e101e42c2a8ef8df8cc29786f5d2437d877101ce94b7bf2a5fd82c2437fd74942f#npm:0.4.4"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:1.8.7", {
           "packageLocation": "./.yarn/cache/applicationinsights-npm-1.8.7-0bf811dc2a-74e76d9d7d.zip/node_modules/applicationinsights/",
           "packageDependencies": [
@@ -969,19 +1000,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["axios", [
-        ["npm:0.18.1", {
-          "packageLocation": "./.yarn/cache/axios-npm-0.18.1-a90f17c1fb-6188a1b815.zip/node_modules/axios/",
-          "packageDependencies": [
-            ["axios", "npm:0.18.1"],
-            ["follow-redirects", "npm:1.5.10"],
-            ["is-buffer", "npm:2.0.5"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:0.20.0", {
           "packageLocation": "./.yarn/cache/axios-npm-0.20.0-535d9e0086-6cf2e96317.zip/node_modules/axios/",
           "packageDependencies": [
             ["axios", "npm:0.20.0"],
+            ["follow-redirects", "npm:1.13.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:0.21.1", {
+          "packageLocation": "./.yarn/cache/axios-npm-0.21.1-d192f6b3b3-864fb7b5d0.zip/node_modules/axios/",
+          "packageDependencies": [
+            ["axios", "npm:0.21.1"],
             ["follow-redirects", "npm:1.13.0"]
           ],
           "linkType": "HARD",
@@ -1349,18 +1379,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["debug", [
-        ["virtual:bde6f435769d1a96c3f371d2e8a88314847816fb841f758b3628da60329c36f988ca42f6984dc53bb31dd306522878e1e5d568caeca7af42e4f19b238d6261b3#npm:3.1.0", {
-          "packageLocation": "./.yarn/$$virtual/debug-virtual-f2284580f9/0/cache/debug-npm-3.1.0-9f0accb99b-1295acd5e0.zip/node_modules/debug/",
-          "packageDependencies": [
-            ["debug", "virtual:bde6f435769d1a96c3f371d2e8a88314847816fb841f758b3628da60329c36f988ca42f6984dc53bb31dd306522878e1e5d568caeca7af42e4f19b238d6261b3#npm:3.1.0"],
-            ["ms", "npm:2.0.0"],
-            ["supports-color", null]
-          ],
-          "packagePeers": [
-            "supports-color"
-          ],
-          "linkType": "HARD",
-        }],
         ["virtual:c1da72c06ef99dd6baf2af6d4a4ff0451e1b25680d3abe3cb952c6a8921d892c49115de3db393eba3ad53112466af96b6f2e854df7b5f97fa8def7a69a916756#npm:4.1.1", {
           "packageLocation": "./.yarn/$$virtual/debug-virtual-cf00090d03/0/cache/debug-npm-4.1.1-540248b3aa-3601a6ce96.zip/node_modules/debug/",
           "packageDependencies": [
@@ -1447,6 +1465,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/$$virtual/diagnostic-channel-publishers-virtual-c85c87651d/0/cache/diagnostic-channel-publishers-npm-0.4.1-7a9a5b750c-2ef7078af5.zip/node_modules/diagnostic-channel-publishers/",
           "packageDependencies": [
             ["diagnostic-channel-publishers", "virtual:0bf811dc2aab8159dc1c382e92f93e33f5b14018e00847c7892187a5a88496ea134eec986751f434154b26f789e72e2a53380cd76bf47643c48b7ace1a96f56d#npm:0.4.1"],
+            ["diagnostic-channel", "npm:0.3.1"]
+          ],
+          "packagePeers": [
+            "diagnostic-channel"
+          ],
+          "linkType": "HARD",
+        }],
+        ["virtual:42af20d98018d95904ec13b02ea29106f19ee253f73315a37b4c92ef8df390e101e42c2a8ef8df8cc29786f5d2437d877101ce94b7bf2a5fd82c2437fd74942f#npm:0.4.4", {
+          "packageLocation": "./.yarn/$$virtual/diagnostic-channel-publishers-virtual-d4d35aa157/0/cache/diagnostic-channel-publishers-npm-0.4.4-30b2c1a3a1-ff8a7a3072.zip/node_modules/diagnostic-channel-publishers/",
+          "packageDependencies": [
+            ["diagnostic-channel-publishers", "virtual:42af20d98018d95904ec13b02ea29106f19ee253f73315a37b4c92ef8df390e101e42c2a8ef8df8cc29786f5d2437d877101ce94b7bf2a5fd82c2437fd74942f#npm:0.4.4"],
             ["diagnostic-channel", "npm:0.3.1"]
           ],
           "packagePeers": [
@@ -1773,14 +1802,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/follow-redirects-npm-1.13.0-ae26ae301a-f220828d3f.zip/node_modules/follow-redirects/",
           "packageDependencies": [
             ["follow-redirects", "npm:1.13.0"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:1.5.10", {
-          "packageLocation": "./.yarn/cache/follow-redirects-npm-1.5.10-bde6f43576-6e58e02c31.zip/node_modules/follow-redirects/",
-          "packageDependencies": [
-            ["follow-redirects", "npm:1.5.10"],
-            ["debug", "virtual:bde6f435769d1a96c3f371d2e8a88314847816fb841f758b3628da60329c36f988ca42f6984dc53bb31dd306522878e1e5d568caeca7af42e4f19b238d6261b3#npm:3.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -2123,13 +2144,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/is-buffer-npm-2.0.4-ce097f06a1-cd1cbc19e5.zip/node_modules/is-buffer/",
           "packageDependencies": [
             ["is-buffer", "npm:2.0.4"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:2.0.5", {
-          "packageLocation": "./.yarn/cache/is-buffer-npm-2.0.5-17e563f277-1a6dc68206.zip/node_modules/is-buffer/",
-          "packageDependencies": [
-            ["is-buffer", "npm:2.0.5"]
           ],
           "linkType": "HARD",
         }]
@@ -2624,13 +2638,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ms", [
-        ["npm:2.0.0", {
-          "packageLocation": "./.yarn/cache/ms-npm-2.0.0-9e1101a471-1a230340cc.zip/node_modules/ms/",
-          "packageDependencies": [
-            ["ms", "npm:2.0.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:2.1.2", {
           "packageLocation": "./.yarn/cache/ms-npm-2.1.2-ec0c1512ff-9b65fb709b.zip/node_modules/ms/",
           "packageDependencies": [
@@ -3126,12 +3133,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/core", "npm:1.2.6"],
             ["@actions/exec", "npm:1.0.4"],
             ["@actions/github", "npm:4.0.0"],
-            ["@actions/io", "npm:1.0.2"],
-            ["@actions/tool-cache", "npm:1.6.0"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.131-alpha"],
+            ["@actions/io", "npm:1.1.1"],
+            ["@actions/tool-cache", "npm:1.7.1"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.149-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
-            ["applicationinsights", "npm:1.8.7"],
+            ["applicationinsights", "npm:1.8.10"],
             ["axios", "npm:0.20.0"],
             ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
             ["jshint", "npm:2.12.0"],

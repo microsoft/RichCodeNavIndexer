@@ -56,7 +56,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@actions/tool-cache@npm:^1.3.0, @actions/tool-cache@npm:^1.6.0":
+"@actions/io@npm:^1.1.0, @actions/io@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@actions/io@npm:1.1.1"
+  checksum: eb23d40a50f93842fbdbbd9f82ed2bfcb0558c6a253d9d44cfb0a09d235deb8c2caf2e97f79359abeff9ed45239f108a9e329f5a71dfd01ddfb88d15ab057ad7
+  languageName: node
+  linkType: hard
+
+"@actions/tool-cache@npm:^1.6.0":
   version: 1.6.0
   resolution: "@actions/tool-cache@npm:1.6.0"
   dependencies:
@@ -67,6 +74,20 @@ __metadata:
     semver: ^6.1.0
     uuid: ^3.3.2
   checksum: 9003ddc6006e0aab5e0f8e5b8480299c4d89a3a63e1a9e061abaff24040ee8488d08559553ceef4abc09d998cbe9d705b249caab1bdad6d015e1a10060048a60
+  languageName: node
+  linkType: hard
+
+"@actions/tool-cache@npm:^1.6.1":
+  version: 1.7.1
+  resolution: "@actions/tool-cache@npm:1.7.1"
+  dependencies:
+    "@actions/core": ^1.2.6
+    "@actions/exec": ^1.0.0
+    "@actions/http-client": ^1.0.8
+    "@actions/io": ^1.1.1
+    semver: ^6.1.0
+    uuid: ^3.3.2
+  checksum: e002f3d9b7749acb11ef9d565244d0992151d8f8af97eee7d0477700d5834ed02c31014f81088e4b11fa98f65a554ce8325daa29a6b65bd7baff9b90410335dc
   languageName: node
   linkType: hard
 
@@ -502,12 +523,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.131-alpha":
-  version: 0.1.131-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.131-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.149-alpha":
+  version: 0.1.149-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.149-alpha"
   dependencies:
     applicationinsights: ^1.2.0
-    axios: ^0.18.1
+    axios: ^0.21.1
     cloudbuild-task-contracts: ^0.1.105-beta
     fs-extra: ^9.0.1
     minimatch: ^3.0.4
@@ -518,7 +539,7 @@ __metadata:
     stream-buffers: ^3.0.2
     uuid: ^8.3.1
     which: ^2.0.2
-  checksum: 60bcad311908b250bdafb33c0e1dbf4d6e83c89db393985235f8737692c94601cb9166270fa026b14f5c13c48c87d4d2b79cf0475ecb8d9c1715f70905e0e1b1
+  checksum: 8594be2b01c6ada16e230f070abf0fc0c8d22edad2abd0a41658b602fb1fdbd67cc3aed372ec312e53cbb022e553b15cae1f6d8359e94469bdaaf6261f95d19d
   languageName: node
   linkType: hard
 
@@ -636,7 +657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^1.2.0, applicationinsights@npm:^1.8.7":
+"applicationinsights@npm:^1.2.0":
   version: 1.8.7
   resolution: "applicationinsights@npm:1.8.7"
   dependencies:
@@ -645,6 +666,18 @@ __metadata:
     diagnostic-channel: 0.3.1
     diagnostic-channel-publishers: 0.4.1
   checksum: 74e76d9d7d0df2f5b183c2d89db723b9e03cd97a43d78a4b91c21716b40b719f87e817001f64f4508171314785f56b40fc66f20f3d348daaa16dda51e410ef66
+  languageName: node
+  linkType: hard
+
+"applicationinsights@npm:^1.8.10":
+  version: 1.8.10
+  resolution: "applicationinsights@npm:1.8.10"
+  dependencies:
+    cls-hooked: ^4.2.2
+    continuation-local-storage: ^3.2.1
+    diagnostic-channel: 0.3.1
+    diagnostic-channel-publishers: 0.4.4
+  checksum: 2a7a22fa31828feb4741427c0a30e932bbf1c85c46c6f0d1251be2bf52e48cd975b0c48eb0dce8a88a6b8f06b371a126b6c783ac2171032c16ac6267e158e2fe
   languageName: node
   linkType: hard
 
@@ -756,22 +789,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.18.1":
-  version: 0.18.1
-  resolution: "axios@npm:0.18.1"
-  dependencies:
-    follow-redirects: 1.5.10
-    is-buffer: ^2.0.2
-  checksum: 6188a1b815733c1b6118eddc70d931caea7f867ca77ade8205e49cd6e457b837460cc4e325e19c66a81190a170fde5b76480878366b3743131977da76d571bec
-  languageName: node
-  linkType: hard
-
 "axios@npm:^0.20.0":
   version: 0.20.0
   resolution: "axios@npm:0.20.0"
   dependencies:
     follow-redirects: ^1.10.0
   checksum: 6cf2e963176a0d18fc457d7cb71cb6cf552193619b161fc61070d9a4db3a26a87ecfe760ba36e7af174c05a6a9898dc52cfeb5c0e62e19fddd9788739553ad73
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.21.1":
+  version: 0.21.1
+  resolution: "axios@npm:0.21.1"
+  dependencies:
+    follow-redirects: ^1.10.0
+  checksum: 864fb7b5d077d236737f10adca53bf451a93f35a15271f56fba8da07265a02d26b7d881b935a6697dc6adb0549ea3e56d2eecb403edaa3bb78f6479901c10f69
   languageName: node
   linkType: hard
 
@@ -1100,15 +1132,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:=3.1.0":
-  version: 3.1.0
-  resolution: "debug@npm:3.1.0"
-  dependencies:
-    ms: 2.0.0
-  checksum: 1295acd5e0531761255661d325cd0a80ac8c5f6de8942a53bb23c2197ccb97526972de662ed0e5d9393be83f3428a298a6e7185ecb02f0da6282019cd2ffb4a8
-  languageName: node
-  linkType: hard
-
 "debug@npm:^4.0.0, debug@npm:^4.1.0":
   version: 4.2.0
   resolution: "debug@npm:4.2.0"
@@ -1166,6 +1189,15 @@ __metadata:
   peerDependencies:
     diagnostic-channel: "*"
   checksum: 2ef7078af50976e546cf9cbd150148b417f616011f8695effab61053b957882e5a938b52e528eff17c6e41d08a95e9c90391283ea76388d61293c5a92dfbe590
+  languageName: node
+  linkType: hard
+
+"diagnostic-channel-publishers@npm:0.4.4":
+  version: 0.4.4
+  resolution: "diagnostic-channel-publishers@npm:0.4.4"
+  peerDependencies:
+    diagnostic-channel: "*"
+  checksum: ff8a7a3072e87cd107c91a78d1c9024592181e3f21f4742c043066128eaf724692b4cec0386d396478d99d6ed5cd493e29fae7311852a9c73d199f4d22dd515f
   languageName: node
   linkType: hard
 
@@ -1455,15 +1487,6 @@ __metadata:
   bin:
     flat: cli.js
   checksum: 986b9e7598c6352a6bcc1190fffde0e1b573c8e03c8f8117d8a5696f291163c906e5c168e6cea9e5dae0ca241b734a480fa33f4174009295a572e035dfe156c7
-  languageName: node
-  linkType: hard
-
-"follow-redirects@npm:1.5.10":
-  version: 1.5.10
-  resolution: "follow-redirects@npm:1.5.10"
-  dependencies:
-    debug: =3.1.0
-  checksum: 6e58e02c31337b6b41ffc3d5f3d49920b7db428eddcf374537da00ef121fe473983e12d8557f4304287604168d3efcc288d1f009abaf4c9d61e5db0c0cee3c4a
   languageName: node
   linkType: hard
 
@@ -1768,13 +1791,6 @@ fsevents@~2.1.2:
   dependencies:
     binary-extensions: ^2.0.0
   checksum: 49a1446a3cf3719e91a061f0e52add18fd065325c652c277519a2ad333440dc8b449076a893277a46940ef16f05a908716667ca8f986b28c677b9acb11e10a36
-  languageName: node
-  linkType: hard
-
-"is-buffer@npm:^2.0.2":
-  version: 2.0.5
-  resolution: "is-buffer@npm:2.0.5"
-  checksum: 1a6dc68206e834887d3b0d8e8ec6c95e0d780314479526a5a2cf458838d1bc441a105c4cebf95d8cc16e383238f66c41761ec622f6154043186e3d9439d56970
   languageName: node
   linkType: hard
 
@@ -2223,13 +2239,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ms@npm:2.0.0":
-  version: 2.0.0
-  resolution: "ms@npm:2.0.0"
-  checksum: 1a230340cc7f322fbe916783d8c8d60455407c6b7fb7f901d6ee34eb272402302c5c7f070a97b8531245cbb4ca6a0a623f6a128d7e5a5440cefa2c669c0b35bb
-  languageName: node
-  linkType: hard
-
 "ms@npm:2.1.2, ms@npm:^2.1.1":
   version: 2.1.2
   resolution: "ms@npm:2.1.2"
@@ -2674,12 +2683,12 @@ resolve@^1.3.2:
     "@actions/core": ^1.2.6
     "@actions/exec": ^1.0.3
     "@actions/github": ^4.0.0
-    "@actions/io": ^1.0.2
-    "@actions/tool-cache": ^1.3.0
-    "@richnav/rich-code-nav-indexer-core": ^0.1.131-alpha
+    "@actions/io": ^1.1.0
+    "@actions/tool-cache": ^1.6.1
+    "@richnav/rich-code-nav-indexer-core": ^0.1.149-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
-    applicationinsights: ^1.8.7
+    applicationinsights: ^1.8.10
     axios: ^0.20.0
     cloudbuild-task-github-actions: ^0.1.105-beta
     jshint: ^2.12.0

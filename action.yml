@@ -6,23 +6,50 @@ branding:
   color: yellow
 
 inputs:
-  service-token:
-    description: The token used when submitting the index to the Rich Code Nav service. Only necessary for repositories not already invited.
-    required: false
   repo-token:
     description: Your GITHUB_TOKEN. Only necessary for private repositories.
     required: false
   languages:
     description: List of languages to use when discovering repository symbols, separated by ','
     required: false
-  nugetFeed:
-    description: Feed source to use when installing Rich Code Navigation NuGet packages
-    required: false
   environment:
     description: 'The Rich Code Navigation environment to upload the index to. One of: production, staging or development.'
     required: false
+  nugetFeed:
+    description: Feed source to use when installing Rich Code Navigation NuGet packages
+    required: false
+  nugetVersion:
+    description: Version of Rich Code Navigation packages to install, defaults to latest published
+    required: false
+  configFiles:
+    description: The config file(s) for the project(s) to be indexed either as glob patterns or specific file paths relative to the root of the repo, separated by ','
+    required: false
   richNavLogOutputDirectory:
     description: A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
+    required: false
+  soureRootDir:
+    description: The directory on the machine where the source code is located, if different from the default.
+    required: false
+  maxParallelIndexingJobs:
+    description: Enter a number between 1-4 to change the maximum number of parallel indexing jobs. Defaults to 2.
+    required: false
+  typescriptVersion:
+    description: Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif
+    required: false
+  csharpVersion:
+    description: Optional version of Csharp tools to use. For versions see https://dnceng.visualstudio.com/public/_packaging?_a=feed&feed=dotnet-tools
+    required: false
+  advancedOptionsCpp:
+    description: Additional command line arguments to the c++ LSIF tool. E.g. --arch x86 --verbose
+    required: false
+  defaultExpiry:
+    description: The default maximum number of days for an index to be saved (may be overridden by prExpiry and branchRetention settings)
+    required: false
+  prExpiry:
+    description: The maximum number of days for the index of a PR to be saved
+    required: false
+  branchRetention:
+    description: A comma-separated list of specific branches and maximum number of days to retain; e.g. main, 15, release/production, 30
     required: false
 
 outputs:
