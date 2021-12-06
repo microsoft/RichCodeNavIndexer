@@ -33,6 +33,7 @@ You may have specific requirements that need additional configurations beyond th
 `maxParallelIndexingJobs` | 2 | The number of indexers to be run in parallel.
 `typescriptVersion` | 0.6.0-next.13 | Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif
 `csharpVersion` | 4.0.0-3.21372.2 | Optional version of Csharp tools to use. For versions see https://dnceng.visualstudio.com/public/_packaging?_a=feed&feed=dotnet-tools
+`javaVersion` | 0.5.1 | Optional version of Java tools to use. For versions see https://github.com/microsoft/lsif-java/releases
 `advancedOptionsCpp` | | Additional command line arguments to the c++ LSIF tool. E.g. --arch x86 --verbose
 `defaultExpiry` | 30 | The default maximum number of days for an index to be saved (may be overridden by prExpiry and branchRetention settings)
 `prExpiry` | 3 | The maximum number of days for the index of a PR to be saved
