@@ -523,23 +523,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.149-alpha":
-  version: 0.1.149-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.149-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.189-alpha":
+  version: 0.1.189-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.189-alpha"
   dependencies:
     applicationinsights: ^1.2.0
-    axios: ^0.21.1
+    axios: ^0.24.0
     cloudbuild-task-contracts: ^0.1.105-beta
     fs-extra: ^9.0.1
     minimatch: ^3.0.4
     mkdirp: ^1.0.3
     promisify-node: ^0.5.0
-    request: ^2.88.0
     rmdir-recursive: ^0.0.1
     stream-buffers: ^3.0.2
     uuid: ^8.3.1
     which: ^2.0.2
-  checksum: 8594be2b01c6ada16e230f070abf0fc0c8d22edad2abd0a41658b602fb1fdbd67cc3aed372ec312e53cbb022e553b15cae1f6d8359e94469bdaaf6261f95d19d
+  checksum: f551b4a674282a83aca8cffa17e90fcf05ea4a2f95a8fa31b1e0d36eb16fd56993f3353d153fe4bd1ac43bf4f25fed0d5dfff6c890f1d384841382dfe1551e85
   languageName: node
   linkType: hard
 
@@ -798,12 +797,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.21.1":
-  version: 0.21.1
-  resolution: "axios@npm:0.21.1"
+"axios@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "axios@npm:0.24.0"
   dependencies:
-    follow-redirects: ^1.10.0
-  checksum: 864fb7b5d077d236737f10adca53bf451a93f35a15271f56fba8da07265a02d26b7d881b935a6697dc6adb0549ea3e56d2eecb403edaa3bb78f6479901c10f69
+    follow-redirects: ^1.14.4
+  checksum: e741dfea07def55be7b1082824d71f54f7859b9c3c75a86c6a74b91c6e48bb461aceac683f77867313f89ff40ef5f2d1d2a1fe1953fcb71bdc1c1fc0fc069925
   languageName: node
   linkType: hard
 
@@ -1494,6 +1493,18 @@ __metadata:
   version: 1.13.0
   resolution: "follow-redirects@npm:1.13.0"
   checksum: f220828d3f153da30ea616fdbe9f6676e74e4e68c51d336a751037c1d556e2de34aa5918f58951fa19bb6517c9c88b4403a0a8bdfc40d3e779d37def2ac0f2c4
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.14.4":
+  version: 1.14.9
+  resolution: "follow-redirects@npm:1.14.9"
+  peerDependencies:
+    debug: "*"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 1b602c548b4194c66d8d530d2c8f76b4116b6c498434acfa561f583f45b571fd9fc042fba778748cd863044051656cf4788ba11c8ff35407223ed0d38ffff0d4
   languageName: node
   linkType: hard
 
@@ -2616,7 +2627,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"request@npm:^2.88.0, request@npm:^2.88.2":
+"request@npm:^2.88.2":
   version: 2.88.2
   resolution: "request@npm:2.88.2"
   dependencies:
@@ -2685,7 +2696,7 @@ resolve@^1.3.2:
     "@actions/github": ^4.0.0
     "@actions/io": ^1.1.0
     "@actions/tool-cache": ^1.6.1
-    "@richnav/rich-code-nav-indexer-core": ^0.1.149-alpha
+    "@richnav/rich-code-nav-indexer-core": ^0.1.189-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.10
