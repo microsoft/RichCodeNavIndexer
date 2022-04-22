@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.185-alpha"
+        "npm:0.1.189-alpha"
       ],
       [
         "@types/mocha",
@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.185-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.189-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
@@ -696,10 +696,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.185-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.185-alpha-14c4365469-b23ae83896.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.189-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.189-alpha-83b7f942ad-f551b4a674.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.185-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.189-alpha"],
             ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.24.0"],
             ["cloudbuild-task-contracts", "npm:0.1.105-beta"],
@@ -1011,7 +1011,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/axios-npm-0.24.0-39e5c1e79e-e741dfea07.zip/node_modules/axios/",
           "packageDependencies": [
             ["axios", "npm:0.24.0"],
-            ["follow-redirects", "virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.7"]
+            ["follow-redirects", "virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.9"]
           ],
           "linkType": "HARD",
         }]
@@ -1804,10 +1804,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.7", {
-          "packageLocation": "./.yarn/$$virtual/follow-redirects-virtual-833d276bdc/0/cache/follow-redirects-npm-1.14.7-c87c16ed59-5f486f1767.zip/node_modules/follow-redirects/",
+        ["virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.9", {
+          "packageLocation": "./.yarn/$$virtual/follow-redirects-virtual-5be684fd82/0/cache/follow-redirects-npm-1.14.9-522f191631-1b602c548b.zip/node_modules/follow-redirects/",
           "packageDependencies": [
-            ["follow-redirects", "virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.7"],
+            ["follow-redirects", "virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.9"],
             ["debug", null]
           ],
           "packagePeers": [
@@ -3145,7 +3145,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.185-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.189-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
