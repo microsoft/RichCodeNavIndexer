@@ -23,7 +23,7 @@ You may have specific requirements that need additional configurations beyond th
 |--|--|--|
 `repo-token` | | Required input to get access to the repo and should be set to `${{ github.token }}`.
 `languages` | | List of languages to use when discovering repository symbols, separated by `,`
-`environment` | `production` | `development`, `staging`, or `production`
+`environment` | `production` | `development`, `internal`, or `production`
 `nugetFeed` | | Feed source to use when installing Rich Code Navigation NuGet packages
 `nugetVersion` | `latest` | The version of the Rich Code Navigation nuget packages to use. Use `latest` to download the latest package (including prereleases).
 `configFiles` | | The config file(s) for the project(s) to be indexed either as glob patterns or specific file paths relative to the root of the repo, separated by ','
