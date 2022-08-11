@@ -13,7 +13,7 @@ inputs:
     description: List of languages to use when discovering repository symbols, separated by ','
     required: false
   environment:
-    description: 'The Rich Code Navigation environment to upload the index to. One of: production, staging or development.'
+    description: 'The Rich Code Navigation environment to upload the index to. One of: production, internal, or development.'
     required: false
   nugetFeed:
     description: Feed source to use when installing Rich Code Navigation NuGet packages
