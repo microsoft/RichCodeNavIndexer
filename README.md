@@ -31,9 +31,9 @@ You may have specific requirements that need additional configurations beyond th
 `sourceRootDir` | | The directory on the machine where the source code is located, if different from the default.
 `uploadRichNavArtifacts` | `false` | A boolean indicating whether Rich Nav log files should be uploaded as a build artifact. Not yet supported for GitHub Actions. Instead, please use the output variable `lspLogsPath` to publish Rich Nav artifacts.
 `maxParallelIndexingJobs` | 2 | The number of indexers to be run in parallel.
-`typescriptVersion` | 0.6.0-next.21 | Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif. For Typescript to run, you'll need to install node >= 14.5 prior to this task.
-`csharpVersion` | 4.0.0-3.21372.2 | Optional version of Csharp tools to use. For versions see https://dnceng.visualstudio.com/public/_packaging?_a=feed&feed=dotnet-tools
-`javaVersion` | 0.5.1 | Optional version of Java tools to use. For versions see https://github.com/microsoft/lsif-java/releases. For Java to run, you'll need to install the Java JDK >= 11 prior to this task.
+`typescriptVersion` | 0.6.0-next.22 | Optional version of TypeScript tools to use. See https://www.npmjs.com/package/lsif. For Typescript to run, you'll need to install node >= 14.5 prior to this task.
+`csharpVersion` | 4.3.0-3.22307.3 | Optional version of Csharp tools to use. For versions see https://dnceng.visualstudio.com/public/_packaging?_a=feed&feed=dotnet-tools
+`javaVersion` | 0.5.2 | Optional version of Java tools to use. For versions see https://github.com/microsoft/lsif-java/releases. For Java to run, you'll need to install the Java JDK >= 11 prior to this task.
 `advancedOptionsCpp` | | Additional command line arguments to the c++ LSIF tool. E.g. --arch x86 --verbose
 `defaultExpiry` | 30 | The default maximum number of days for an index to be saved (may be overridden by prExpiry and branchRetention settings)
 `prExpiry` | 3 | The maximum number of days for the index of a PR to be saved
