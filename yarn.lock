@@ -523,10 +523,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.208-alpha":
-  version: 0.1.208-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.208-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.210-alpha":
+  version: 0.1.210-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.210-alpha"
   dependencies:
+    adm-zip: ^0.5.9
     applicationinsights: ^1.2.0
     axios: ^0.26.0
     cloudbuild-task-contracts: ^0.1.105-beta
@@ -538,7 +539,7 @@ __metadata:
     stream-buffers: ^3.0.2
     uuid: ^8.3.1
     which: ^2.0.2
-  checksum: 73fc26cc37f6244e9d6b6a3229f92c3b8a94435ee5b5188dd4d591cb994cf9fef78ea3b2220b7fcbae0d531cf3dbfc794b3bd27b804fc7f20c0d86dffd70b4a9
+  checksum: ee6c4f4a7f6beab779ce52b22e5012b2ce5758d945803239e84780cc5019c1746390d674e627832f3a8e1a48fee76b00df0564d9aa15ca2a5e0b9ae8965c767a
   languageName: node
   linkType: hard
 
@@ -574,6 +575,13 @@ __metadata:
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
   checksum: 9f9236a3cc7f56c167be3aa81c77fcab2e08dfb8047b7861b91440f20b299b9442255856bdbe9d408d7e96a0b64a36e1c27384251126962490b4eee841b533e0
+  languageName: node
+  linkType: hard
+
+"adm-zip@npm:^0.5.9":
+  version: 0.5.9
+  resolution: "adm-zip@npm:0.5.9"
+  checksum: a14e91e717e53d734ec5408fc0199cfd8c6fe20bf4493c3f10b6eebcdfb054517d50b07b3ca43b2e112fd55bfac96065e08c0abcce3e73d6b752e0ed1756564c
   languageName: node
   linkType: hard
 
@@ -2696,7 +2704,7 @@ resolve@^1.3.2:
     "@actions/github": ^4.0.0
     "@actions/io": ^1.1.0
     "@actions/tool-cache": ^1.6.1
-    "@richnav/rich-code-nav-indexer-core": ^0.1.208-alpha
+    "@richnav/rich-code-nav-indexer-core": ^0.1.210-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.10
