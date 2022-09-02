@@ -523,9 +523,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.210-alpha":
-  version: 0.1.210-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.210-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.213-alpha":
+  version: 0.1.213-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.213-alpha"
   dependencies:
     adm-zip: ^0.5.9
     applicationinsights: ^1.2.0
@@ -539,7 +539,7 @@ __metadata:
     stream-buffers: ^3.0.2
     uuid: ^8.3.1
     which: ^2.0.2
-  checksum: ee6c4f4a7f6beab779ce52b22e5012b2ce5758d945803239e84780cc5019c1746390d674e627832f3a8e1a48fee76b00df0564d9aa15ca2a5e0b9ae8965c767a
+  checksum: f0c91311a984021fa227fece17032bb66975e6f0a1f556f427e3c155be8a0484f9c1f3d06742f2b683879d0291b9b89fa2c4ac642226f698fdc1350a216f76e2
   languageName: node
   linkType: hard
 
@@ -2704,7 +2704,7 @@ resolve@^1.3.2:
     "@actions/github": ^4.0.0
     "@actions/io": ^1.1.0
     "@actions/tool-cache": ^1.6.1
-    "@richnav/rich-code-nav-indexer-core": ^0.1.210-alpha
+    "@richnav/rich-code-nav-indexer-core": ^0.1.213-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.10
