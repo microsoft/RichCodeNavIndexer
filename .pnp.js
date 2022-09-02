@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.208-alpha"
+        "npm:0.1.213-alpha"
       ],
       [
         "@types/mocha",
@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.208-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.213-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
@@ -696,10 +696,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.208-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.208-alpha-a0d79d242b-73fc26cc37.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.213-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.213-alpha-91a2b7411f-f0c91311a9.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.208-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.213-alpha"],
+            ["adm-zip", "npm:0.5.9"],
             ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.26.1"],
             ["cloudbuild-task-contracts", "npm:0.1.105-beta"],
@@ -756,6 +757,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/abbrev-npm-1.1.1-3659247eab-9f9236a3cc.zip/node_modules/abbrev/",
           "packageDependencies": [
             ["abbrev", "npm:1.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["adm-zip", [
+        ["npm:0.5.9", {
+          "packageLocation": "./.yarn/cache/adm-zip-npm-0.5.9-765c0e1a32-a14e91e717.zip/node_modules/adm-zip/",
+          "packageDependencies": [
+            ["adm-zip", "npm:0.5.9"]
           ],
           "linkType": "HARD",
         }]
@@ -3145,7 +3155,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.208-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.213-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
