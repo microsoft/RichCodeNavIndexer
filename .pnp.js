@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.213-alpha"
+        "npm:0.1.214-alpha"
       ],
       [
         "@types/mocha",
@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.213-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.214-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
@@ -696,10 +696,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.213-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.213-alpha-91a2b7411f-f0c91311a9.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.214-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.214-alpha-589d74d39e-73675810e7.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.213-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.214-alpha"],
             ["adm-zip", "npm:0.5.9"],
             ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.26.1"],
@@ -3155,7 +3155,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.213-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.214-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
