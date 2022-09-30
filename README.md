@@ -36,8 +36,9 @@ You may have specific requirements that need additional configurations beyond th
 `javaVersion` | 0.5.2 | Optional version of Java tools to use. For versions see https://github.com/microsoft/lsif-java/releases. For Java to run, you'll need to install the Java JDK >= 11 prior to this task.
 `advancedOptionsCpp` | | Additional command line arguments to the c++ LSIF tool. E.g. --arch x86 --verbose
 `defaultExpiry` | 30 | The default maximum number of days for an index to be saved (may be overridden by prExpiry and branchRetention settings)
-`prExpiry` | 3 | The maximum number of days for the index of a PR to be saved
+`prExpiry` | 7 | The maximum number of days for the index of a PR to be saved
 `branchRetention` | | A comma-separated list of specific branches and maximum number of days to retain; e.g. main, 15, release/production, 30
+`msbuildLogOutputDirectory` | source directory | For C#: Specify a different directory if binlogs are not in the source root directory
 
 ## Outputs
 
