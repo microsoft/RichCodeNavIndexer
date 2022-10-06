@@ -16,10 +16,11 @@
 		"@actions/github": "^4.0.0",
 		"@actions/io": "^1.1.0",
 		"@actions/tool-cache": "^1.6.1",
-		"@richnav/rich-code-nav-indexer-core": "^0.1.226-alpha",
+		"@richnav/rich-code-nav-indexer-core": "C:/Users/magarces/repos/RichCodeNavIndexingCore/package.tgz",
 		"applicationinsights": "^1.8.10",
 		"axios": "^0.20.0",
-		"cloudbuild-task-github-actions": "^0.1.105-beta"
+		"cloudbuild-task-github-actions": "^0.1.105-beta",
+		"rich-code-nav-indexer-core": "C:/Users/magarces/repos/RichCodeNavIndexingCore/package.tgz"
 	},
 	"devDependencies": {
 		"@types/mocha": "^8.0.1",
