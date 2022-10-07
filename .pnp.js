@@ -83,7 +83,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "rich-code-nav-indexer-core",
-        "file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-2.tgz::locator=rich-code-nav-indexer%40workspace%3A."
+        "file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-3.tgz::locator=rich-code-nav-indexer%40workspace%3A."
       ],
       [
         "tslint",
@@ -114,7 +114,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
             ["jshint", "npm:2.12.0"],
             ["mocha", "npm:8.1.3"],
-            ["rich-code-nav-indexer-core", "file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-2.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
+            ["rich-code-nav-indexer-core", "file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-3.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
             ["tslint", "virtual:dee38c1bf033ecc3135ef9f083d644ccf3a3ac4c41bd06b635d1f9f5b8e9012b3a39fdf22e46139de1109bc2c68b63d2c81a2b5166fc1f66aa308a736e0a8d37#npm:6.1.3"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
           ],
@@ -3168,7 +3168,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
             ["jshint", "npm:2.12.0"],
             ["mocha", "npm:8.1.3"],
-            ["rich-code-nav-indexer-core", "file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-2.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
+            ["rich-code-nav-indexer-core", "file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-3.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
             ["tslint", "virtual:dee38c1bf033ecc3135ef9f083d644ccf3a3ac4c41bd06b635d1f9f5b8e9012b3a39fdf22e46139de1109bc2c68b63d2c81a2b5166fc1f66aa308a736e0a8d37#npm:6.1.3"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
           ],
@@ -3176,10 +3176,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["rich-code-nav-indexer-core", [
-        ["file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-2.tgz::locator=rich-code-nav-indexer%40workspace%3A.", {
-          "packageLocation": "./.yarn/cache/rich-code-nav-indexer-core-file-8b40d702a9-87c2ab58e9.zip/node_modules/rich-code-nav-indexer-core/",
+        ["file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-3.tgz::locator=rich-code-nav-indexer%40workspace%3A.", {
+          "packageLocation": "./.yarn/cache/rich-code-nav-indexer-core-file-c9da05475f-43cacec599.zip/node_modules/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["rich-code-nav-indexer-core", "file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-2.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
+            ["rich-code-nav-indexer-core", "file:/C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-3.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
             ["adm-zip", "npm:0.5.9"],
             ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.26.1"],
