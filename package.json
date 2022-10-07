@@ -20,7 +20,7 @@
 		"applicationinsights": "^1.8.10",
 		"axios": "^0.20.0",
 		"cloudbuild-task-github-actions": "^0.1.105-beta",
-		"rich-code-nav-indexer-core": "C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-3.tgz"
+		"rich-code-nav-indexer-core": "C:/Users/magarces/repos/RichCodeNavIndexingCore/rich-nav-4.tgz"
 	},
 	"devDependencies": {
 		"@types/mocha": "^8.0.1",
