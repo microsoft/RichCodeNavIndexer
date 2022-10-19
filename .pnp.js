@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v2.3.46-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."
+        "file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v3.0.0-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."
       ],
       [
         "@types/mocha",
@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v2.3.46-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
+            ["@richnav/rich-code-nav-indexer-core", "file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v3.0.0-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
@@ -696,10 +696,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v2.3.46-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A.", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-file-c29b580027-9308095e44.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v3.0.0-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A.", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-file-0a06d3b6d1-061532d364.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v2.3.46-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
+            ["@richnav/rich-code-nav-indexer-core", "file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v3.0.0-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
             ["adm-zip", "npm:0.5.9"],
             ["applicationinsights", "npm:1.8.7"],
             ["axios", "npm:0.26.1"],
@@ -3155,7 +3155,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v2.3.46-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
+            ["@richnav/rich-code-nav-indexer-core", "file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v3.0.0-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
