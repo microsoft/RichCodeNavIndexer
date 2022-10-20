@@ -24,7 +24,7 @@ jobs:
     - name: check for uncommitted changes
       # Ensure no changes.
       run: |
-        git add -u . # compare after applying git EOL normalization
+        git add -A # Add all content if it exists
         git diff --cached --exit-code --stat \
         || (echo "##[error] found changed files after build. please 'yarn run build'" \
                  "and check in all changes" \
