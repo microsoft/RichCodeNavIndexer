@@ -25,7 +25,7 @@ You may have specific requirements that need additional configurations beyond th
 `languages` | | List of languages to use when discovering repository symbols, separated by `,`
 `environment` | `production` | `development`, `internal`, or `production`
 `nugetFeed` | | Feed source to use when installing Rich Code Navigation NuGet packages
-`nugetVersion` | `latest` | The version of the Rich Code Navigation nuget packages to use. Use `latest` to download the latest package (including prereleases).
+`nugetVersion` | `latest` | The version of the Rich Code Navigation nuget packages to use. Use `latest` to download the latest package (including pre-releases).
 `configFiles` | | The config file(s) for the project(s) to be indexed either as glob patterns or specific file paths relative to the root of the repo, separated by ','
 `richNavLogOutputDirectory` | | A comma-separated list of log files created from the build when RichCodeNav.EnvVarDump is a package reference
 `sourceRootDir` | | The directory on the machine where the source code is located, if different from the default.
