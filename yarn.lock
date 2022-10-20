@@ -523,13 +523,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.227-alpha":
-  version: 0.1.227-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.227-alpha"
+"@richnav/rich-code-nav-indexer-core@file:C:\\ADO\\RichCodeNavIndexingCore\\richnav-rich-code-nav-indexer-core-v0.1.99-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A.":
+  version: 0.1.99-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@file:/C:/ADO/RichCodeNavIndexingCore/richnav-rich-code-nav-indexer-core-v0.1.99-alpha.tgz::locator=rich-code-nav-indexer%40workspace%3A."
   dependencies:
     adm-zip: ^0.5.9
     applicationinsights: ^1.2.0
-    axios: ^0.26.0
     cloudbuild-task-contracts: ^0.1.105-beta
     fs-extra: ^9.0.1
     minimatch: ^3.0.4
@@ -539,7 +538,7 @@ __metadata:
     stream-buffers: ^3.0.2
     uuid: ^8.3.1
     which: ^2.0.2
-  checksum: 7bcc022f8aae90a25e65c290a73c2d13dd846e55703ee6a72f8875e4d5026aa91e22e3c0d5d28d50fde3a4ae7e12a085b61e05aa8934076544d849985cad5429
+  checksum: fe32b98c810c08958ea60fc8e5a2ab4e0aea3f21697e412737a811deacc6b10e4e8e2cf521839cfb2da2bc1c45404c3eba0b3241b69145d38d2cedf5ec02b7a1
   languageName: node
   linkType: hard
 
@@ -802,15 +801,6 @@ __metadata:
   dependencies:
     follow-redirects: ^1.10.0
   checksum: 6cf2e963176a0d18fc457d7cb71cb6cf552193619b161fc61070d9a4db3a26a87ecfe760ba36e7af174c05a6a9898dc52cfeb5c0e62e19fddd9788739553ad73
-  languageName: node
-  linkType: hard
-
-"axios@npm:^0.26.0":
-  version: 0.26.1
-  resolution: "axios@npm:0.26.1"
-  dependencies:
-    follow-redirects: ^1.14.8
-  checksum: 139698e390e6e875d75efcebc3b4a0bb94b680fab69e4e8632d640bb64d746f4dd3efcedbab69f3e55ae01e4b83e4f530f78800b936ff282c6c24365023d2e89
   languageName: node
   linkType: hard
 
@@ -1501,18 +1491,6 @@ __metadata:
   version: 1.13.0
   resolution: "follow-redirects@npm:1.13.0"
   checksum: f220828d3f153da30ea616fdbe9f6676e74e4e68c51d336a751037c1d556e2de34aa5918f58951fa19bb6517c9c88b4403a0a8bdfc40d3e779d37def2ac0f2c4
-  languageName: node
-  linkType: hard
-
-"follow-redirects@npm:^1.14.8":
-  version: 1.15.0
-  resolution: "follow-redirects@npm:1.15.0"
-  peerDependencies:
-    debug: "*"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: 06e19a010288e3b0dcaf478a4ace2b4df20a5f3ca97c07026d63feda91121e0c0273ad3f293a6e5945ad3607b6d484a23061e79d6160b5406300e5f4357252d6
   languageName: node
   linkType: hard
 
@@ -2704,7 +2682,7 @@ resolve@^1.3.2:
     "@actions/github": ^4.0.0
     "@actions/io": ^1.1.0
     "@actions/tool-cache": ^1.6.1
-    "@richnav/rich-code-nav-indexer-core": ^0.1.227-alpha
+    "@richnav/rich-code-nav-indexer-core": "C:\\ADO\\RichCodeNavIndexingCore\\richnav-rich-code-nav-indexer-core-v0.1.99-alpha.tgz"
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.10
