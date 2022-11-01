@@ -523,9 +523,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.231-alpha":
-  version: 0.1.231-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.231-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.235-alpha":
+  version: 0.1.235-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.235-alpha"
   dependencies:
     adm-zip: ^0.5.9
     applicationinsights: ^1.2.0
@@ -539,7 +539,7 @@ __metadata:
     stream-buffers: ^3.0.2
     uuid: ^8.3.1
     which: ^2.0.2
-  checksum: 94a3ba1c6744963e237a1054930f7b10e8cd518daee8cbcfd301fbc3598f429a71b1eca0bf1898a1638d4ae7961e10c3d1d4c363d5e865f8b22276e9f36fe3e1
+  checksum: 1e446dc3eacda783eb776a092052defa4a997a4ecfedf081496dc33cd87d52da8c364052dcd482aa18978cf1f1f18cacbc4d32e638edbf40c9f3be35175b9c49
   languageName: node
   linkType: hard
 
@@ -664,19 +664,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^1.2.0":
-  version: 1.8.7
-  resolution: "applicationinsights@npm:1.8.7"
-  dependencies:
-    cls-hooked: ^4.2.2
-    continuation-local-storage: ^3.2.1
-    diagnostic-channel: 0.3.1
-    diagnostic-channel-publishers: 0.4.1
-  checksum: 74e76d9d7d0df2f5b183c2d89db723b9e03cd97a43d78a4b91c21716b40b719f87e817001f64f4508171314785f56b40fc66f20f3d348daaa16dda51e410ef66
-  languageName: node
-  linkType: hard
-
-"applicationinsights@npm:^1.8.10":
+"applicationinsights@npm:^1.2.0, applicationinsights@npm:^1.8.10":
   version: 1.8.10
   resolution: "applicationinsights@npm:1.8.10"
   dependencies:
@@ -1190,15 +1178,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"diagnostic-channel-publishers@npm:0.4.1":
-  version: 0.4.1
-  resolution: "diagnostic-channel-publishers@npm:0.4.1"
-  peerDependencies:
-    diagnostic-channel: "*"
-  checksum: 2ef7078af50976e546cf9cbd150148b417f616011f8695effab61053b957882e5a938b52e528eff17c6e41d08a95e9c90391283ea76388d61293c5a92dfbe590
-  languageName: node
-  linkType: hard
-
 "diagnostic-channel-publishers@npm:0.4.4":
   version: 0.4.4
   resolution: "diagnostic-channel-publishers@npm:0.4.4"
@@ -1505,14 +1484,14 @@ __metadata:
   linkType: hard
 
 "follow-redirects@npm:^1.14.8":
-  version: 1.15.0
-  resolution: "follow-redirects@npm:1.15.0"
+  version: 1.15.2
+  resolution: "follow-redirects@npm:1.15.2"
   peerDependencies:
     debug: "*"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: 06e19a010288e3b0dcaf478a4ace2b4df20a5f3ca97c07026d63feda91121e0c0273ad3f293a6e5945ad3607b6d484a23061e79d6160b5406300e5f4357252d6
+  checksum: be594e5583521c9ff8012bf1b72dad42dc96ef0d4030e05164895f15ae4c73cf62cdd5ed9a64b93b4afac682fa392fe371a0dc0db30ae1ec2a375a784249538a
   languageName: node
   linkType: hard
 
@@ -1666,9 +1645,9 @@ fsevents@~2.1.2:
   linkType: hard
 
 "graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0":
-  version: 4.2.6
-  resolution: "graceful-fs@npm:4.2.6"
-  checksum: 84d39c7756892553da990a9db7e45f844b3309b37b5a00174cbb4748476f2250c54f24594d4d252f64f085c65c2fdac7c809419bf6d55f0e6e42eb07ac0f5bf2
+  version: 4.2.10
+  resolution: "graceful-fs@npm:4.2.10"
+  checksum: f86679a8a53da3d8f10fd9c81a4e22f8064adf56e10a6fdb6a6aa5e6d05fea0067a99e9959c4b939b4a9c39dad02775d977bff4da9fff07d557aea840f72f0e8
   languageName: node
   linkType: hard
 
@@ -2704,7 +2683,7 @@ resolve@^1.3.2:
     "@actions/github": ^4.0.0
     "@actions/io": ^1.1.0
     "@actions/tool-cache": ^1.6.1
-    "@richnav/rich-code-nav-indexer-core": ^0.1.231-alpha
+    "@richnav/rich-code-nav-indexer-core": ^0.1.235-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.10
