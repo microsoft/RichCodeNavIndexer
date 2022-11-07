@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.235-alpha"
+        "npm:0.1.242-alpha"
       ],
       [
         "@types/mocha",
@@ -102,7 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.235-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.242-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
@@ -696,14 +696,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.235-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.235-alpha-17a37503f2-1e446dc3ea.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.242-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.242-alpha-6172af7337-b0a8b4c735.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.235-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.242-alpha"],
             ["adm-zip", "npm:0.5.9"],
             ["applicationinsights", "npm:1.8.10"],
             ["axios", "npm:0.26.1"],
             ["cloudbuild-task-contracts", "npm:0.1.105-beta"],
+            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.15.2"],
             ["fs-extra", "npm:9.1.0"],
             ["minimatch", "npm:3.0.4"],
             ["mkdirp", "npm:1.0.4"],
@@ -3133,7 +3134,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:4.0.0"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.235-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.242-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
