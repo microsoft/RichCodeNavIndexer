@@ -57,5 +57,5 @@ outputs:
     description: The path to LSP logs that may be uploaded as an artifact for diagnostics.
 
 runs:
-  using: node12
+  using: node16
   main: lib/yarn-bootstrap.js
