@@ -31,7 +31,18 @@ jobs:
             && git diff --cached \
             && exit 1)
 
-  test:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ./
+      with:
+        service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
+        languages: typescript
+        repo-token: ${{ github.token }}
+
+  test-windows:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
