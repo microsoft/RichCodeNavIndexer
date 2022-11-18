@@ -16,7 +16,7 @@
 		"@actions/github": "^4.0.0",
 		"@actions/io": "^1.1.0",
 		"@actions/tool-cache": "^1.6.1",
-		"@richnav/rich-code-nav-indexer-core": "C:\\ADO\\RichCodeNavIndexingCore\\richnav-rich-code-nav-indexer-core-v0.1.111-alpha.tgz",
+		"@richnav/rich-code-nav-indexer-core": "C:\\ADO\\RichCodeNavIndexingCore\\richnav-rich-code-nav-indexer-core-v0.2.222-alpha.tgz",
 		"applicationinsights": "^1.8.10",
 		"axios": "^0.20.0",
 		"cloudbuild-task-github-actions": "^0.1.105-beta"
