@@ -1,0 +1,44 @@
+name: Update Core Package Version
+on:
+  workflow_dispatch:
+  create:
+    branches:
+      - auto/updateCore
+
+jobs:
+  update_package:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout auto-created branch
+      uses: actions/checkout@v2
+      with:
+        ref: auto/updateCore
+    - name: git stuff
+      run: |
+        echo "git branch:"
+        git branch
+        echo "git status:"
+        git status
+
+    - name: check yarn version
+      run: yarn --version
+    - name: update core package version
+      run: yarn up @richnav/rich-code-nav-indexer-core@latest
+
+    - name: git stuff
+      run: |
+        echo "git remote:"
+        git remote
+        echo "git branch:"
+        git branch
+        echo "git status:"
+        git status
+        git add .
+        echo "git status after add .:"
+        git commit -m "update core to latest version"
+        git push origin auto/updateCore
+
+    - name: create PR
+      run: gh pr create -B auto/updateCore -H main --title 'Update core to latest version' --body 'Auto-created from branch creation'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
