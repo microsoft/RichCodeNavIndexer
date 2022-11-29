@@ -37,6 +37,11 @@ jobs:
     - uses: actions/checkout@v2
 
     - uses: ./
+      env:
+        # We re-specify all of the tokens as environment variables because in non-windows builds tokens cannot be passed as input.
+        REPO_TOKEN: ${{ github.token }}
+        SERVICE_TOKEN: ${{ secrets.RichCodeNavServiceTokenProd }}
+        CODEINDEX_FEED_TOKEN: ${{ secrets.CODEINDEX_FEED_TOKEN }}
       with:
         service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
         languages: typescript
@@ -48,6 +53,10 @@ jobs:
     - uses: actions/checkout@v2
 
     - uses: ./
+      env:
+        REPO_TOKEN: ${{ github.token }}
+        SERVICE_TOKEN: ${{ secrets.RichCodeNavServiceTokenProd }}
+        CODEINDEX_FEED_TOKEN: ${{ secrets.CODEINDEX_FEED_TOKEN }}
       with:
         service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
         languages: typescript
