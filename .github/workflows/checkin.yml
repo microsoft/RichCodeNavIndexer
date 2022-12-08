@@ -37,8 +37,6 @@ jobs:
     - uses: actions/checkout@v2
 
     - uses: ./
-      env:
-        ACTIONS_STEP_DEBUGGING: true
       with:
         service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
         languages: typescript
