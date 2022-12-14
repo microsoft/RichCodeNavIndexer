@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.259-alpha"
+        "npm:0.1.272-alpha"
       ],
       [
         "@types/mocha",
@@ -64,10 +64,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [
         "applicationinsights",
         "npm:1.8.10"
-      ],
-      [
-        "axios",
-        "npm:0.20.0"
       ],
       [
         "cloudbuild-task-github-actions",
@@ -102,11 +98,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:5.1.1"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.259-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.272-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
-            ["axios", "npm:0.20.0"],
             ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
             ["jshint", "npm:2.12.0"],
             ["mocha", "npm:8.1.3"],
@@ -812,10 +807,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.259-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.259-alpha-8495854f3f-c665f829fa.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.272-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.272-alpha-624491008d-5dc8714fe6.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.259-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.272-alpha"],
             ["adm-zip", "npm:0.5.9"],
             ["applicationinsights", "npm:1.8.10"],
             ["axios", "npm:0.26.1"],
@@ -1115,14 +1110,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["axios", [
-        ["npm:0.20.0", {
-          "packageLocation": "./.yarn/cache/axios-npm-0.20.0-535d9e0086-6cf2e96317.zip/node_modules/axios/",
-          "packageDependencies": [
-            ["axios", "npm:0.20.0"],
-            ["follow-redirects", "npm:1.13.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:0.26.1", {
           "packageLocation": "./.yarn/cache/axios-npm-0.26.1-a6641ce4e3-139698e390.zip/node_modules/axios/",
           "packageDependencies": [
@@ -1909,13 +1896,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["follow-redirects", [
-        ["npm:1.13.0", {
-          "packageLocation": "./.yarn/cache/follow-redirects-npm-1.13.0-ae26ae301a-f220828d3f.zip/node_modules/follow-redirects/",
-          "packageDependencies": [
-            ["follow-redirects", "npm:1.13.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.15.2", {
           "packageLocation": "./.yarn/$$virtual/follow-redirects-virtual-1a488024d3/0/cache/follow-redirects-npm-1.15.2-1ec1dd82be-be594e5583.zip/node_modules/follow-redirects/",
           "packageDependencies": [
@@ -3276,11 +3256,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:5.1.1"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.259-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.272-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
-            ["axios", "npm:0.20.0"],
             ["cloudbuild-task-github-actions", "npm:0.1.105-beta"],
             ["jshint", "npm:2.12.0"],
             ["mocha", "npm:8.1.3"],
