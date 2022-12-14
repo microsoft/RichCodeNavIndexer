@@ -6,7 +6,7 @@ on:
       - auto/updateCore
 
 jobs:
-  update_package:
+  create_pr:
     runs-on: ubuntu-latest
     steps:
     - name: checkout auto-created branch
