@@ -6,37 +6,26 @@ on:
       - auto/updateCore
 
 jobs:
-  update_package:
+  create_pr:
     runs-on: ubuntu-latest
     steps:
     - name: checkout auto-created branch
       uses: actions/checkout@v2
       with:
         ref: auto/updateCore
-    - name: git stuff
-      run: |
-        echo "git branch:"
-        git branch
-        echo "git status:"
-        git status
-    - name: check yarn version
-      run: yarn --version
     - name: update core package version
       run: yarn up @richnav/rich-code-nav-indexer-core
-
     - name: update via git
       run: |
         git config --global user.email "vscodeindex@microsoft.com"
         git config --global user.name "VSCodeIndex"
         echo "git status:"
         git status
-        git diff package.json
         git add .
-        echo "git status after add .:"
         git commit -m "update core to latest version"
         git push origin auto/updateCore
-    
+
     - name: create PR
-      run: gh pr create -B auto/updateCore -H main --title 'Update core to latest version' --body 'Auto-created from branch creation'
+      run: gh pr create -H auto/updateCore -B main --title 'Update core to latest version' --body 'Auto-created from branch creation'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
