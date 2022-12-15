@@ -8,7 +8,7 @@ on:
 
 jobs:
   check_cache:
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
     - run: yarn install --check-cache # https://yarnpkg.com/features/zero-installs#does-it-have-security-implications
