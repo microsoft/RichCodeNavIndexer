@@ -9,7 +9,8 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
-    - name: create PR
-      run: gh pr create -H main -B v0.1 --title 'new release' --body 'Auto-created from merge into main'
+    - uses: actions/checkout@v2
+    - name: create release PR
+      run: gh pr create -H main -B v0.1 --title 'Release <date>' --body 'Auto-created triggered by merge into main'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
