@@ -7,10 +7,12 @@ on:
 
 jobs:
   create_release_pr:
-    if: github.event.pull_request.merged == true
+    if: github.ref == 'refs/heads/main' && github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: main
     - name: create release PR
       run: gh pr create -H main -B v0.1 --title 'Deployment <date>' --body 'Auto-created triggered by merge into main'
       env:
