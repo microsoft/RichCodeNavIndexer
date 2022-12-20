@@ -1,15 +1,19 @@
 name: Release new version
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+  pull_request:
+    types:
+      - closed
 
 jobs:
-  create_release:
+  create_release_pr:
+    if: github.ref == 'refs/heads/main' && github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
-    - name: create PR
-      run: gh pr create -H main -B v0.1 --title 'new release' --body 'Auto-created from merge into main'
+    - uses: actions/checkout@v2
+      with:
+        ref: main
+    - name: create release PR
+      run: gh pr create -H main -B v0.1 --title 'Deployment <date>' --body 'Auto-created triggered by merge into main'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
