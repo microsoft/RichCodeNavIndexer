@@ -7,7 +7,10 @@ branding:
 
 inputs:
   repo-token:
-    description: Your GITHUB_TOKEN. Only necessary for private repositories.
+    description: Your GITHUB_TOKEN. Only necessary for private repositories. Can also be set via the REPO_TOKEN environment variable. For non-windows scenarios using the environment variable variant is recommended.
+    required: false
+  service-token:
+    description: The Code Index service token. Can also be set via the SERVICE_TOKEN environment variable. For non-windows scenarios using the environment variable variant is recommended.
     required: false
   languages:
     description: List of languages to use when discovering repository symbols, separated by ','
