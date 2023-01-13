@@ -7,7 +7,7 @@ on:
 
 jobs:
   create_release_pr:
-    if: github.ref == 'refs/heads/main' && github.event.pull_request.merged
+    if: env.GITHUB_BASE_REF == 'refs/heads/main' && github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

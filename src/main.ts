@@ -11,12 +11,17 @@ class GitHubCachingTask extends CachingTask {
 	}
 
 	protected getSourceControlInformationProvider(languageInput?: string | undefined): indexCore.BaseRepoInfo {
-		return new GitHubRepoInfo(factory, factory.inputs.getInput('repo-token'), languageInput);
+		const repoToken = factory.inputs.getInput('repo-token') ?? process.env.REPO_TOKEN;
+		return new GitHubRepoInfo(factory, repoToken, languageInput);
 	}
 }
 
+const serviceConnection = factory.inputs.getInput('service-token') ?? process.env.SERVICE_TOKEN;
 new GitHubCachingTask(
 	factory,
 	{
-		serviceConnection: factory.inputs.getInput('service-token'),
+		serviceConnection: serviceConnection,
+
+		// Used to access private NuGet feeds. Does nothing if isPrivate input is not `true`.
+		systemVSSConnection: process.env.CODEINDEX_FEED_TOKEN,
 	}).run();

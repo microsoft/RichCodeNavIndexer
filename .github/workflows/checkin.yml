@@ -31,12 +31,32 @@ jobs:
             && git diff --cached \
             && exit 1)
 
-  test:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ./
+      env:
+        # We re-specify all of the tokens as environment variables because in non-windows builds tokens cannot be passed as input.
+        REPO_TOKEN: ${{ github.token }}
+        SERVICE_TOKEN: ${{ secrets.RichCodeNavServiceTokenProd }}
+        CODEINDEX_FEED_TOKEN: ${{ secrets.CODEINDEX_FEED_TOKEN }}
+      with:
+        service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
+        languages: typescript
+        repo-token: ${{ github.token }}
+
+  test-windows:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
 
     - uses: ./
+      env:
+        REPO_TOKEN: ${{ github.token }}
+        SERVICE_TOKEN: ${{ secrets.RichCodeNavServiceTokenProd }}
+        CODEINDEX_FEED_TOKEN: ${{ secrets.CODEINDEX_FEED_TOKEN }}
       with:
         service-token: ${{ secrets.RichCodeNavServiceTokenProd }}
         languages: typescript
