@@ -7,7 +7,8 @@ class GitHubCachingTask extends CachingTask {
 	constructor(cloudTask, apiTokens) {
 		super(cloudTask,
 			{ pipelineHost: "GitHub Actions", buildId: github.context.runId.toString(), buildDefinitionId: github.context.workflow},
-			apiTokens);
+				false, /* isExternal */
+				apiTokens);
 	}
 
 	protected getSourceControlInformationProvider(languageInput?: string | undefined): indexCore.BaseRepoInfo {
