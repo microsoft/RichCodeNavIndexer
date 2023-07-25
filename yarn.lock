@@ -643,15 +643,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.328-alpha":
-  version: 0.1.328-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.328-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.337-alpha":
+  version: 0.1.337-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.337-alpha"
   dependencies:
     adm-zip: ^0.5.9
     applicationinsights: ^1.2.0
     axios: ^0.26.0
     btoa: ^1.2.1
-    cloudbuild-task-contracts: ^0.1.105-beta
+    cloudbuild-task-contracts: ^0.1.185-beta
     follow-redirects: ^1.14.8
     fs-extra: ^9.0.1
     minimatch: ^3.0.4
@@ -661,7 +661,7 @@ __metadata:
     stream-buffers: ^3.0.2
     uuid: ^8.3.1
     which: ^2.0.2
-  checksum: b87ed78876c615d5fe27fb17b2d9c1e672f1b3adb14c5becff30d2aa4c1a0e2bddf91aa223ec06b327e1f36e768d0b7d0286030a8045a5fb28d0040366abe1e1
+  checksum: da0e82a7b8cc32fd5b9b8b713beb7b270d5329a22656c471a69b73ed0bd7b45bff30bf52ae7b8dbc04fe234519d8dab7d55dff4545eaac76b3c5406720e9521e
   languageName: node
   linkType: hard
 
@@ -1083,10 +1083,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cloudbuild-task-contracts@npm:0.1.105-beta, cloudbuild-task-contracts@npm:^0.1.105-beta":
+"cloudbuild-task-contracts@npm:0.1.105-beta":
   version: 0.1.105-beta
   resolution: "cloudbuild-task-contracts@npm:0.1.105-beta"
   checksum: 85ccbf7864d22204808e1b1cf0e245fe63f153635f68a15ad83230e21654fa99de3a188d06f55d6a040bfcdff059395dfdd0b127bbaed36ed9db6004aeaeb502
+  languageName: node
+  linkType: hard
+
+"cloudbuild-task-contracts@npm:^0.1.185-beta":
+  version: 0.1.185-beta
+  resolution: "cloudbuild-task-contracts@npm:0.1.185-beta"
+  checksum: 4c7670ed013e5e93c149d3d2ed8b7df35dad066530b365041ff61763ac52a02bec255772720e7ebaec3d560aab2d7aca560a34db85cec00b9574b6f9851ce3f4
   languageName: node
   linkType: hard
 
@@ -2826,7 +2833,7 @@ resolve@^1.3.2:
     "@actions/github": ^5.1.1
     "@actions/io": ^1.1.0
     "@actions/tool-cache": ^1.6.1
-    "@richnav/rich-code-nav-indexer-core": ^0.1.328-alpha
+    "@richnav/rich-code-nav-indexer-core": ^0.1.337-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.10
