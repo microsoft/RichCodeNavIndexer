@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@richnav/rich-code-nav-indexer-core",
-        "npm:0.1.347-alpha"
+        "npm:0.1.353-alpha"
       ],
       [
         "@types/mocha",
@@ -98,7 +98,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:5.1.1"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.347-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.353-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
@@ -807,16 +807,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@richnav/rich-code-nav-indexer-core", [
-        ["npm:0.1.347-alpha", {
-          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.347-alpha-169df13d9d-acaaad5c84.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
+        ["npm:0.1.353-alpha", {
+          "packageLocation": "./.yarn/cache/@richnav-rich-code-nav-indexer-core-npm-0.1.353-alpha-36308c88c8-bc42e8aca5.zip/node_modules/@richnav/rich-code-nav-indexer-core/",
           "packageDependencies": [
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.347-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.353-alpha"],
             ["adm-zip", "npm:0.5.9"],
             ["applicationinsights", "npm:1.8.10"],
-            ["axios", "npm:0.26.1"],
+            ["axios", "npm:1.6.3"],
             ["btoa", "npm:1.2.1"],
             ["cloudbuild-task-contracts", "npm:0.1.185-beta"],
-            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.15.2"],
+            ["follow-redirects", "virtual:9277f36de0de51601211a12a2dcaba6488d347002383dc5cdedd739edff124fcfe82505dc1a85b8b6809cad1691f45361146fefc471f868c27c0e0a8b4b76609#npm:1.15.2"],
             ["fs-extra", "npm:9.1.0"],
             ["minimatch", "npm:3.0.4"],
             ["mkdirp", "npm:1.0.4"],
@@ -1111,11 +1111,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["axios", [
-        ["npm:0.26.1", {
-          "packageLocation": "./.yarn/cache/axios-npm-0.26.1-a6641ce4e3-139698e390.zip/node_modules/axios/",
+        ["npm:1.6.3", {
+          "packageLocation": "./.yarn/cache/axios-npm-1.6.3-9277f36de0-cf16c63b0c.zip/node_modules/axios/",
           "packageDependencies": [
-            ["axios", "npm:0.26.1"],
-            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.15.2"]
+            ["axios", "npm:1.6.3"],
+            ["follow-redirects", "virtual:9277f36de0de51601211a12a2dcaba6488d347002383dc5cdedd739edff124fcfe82505dc1a85b8b6809cad1691f45361146fefc471f868c27c0e0a8b4b76609#npm:1.15.2"],
+            ["form-data", "npm:4.0.0"],
+            ["proxy-from-env", "npm:1.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -1913,10 +1915,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["follow-redirects", [
-        ["virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.15.2", {
-          "packageLocation": "./.yarn/$$virtual/follow-redirects-virtual-1a488024d3/0/cache/follow-redirects-npm-1.15.2-1ec1dd82be-be594e5583.zip/node_modules/follow-redirects/",
+        ["virtual:9277f36de0de51601211a12a2dcaba6488d347002383dc5cdedd739edff124fcfe82505dc1a85b8b6809cad1691f45361146fefc471f868c27c0e0a8b4b76609#npm:1.15.2", {
+          "packageLocation": "./.yarn/$$virtual/follow-redirects-virtual-7555d487bb/0/cache/follow-redirects-npm-1.15.2-1ec1dd82be-be594e5583.zip/node_modules/follow-redirects/",
           "packageDependencies": [
-            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.15.2"],
+            ["follow-redirects", "virtual:9277f36de0de51601211a12a2dcaba6488d347002383dc5cdedd739edff124fcfe82505dc1a85b8b6809cad1691f45361146fefc471f868c27c0e0a8b4b76609#npm:1.15.2"],
             ["debug", null]
           ],
           "packagePeers": [
@@ -1939,6 +1941,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/form-data-npm-2.3.3-c016cc11c0-862e686b10.zip/node_modules/form-data/",
           "packageDependencies": [
             ["form-data", "npm:2.3.3"],
+            ["asynckit", "npm:0.4.0"],
+            ["combined-stream", "npm:1.0.8"],
+            ["mime-types", "npm:2.1.27"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:4.0.0", {
+          "packageLocation": "./.yarn/cache/form-data-npm-4.0.0-916facec2d-ecbe8f41bc.zip/node_modules/form-data/",
+          "packageDependencies": [
+            ["form-data", "npm:4.0.0"],
             ["asynckit", "npm:0.4.0"],
             ["combined-stream", "npm:1.0.8"],
             ["mime-types", "npm:2.1.27"]
@@ -3121,6 +3133,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["proxy-from-env", [
+        ["npm:1.1.0", {
+          "packageLocation": "./.yarn/cache/proxy-from-env-npm-1.1.0-c13d07f26b-6459372a57.zip/node_modules/proxy-from-env/",
+          "packageDependencies": [
+            ["proxy-from-env", "npm:1.1.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["psl", [
         ["npm:1.8.0", {
           "packageLocation": "./.yarn/cache/psl-npm-1.8.0-226099d70e-92d47c6257.zip/node_modules/psl/",
@@ -3273,7 +3294,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@actions/github", "npm:5.1.1"],
             ["@actions/io", "npm:1.1.1"],
             ["@actions/tool-cache", "npm:1.7.1"],
-            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.347-alpha"],
+            ["@richnav/rich-code-nav-indexer-core", "npm:0.1.353-alpha"],
             ["@types/mocha", "npm:8.0.1"],
             ["@types/node", "npm:14.0.27"],
             ["applicationinsights", "npm:1.8.10"],
