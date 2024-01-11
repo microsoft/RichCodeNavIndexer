@@ -643,13 +643,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@richnav/rich-code-nav-indexer-core@npm:^0.1.347-alpha":
-  version: 0.1.347-alpha
-  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.347-alpha"
+"@richnav/rich-code-nav-indexer-core@npm:^0.1.354-alpha":
+  version: 0.1.354-alpha
+  resolution: "@richnav/rich-code-nav-indexer-core@npm:0.1.354-alpha"
   dependencies:
     adm-zip: ^0.5.9
     applicationinsights: ^1.2.0
-    axios: ^0.26.0
+    axios: ^1.6.0
     btoa: ^1.2.1
     cloudbuild-task-contracts: ^0.1.185-beta
     follow-redirects: ^1.14.8
@@ -661,7 +661,7 @@ __metadata:
     stream-buffers: ^3.0.2
     uuid: ^8.3.1
     which: ^2.0.2
-  checksum: acaaad5c84a6f0843fd40ab19248fc70b2a7eaf66b9b79eb86f1a11d1e9430600e1384138a628b62d155630edccdf266cc1990496fde372e56b13b6fe8ddd31e
+  checksum: 0f0ccc717ab10f1d57699b32fd550e85b06bf3c924d7d2dbca9e71d1f1a3f29c4840e9ca4c9ca258c354a65b1303f38897ecf819ec0f13f2a61ef75c8a53c01d
   languageName: node
   linkType: hard
 
@@ -906,12 +906,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.26.0":
-  version: 0.26.1
-  resolution: "axios@npm:0.26.1"
+"axios@npm:^1.6.0":
+  version: 1.6.5
+  resolution: "axios@npm:1.6.5"
   dependencies:
-    follow-redirects: ^1.14.8
-  checksum: 139698e390e6e875d75efcebc3b4a0bb94b680fab69e4e8632d640bb64d746f4dd3efcedbab69f3e55ae01e4b83e4f530f78800b936ff282c6c24365023d2e89
+    follow-redirects: ^1.15.4
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: d5d798f11f199f3661fbb0e47faf77c17ba85e602fcff99aae04850e119e5315afd6dba5f45d3ea11de44178729f2589cd4ab9c89a7d21488318d2cac33354ff
   languageName: node
   linkType: hard
 
@@ -1162,7 +1164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"combined-stream@npm:^1.0.6, combined-stream@npm:~1.0.6":
+"combined-stream@npm:^1.0.6, combined-stream@npm:^1.0.8, combined-stream@npm:~1.0.6":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
   dependencies:
@@ -1624,10 +1626,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.15.4":
+  version: 1.15.4
+  resolution: "follow-redirects@npm:1.15.4"
+  peerDependencies:
+    debug: "*"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 46ff62fc871556e355b2118b78cfdb5d690eb22d076de82bbf18c07a86cb49625f862849ccfb61a2bb3f5fcb5257cda4f9cdd538dde870804c7da6a2fbf2fbc2
+  languageName: node
+  linkType: hard
+
 "forever-agent@npm:~0.6.1":
   version: 0.6.1
   resolution: "forever-agent@npm:0.6.1"
   checksum: 9cc0054dd4ea5fc26e014b8c929d1fb9247e931e81165cbd965a712061d65fb84791b2124f64cd79492e516662b94068d29fe1d824732382237321b3f61955fe
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "form-data@npm:4.0.0"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: ecbe8f41bcf5c415f38e39058b34598a9261bb74a3d54b633d0b5dd8b7cf9a30b0626cd06ae8e79874a2ca88c222041142a7893e5afdd35fdfc3272264d03d44
   languageName: node
   linkType: hard
 
@@ -2688,6 +2713,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: 6459372a57f3e8ef5211f7847ca2fffabcdd6490005892fcc0dcd62fe2b3551900c8a07fad7df9de3897547b1ab4ac7a7197964cd6fa7e76303caa4936bfaf32
+  languageName: node
+  linkType: hard
+
 "psl@npm:^1.1.28":
   version: 1.8.0
   resolution: "psl@npm:1.8.0"
@@ -2833,7 +2865,7 @@ resolve@^1.3.2:
     "@actions/github": ^5.1.1
     "@actions/io": ^1.1.0
     "@actions/tool-cache": ^1.6.1
-    "@richnav/rich-code-nav-indexer-core": ^0.1.347-alpha
+    "@richnav/rich-code-nav-indexer-core": ^0.1.354-alpha
     "@types/mocha": ^8.0.1
     "@types/node": ^14.0.27
     applicationinsights: ^1.8.10
