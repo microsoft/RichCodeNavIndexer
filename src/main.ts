@@ -1,5 +1,3 @@
-import * as github from '@actions/github';
-
 class DeprecatedTask {
 	public async run() {
 		// Code Index deprecated, returning error on build.
